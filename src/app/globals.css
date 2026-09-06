@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Blueprint palette, recoloured to the Trueweb Cart brand marks */
+  --ink: #0d163f;       /* brand navy — hero & footer ground */
+  --ink-line: #33406f;  /* grid lines on ink */
+  --paper: #f6f4ee;     /* warm paper — page ground */
+  --graphite: #1c1e27;  /* body text on paper */
+  --slate: #5b6472;     /* secondary text */
+  --cyan: #4f6fa6;      /* blueprint accent line, tied back to ink */
+  --amber: #df081a;     /* brand red — reserved for calls to action */
+  --rule: #d8d3c6;      /* hairline rule on paper */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-graphite: var(--graphite);
+  --color-slate: var(--slate);
+  --color-cyan: var(--cyan);
+  --color-amber: var(--amber);
+  --color-rule: var(--rule);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(var(--ink-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+  opacity: 0.35;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .draw-in {
+    animation: draw-in 900ms ease-out both;
+  }
+}
+
+@keyframes draw-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
