@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 interface LightBeamButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  type?: "button" | "submit";
+  href?: string;
 }
 
-export function LightBeamButton({ children, onClick, className = "", disabled = false }: LightBeamButtonProps) {
+export function LightBeamButton({ children, onClick, className = "", disabled = false, type = "button", href }: LightBeamButtonProps) {
   return (
     <>
       <style>{`
@@ -123,13 +126,24 @@ export function LightBeamButton({ children, onClick, className = "", disabled = 
         }
       `}</style>
 
-      <button
-        className={`light-beam-btn ${disabled ? "disabled" : ""} ${className}`}
-        onClick={onClick}
-        disabled={disabled}
-      >
-        <span>{children}</span>
-      </button>
+      {href ? (
+        <Link
+          href={href}
+          className={`light-beam-btn inline-block text-center ${className}`}
+          onClick={onClick}
+        >
+          <span>{children}</span>
+        </Link>
+      ) : (
+        <button
+          className={`light-beam-btn ${disabled ? "disabled" : ""} ${className}`}
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+        >
+          <span>{children}</span>
+        </button>
+      )}
     </>
   );
 }

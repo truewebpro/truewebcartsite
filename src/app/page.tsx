@@ -3,6 +3,7 @@ import Features03ZeroDrift from "./Features03ZeroDrift";
 import Integration01Finsyc from "./Integration01Finsyc";
 import Pricing05Solra from "./Pricing05Solra";
 import TestimonialCommission from "./TestimonialCommission";
+import ImpactCtaAntimetal from "./ImpactCtaAntimetal";
 import ContactUs02Orbit from "./ContactUs02Orbit";
 import FooterBenjamen from "./FooterBenjamen";
 import ParticleNetworkBackground from "./ParticleNetworkBackground";
@@ -18,6 +19,7 @@ export default function Home() {
         <Integration01Finsyc />
         <Pricing05Solra />
         <TestimonialCommission />
+        <ImpactCtaAntimetal />
         <ContactUs02Orbit />
 
         <FooterBenjamen />

@@ -113,12 +113,13 @@ export default function FooterBenjamen() {
 
           {/* Watermark */}
           <div className="w-full relative py-6 select-none overflow-hidden pointer-events-none">
-            <h1
+            <div
+              aria-hidden="true"
               className="opacity-40 bg-gradient-to-r from-[#0D163F] to-[#DF081A] bg-clip-text text-transparent font-shoulders font-extrabold text-[64px] sm:text-[72px] md:text-[95px] lg:text-[145px] xl:text-[180px] leading-[0.95] text-center tracking-tighter uppercase whitespace-normal sm:whitespace-nowrap"
               style={{ fontFamily: "'Big Shoulders Display', sans-serif" }}
             >
               TRUEWEBCART
-            </h1>
+            </div>
           </div>
 
           {/* Bottom bar */}

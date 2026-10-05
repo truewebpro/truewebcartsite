@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, ChevronDown } from "lucide-react";
+import { Plus, Minus, ChevronDown, CheckCircle2 } from "lucide-react";
 import LightBeamButton from "./LightBeamButton";
+import { submitContact, type ContactState } from "./contact/actions";
+import { SERVICES_SEED } from "@/lib/services-seed";
 
 interface FaqItem {
   q: string;
@@ -13,41 +15,66 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "Who do you work with?",
-    a: "I primarily work with founders, executives, and business owners who are looking to scale their operations and refine their leadership approach.",
+    a: "Mostly small and growing businesses across the UK — from first-time online sellers to established companies that have outgrown their current website or software.",
   },
   {
-    q: "What results can I expect?",
-    a: "Clients typically see improved decision-making speed, clearer strategic alignment, and measurable growth in their key performance indicators within the first 90 days.",
+    q: "How does a project start?",
+    a: "You tell us what you're trying to achieve. We reply with a few clarifying questions, then a clear scope and a fixed quote — no surprises later.",
   },
   {
-    q: "Do you only offer long-term consulting?",
-    a: "While long-term partnerships yield the best results, I also offer intensive strategy sessions and project-based consulting for specific business challenges.",
+    q: "Do you only build new things?",
+    a: "No. We also improve, migrate and rescue existing websites, stores and apps, and look after them once they're live.",
   },
   {
-    q: "How do we work together?",
-    a: "We start with a deep-dive discovery call to identify your needs, followed by a tailored roadmap that includes regular strategy sessions and hands-on support.",
+    q: "What happens after launch?",
+    a: "You can look after the site yourself, or we can host and maintain it — updates, backups, monitoring and changes on request.",
   },
   {
-    q: "What makes your consulting different?",
-    a: "My approach combines high-level strategic thinking with practical, operational experience, ensuring that advice is not just theoretical but actionable.",
+    q: "Can you work with the tools we already use?",
+    a: "Usually, yes. We regularly integrate with Shopify, payment providers, shipping, email and accounting tools, and can build around your existing systems.",
   },
   {
     q: "How much does it cost?",
-    a: "Pricing is based on the scope and complexity of the engagement. I offer several packages designed to provide maximum value at different stages of business growth.",
+    a: "Every project is scoped individually, so there's no standard price list. Send us the details and we'll come back with a fixed quote.",
   },
 ];
 
-export default function ContactUs02Orbit() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+export interface ServiceOption {
+  slug: string;
+  title: string;
+}
 
-  const toggle = (i: number) => {
-    setOpenIndex((prev) => (prev === i ? null : i));
-  };
+const DEFAULT_OPTIONS: ServiceOption[] = SERVICES_SEED.map((s) => ({ slug: s.slug, title: s.title }));
+
+const INITIAL: ContactState = { status: "idle", message: "" };
+
+const inputCls =
+  "w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors";
+
+function FieldError({ text }: { text?: string }) {
+  if (!text) return null;
+  return <p className="text-[12px] text-[#DF081A] mt-1">{text}</p>;
+}
+
+export default function ContactUs02Orbit({
+  services = DEFAULT_OPTIONS,
+  defaultService = "",
+  bgClass = "bg-[#F4F3ED]/90",
+}: {
+  services?: ServiceOption[];
+  defaultService?: string;
+  bgClass?: string;
+}) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [state, formAction, pending] = useActionState(submitContact, INITIAL);
+
+  const toggle = (i: number) => setOpenIndex((prev) => (prev === i ? null : i));
+  const errs = state.fieldErrors ?? {};
 
   return (
     <section
       id="contact"
-      className="bg-[#F4F3ED]/90 py-6 px-6 relative overflow-hidden"
+      className={`${bgClass} py-6 px-6 relative overflow-hidden`}
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,15 +88,16 @@ export default function ContactUs02Orbit() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
           {/* Left card — FAQ accordion */}
           <motion.div
+            id="faq"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-[16px] p-10 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)] flex flex-col"
+            className="scroll-mt-28 bg-white rounded-[16px] p-10 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)] flex flex-col"
           >
             <div className="mb-10">
               <span className="text-[11px] text-[#777776] font-bold tracking-[0.2em] uppercase block mb-6">
-                WHAT I GET ASKED
+                WHAT WE GET ASKED
               </span>
               <h2
                 className="text-[42px] font-semibold bg-gradient-to-r from-[#0D163F] to-[#DF081A] bg-clip-text text-transparent leading-tight mb-6"
@@ -124,7 +152,7 @@ export default function ContactUs02Orbit() {
             </div>
           </motion.div>
 
-          {/* Right card — Contact form */}
+          {/* Right card — Contact form (saves to MySQL via server action) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -149,79 +177,122 @@ export default function ContactUs02Orbit() {
               </p>
             </div>
 
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[11px] text-[#777776] font-bold uppercase block">
-                    FULL NAME <span className="text-[#DF081A]">&#10033;</span>
+            {state.status === "success" ? (
+              <div className="flex flex-col items-start gap-4 py-6" role="status">
+                <CheckCircle2 className="w-10 h-10 text-[#0D163F]" />
+                <p className="text-[18px] font-medium text-[#131213]">{state.message}</p>
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  className="text-[14px] text-[#0D163F] underline underline-offset-4 cursor-pointer"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form action={formAction} className="space-y-6" noValidate>
+                {/* honeypot — hidden from people, tempting to bots */}
+                <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                  <label>
+                    Website
+                    <input type="text" name="company_website" tabIndex={-1} autoComplete="off" />
                   </label>
-                  <input
-                    type="text"
-                    placeholder="John Smith"
-                    className="w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors"
-                  />
                 </div>
+
+                {state.status === "error" && !state.fieldErrors && (
+                  <p role="alert" className="text-[14px] text-[#DF081A] bg-[#DF081A]/5 rounded-[8px] px-4 py-3">
+                    {state.message}
+                  </p>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="cu-name" className="text-[11px] text-[#777776] font-bold uppercase block">
+                      FULL NAME <span className="text-[#DF081A]">&#10033;</span>
+                    </label>
+                    <input id="cu-name" name="name" type="text" placeholder="John Smith" className={inputCls} />
+                    <FieldError text={errs.name} />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="cu-email" className="text-[11px] text-[#777776] font-bold uppercase block">
+                      EMAIL <span className="text-[#DF081A]">&#10033;</span>
+                    </label>
+                    <input
+                      id="cu-email"
+                      name="email"
+                      type="email"
+                      placeholder="john@yourbusiness.com"
+                      className={inputCls}
+                    />
+                    <FieldError text={errs.email} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="cu-business" className="text-[11px] text-[#777776] font-bold uppercase block">
+                      BUSINESS NAME
+                    </label>
+                    <input
+                      id="cu-business"
+                      name="business"
+                      type="text"
+                      placeholder="Your Business Ltd."
+                      className={inputCls}
+                    />
+                  </div>
+                  <div className="space-y-2 relative">
+                    <label htmlFor="cu-service" className="text-[11px] text-[#777776] font-bold uppercase block">
+                      SERVICE INTERESTED IN <span className="text-[#DF081A]">&#10033;</span>
+                    </label>
+                    <select
+                      id="cu-service"
+                      name="service"
+                      defaultValue={defaultService}
+                      className={`${inputCls} appearance-none text-[#444444] cursor-pointer`}
+                    >
+                      <option value="">Select...</option>
+                      {services.map((s) => (
+                        <option key={s.slug} value={s.slug}>
+                          {s.title}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown size={16} className="absolute right-4 top-[42px] text-[#A8A9A8] pointer-events-none" />
+                    <FieldError text={errs.service} />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
-                  <label className="text-[11px] text-[#777776] font-bold uppercase block">
-                    EMAIL <span className="text-[#DF081A]">&#10033;</span>
+                  <label htmlFor="cu-message" className="text-[11px] text-[#777776] font-bold uppercase block">
+                    TELL US ABOUT YOUR PROJECT <span className="text-[#DF081A]">&#10033;</span>
                   </label>
-                  <input
-                    type="email"
-                    placeholder="john@yourbusiness.com"
-                    className="w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors"
+                  <textarea
+                    id="cu-message"
+                    name="message"
+                    placeholder="Tell us what you're building..."
+                    className={`${inputCls} min-h-[120px] resize-y`}
                   />
+                  <FieldError text={errs.message} />
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-[11px] text-[#777776] font-bold uppercase block">BUSINESS NAME</label>
+                <div className="flex items-center gap-3">
                   <input
-                    type="text"
-                    placeholder="Your Business Inc."
-                    className="w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors"
+                    type="checkbox"
+                    id="cu-call"
+                    name="wants_call"
+                    className="w-4 h-4 rounded-[4px] border-[#E1E1E1] accent-[#0D163F] cursor-pointer"
                   />
-                </div>
-                <div className="space-y-2 relative">
-                  <label className="text-[11px] text-[#777776] font-bold uppercase block">
-                    PACKAGE INTERESTED IN <span className="text-[#DF081A]">&#10033;</span>
+                  <label htmlFor="cu-call" className="text-[13px] text-[#444444] cursor-pointer">
+                    WOULD YOU LIKE A FREE CONSULTATION CALL?
                   </label>
-                  <select
-                    defaultValue=""
-                    className="w-full appearance-none bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] text-[#A8A9A8] focus:outline-none focus:border-[#0D163F] transition-colors"
-                  >
-                    <option value="">Select...</option>
-                    <option>Starter Setup</option>
-                    <option>Growth Plan</option>
-                    <option>Enterprise Solution</option>
-                  </select>
-                  <ChevronDown size={16} className="absolute right-4 top-[42px] text-[#A8A9A8] pointer-events-none" />
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="text-[11px] text-[#777776] font-bold uppercase block">
-                  TELL US ABOUT YOUR BUSINESS OR CHALLENGE <span className="text-[#DF081A]">&#10033;</span>
-                </label>
-                <textarea
-                  placeholder="Tell us what you're building..."
-                  className="w-full min-h-[120px] resize-y bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors"
-                />
-              </div>
-
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="consultation"
-                  className="w-4 h-4 rounded-[4px] border-[#E1E1E1] text-[#0D163F] focus:ring-[#0D163F] cursor-pointer"
-                />
-                <label htmlFor="consultation" className="text-[13px] text-[#444444] cursor-pointer">
-                  WOULD YOU LIKE TO BOOK A FREE CONSULTATION CALL?
-                </label>
-              </div>
-
-              <LightBeamButton className="w-full !py-4">Submit</LightBeamButton>
-            </form>
+                <LightBeamButton type="submit" disabled={pending} className="w-full !py-4">
+                  {pending ? "Sending..." : "Submit"}
+                </LightBeamButton>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>
