@@ -19,7 +19,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? "https://truewebcartsite.vercel.app"),
+  metadataBase: new URL(process.env.SITE_URL ?? "https://truewebcartsite-production.up.railway.app"),
   title: {
     default: "Trueweb Cart: online shops and business websites, UK",
     template: "%s | Trueweb Cart",

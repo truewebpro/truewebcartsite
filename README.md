@@ -2,7 +2,7 @@
 
 Marketing site for the Trueweb Cart platform: online shops, business websites, templates, App Store and pricing, plus IT services and the contact form.
 
-Next.js 16 (App Router), Tailwind CSS 4, Postgres.
+Next.js 16 (App Router), Tailwind CSS 4, Postgres. Hosted on Railway (project Truewebcart Site): the site and Postgres talk over Railway's private network.
 
 ## Pages
 - `/` home
