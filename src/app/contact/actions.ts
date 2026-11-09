@@ -35,7 +35,7 @@ export async function submitContact(
 ): Promise<ContactState> {
   // Honeypot: real users never fill this hidden field. Pretend success to bots.
   if (str(formData.get("company_website"))) {
-    return { status: "success", message: "Thanks — we'll be in touch shortly." };
+    return { status: "success", message: "Thanks, we'll be in touch shortly." };
   }
 
   const h = await headers();
@@ -59,7 +59,7 @@ export async function submitContact(
   if (!EMAIL_RE.test(email) || email.length > 190) fieldErrors.email = "Please enter a valid email address.";
   if (!service || !SLUG_RE.test(service)) fieldErrors.service = "Please choose a service.";
   if (message.length < 10) fieldErrors.message = "Please tell us a little more (at least 10 characters).";
-  if (message.length > 5000) fieldErrors.message = "That message is a bit long — please shorten it.";
+  if (message.length > 5000) fieldErrors.message = "That message is a bit long, please shorten it.";
 
   if (Object.keys(fieldErrors).length > 0) {
     return { status: "error", message: "Please check the highlighted fields.", fieldErrors };
@@ -81,5 +81,5 @@ export async function submitContact(
     };
   }
 
-  return { status: "success", message: "Thanks — your message is in. We'll be in touch shortly." };
+  return { status: "success", message: "Thanks, your message is in. We'll be in touch shortly." };
 }

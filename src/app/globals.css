@@ -10,6 +10,15 @@
   --cyan: #4f6fa6;      /* blueprint accent line, tied back to ink */
   --amber: #df081a;     /* brand red — reserved for calls to action */
   --rule: #d8d3c6;      /* hairline rule on paper */
+
+  /* Platform site palette, from the TR logo */
+  --navy: #0b2f66;
+  --navy-deep: #081f45;
+  --navy-soft: #123c7e;
+  --cta: #d92a04;       /* orange-red buttons, white text passes 4.5:1 */
+  --cta-text: #b32303;  /* orange-red text on light grounds */
+  --line: #e4dfd3;
+  --muted: #4c5563;
 }
 
 @theme inline {
@@ -20,6 +29,13 @@
   --color-cyan: var(--cyan);
   --color-amber: var(--amber);
   --color-rule: var(--rule);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-cta: var(--cta);
+  --color-cta-text: var(--cta-text);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);

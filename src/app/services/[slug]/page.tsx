@@ -12,9 +12,9 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
-  if (!service) return { title: "Service not found — Trueweb Cart" };
+  if (!service) return { title: "Service not found" };
   return {
-    title: `${service.title} — Trueweb Cart`,
+    title: service.title,
     description: service.summary,
   };
 }
@@ -28,7 +28,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <PageShell>
-      <section className="py-6">
+      <section className="py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <Link
             href="/services"

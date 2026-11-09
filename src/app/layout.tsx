@@ -19,9 +19,13 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trueweb Cart — Web & App Development, UK",
+  metadataBase: new URL(process.env.SITE_URL ?? "https://truewebcartsite.vercel.app"),
+  title: {
+    default: "Trueweb Cart: online shops and business websites, UK",
+    template: "%s | Trueweb Cart",
+  },
   description:
-    "Trueweb Cart designs and builds websites, apps, and digital products for small and emerging businesses across the UK.",
+    "Your own online shop or business website with payments, delivery, B2B trade, an AI shop assistant and 21 apps. Built and supported in the UK.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

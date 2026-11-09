@@ -7,7 +7,7 @@ import LightBeamButton from "../LightBeamButton";
 import { getServices } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "IT Services — Trueweb Cart",
+  title: "IT services",
   description:
     "Web design and development, e-commerce, custom software, SEO and ongoing support from Trueweb Cart.",
 };
@@ -17,7 +17,7 @@ export default async function ServicesPage() {
 
   return (
     <PageShell>
-      <section className="py-6">
+      <section className="py-16 sm:py-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="max-w-2xl mb-14">
             <span className="text-[13px] font-medium text-neutral-500 tracking-[0.08em] uppercase mb-5 block">
@@ -33,7 +33,7 @@ export default async function ServicesPage() {
               </span>
             </h1>
             <p className="text-[17px] text-neutral-500 leading-relaxed">
-              From a first website to a custom platform and the support that keeps it running —
+              From a first website to a custom platform and the support that keeps it running , 
               pick what you need, or bring us the problem and we&apos;ll shape the solution.
             </p>
           </div>
