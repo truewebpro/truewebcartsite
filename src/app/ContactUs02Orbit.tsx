@@ -15,11 +15,11 @@ interface FaqItem {
 const FAQS: FaqItem[] = [
   {
     q: "Who do you work with?",
-    a: "Mostly small and growing businesses across the UK — from first-time online sellers to established companies that have outgrown their current website or software.",
+    a: "Mostly small and growing businesses across the UK, from first-time online sellers to established companies that have outgrown their current website or software.",
   },
   {
     q: "How does a project start?",
-    a: "You tell us what you're trying to achieve. We reply with a few clarifying questions, then a clear scope and a fixed quote — no surprises later.",
+    a: "You tell us what you're trying to achieve. We reply with a few clarifying questions, then a clear scope and a fixed quote, no surprises later.",
   },
   {
     q: "Do you only build new things?",
@@ -27,7 +27,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "What happens after launch?",
-    a: "You can look after the site yourself, or we can host and maintain it — updates, backups, monitoring and changes on request.",
+    a: "You can look after the site yourself, or we can host and maintain it, updates, backups, monitoring and changes on request.",
   },
   {
     q: "Can you work with the tools we already use?",
@@ -74,7 +74,7 @@ export default function ContactUs02Orbit({
   return (
     <section
       id="contact"
-      className={`${bgClass} py-6 px-6 relative overflow-hidden`}
+      className={`${bgClass} py-16 sm:py-20 px-6 relative overflow-hidden`}
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -86,7 +86,7 @@ export default function ContactUs02Orbit({
 
       <div className="max-w-[1200px] mx-auto relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-          {/* Left card — FAQ accordion */}
+          {/* Left card, FAQ accordion */}
           <motion.div
             id="faq"
             initial={{ opacity: 0, x: -20 }}
@@ -152,7 +152,7 @@ export default function ContactUs02Orbit({
             </div>
           </motion.div>
 
-          {/* Right card — Contact form (saves to MySQL via server action) */}
+          {/* Right card, Contact form (saves to Postgres via server action) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -191,7 +191,7 @@ export default function ContactUs02Orbit({
               </div>
             ) : (
               <form action={formAction} className="space-y-6" noValidate>
-                {/* honeypot — hidden from people, tempting to bots */}
+                {/* honeypot, hidden from people, tempting to bots */}
                 <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
                   <label>
                     Website

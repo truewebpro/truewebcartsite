@@ -10,7 +10,7 @@ export interface Service {
 
 /**
  * Starter content. On first run these rows are inserted into the `services`
- * table (only if the table is empty). After that, edit the rows in MySQL —
+ * table (only if the table is empty). After that, edit the rows in MySQL , 
  * this file is also the fallback shown if the database is unreachable.
  */
 export const SERVICES_SEED: Service[] = [
@@ -21,9 +21,9 @@ export const SERVICES_SEED: Service[] = [
     summary:
       "Custom-designed, mobile-first websites built for speed, clarity and search visibility.",
     description:
-      "We design and build marketing sites and business websites around how your customers actually look for you. Every page is mobile-first, quick to load and structured so search engines can read it — and you get a site you can update without calling a developer.",
+      "We design and build marketing sites and business websites around how your customers actually look for you. Every page is mobile-first, quick to load and structured so search engines can read it, and you get a site you can update without calling a developer.",
     features: [
-      "Custom design — no recycled templates",
+      "Custom design, no recycled templates",
       "Mobile-first, responsive layouts",
       "Performance and Core Web Vitals focus",
       "Search-friendly page structure",
@@ -61,7 +61,7 @@ export const SERVICES_SEED: Service[] = [
       "Internal dashboards and reporting",
       "Workflow automation and integrations",
       "API design and third-party connections",
-      "Iterative delivery — usable early, improved often",
+      "Iterative delivery, usable early, improved often",
     ],
     icon: "Code2",
   },
@@ -72,7 +72,7 @@ export const SERVICES_SEED: Service[] = [
     summary:
       "Technical SEO, content and on-page optimisation to bring in steady, relevant search traffic.",
     description:
-      "We improve how your site is found and how well it converts. That starts with a technical and content audit, then focuses on the fixes and pages most likely to move rankings — product and category copy, structured data, internal linking and speed.",
+      "We improve how your site is found and how well it converts. That starts with a technical and content audit, then focuses on the fixes and pages most likely to move rankings, product and category copy, structured data, internal linking and speed.",
     features: [
       "Technical SEO audits and fixes",
       "Keyword research and page-level optimisation",
@@ -89,7 +89,7 @@ export const SERVICES_SEED: Service[] = [
     summary:
       "Managed hosting, updates, backups, monitoring and ongoing support after launch.",
     description:
-      "Launching is the start, not the finish. We host and look after your site or app — keeping software updated, backed up and monitored — and we're on hand for changes, fixes and questions when you need them.",
+      "Launching is the start, not the finish. We host and look after your site or app, keeping software updated, backed up and monitored, and we're on hand for changes, fixes and questions when you need them.",
     features: [
       "Managed hosting and deployments",
       "Security updates and regular backups",

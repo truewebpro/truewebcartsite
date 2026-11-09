@@ -4,7 +4,7 @@ import ContactUs02Orbit from "../ContactUs02Orbit";
 import { getServices } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Trueweb Cart",
+  title: "Contact us",
   description: "Tell us about your project and we'll come back with a clear, fixed quote.",
 };
 
