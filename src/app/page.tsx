@@ -4,14 +4,8 @@ import { Building2, LayoutGrid, MessageSquare, RefreshCw, ShoppingCart, Truck } 
 import PageShell from "./PageShell";
 import { Button, Container, CtaBand, Eyebrow } from "./site/ui";
 import { DEMO_SHOP_URL } from "./site/links";
-import { APPS_SEED, APP_CATEGORIES } from "@/lib/catalog";
+import { getCatalog } from "@/lib/db";
 
-const STRIP = [
-  { title: "6 ways to pay", text: "Worldpay, Viva Wallet, CyberSource, PayPal, Stripe, bank transfer" },
-  { title: "Royal Mail and DPD", text: "Labels and tracking through Sendcloud" },
-  { title: `${APPS_SEED.length} apps`, text: "Turn on what you need, when you need it" },
-  { title: "iPhone and Android", text: "Run orders and stock from your phone" },
-];
 
 const HIGHLIGHTS = [
   { icon: ShoppingCart, title: "Products, cart and checkout", text: "Variants, brands, collections that fill themselves, bundles and add-ons, pre-order, guest checkout and postcode address lookup." },
@@ -30,11 +24,18 @@ const APP_PHONE = [
   "Reps see their customers, orders and commission",
 ];
 
-export default function Home() {
-  const appsByCategory = APP_CATEGORIES.map((c) => ({
-    category: c,
-    names: APPS_SEED.filter((a) => a.category === c).map((a) => a.name),
-  }));
+export default async function Home() {
+  const catalog = await getCatalog();
+  const appCount = catalog.apps.length;
+  const appsByCategory = Object.entries(catalog.categories)
+    .map(([key, category]) => ({ category, names: catalog.apps.filter((a) => a.category === key).map((a) => a.name) }))
+    .filter((g) => g.names.length > 0);
+  const STRIP = [
+    { title: "6 ways to pay", text: "Worldpay, Viva Wallet, CyberSource, PayPal, Stripe, bank transfer" },
+    { title: "Royal Mail and DPD", text: "Labels and tracking with Click & Drop, DPD and Sendcloud" },
+    { title: `${appCount} apps`, text: "Turn on what you need, when you need it" },
+    { title: "iPhone and Android", text: "Run orders and stock from your phone" },
+  ];
 
   return (
     <PageShell>
@@ -47,7 +48,7 @@ export default function Home() {
             </h1>
             <p className="mt-6 text-lg sm:text-[19px] leading-relaxed text-[#D5DEEE] max-w-[560px]">
               Pick an online shop or a website, choose a template, and run it all from one admin and one
-              phone app. Payments, delivery, B2B trade, an AI shop assistant and {APPS_SEED.length} apps are
+              phone app. Payments, delivery, B2B trade, an AI shop assistant and {appCount} apps are
               ready when you need them.
             </p>
             <div className="flex flex-wrap gap-3 mt-9">
@@ -147,7 +148,7 @@ export default function Home() {
               </h2>
             </div>
             <Button href="/pricing#apps" variant="outline-light">
-              See all {APPS_SEED.length} apps
+              See all {appCount} apps
             </Button>
           </div>
           <div className="mt-11 grid gap-4 grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">

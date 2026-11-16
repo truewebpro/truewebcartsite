@@ -1,10 +1,9 @@
 // src/lib/catalog.ts
 /**
- * Plans, apps and feature lists shown on the site.
- * The plans, apps and plan_apps rows are seeded into Postgres from here on
- * first run (only when the tables are empty). After that, edit them in the
- * database. This file is also the fallback when the database is unreachable.
- * Prices are in pence; null means "not set yet" and shows "Ask for a price".
+ * Plans and App Store apps shown on the site.
+ * They come from the platform (super.twcarts.com › Plans and apps) through src/lib/platform.ts.
+ * The seed below is only a last fallback, for local development or if the platform has never answered.
+ * Prices are in pence; null means "not set yet".
  */
 
 export type SiteKind = "shop" | "website";
@@ -14,22 +13,28 @@ export interface Plan {
   slug: string;
   kind: SiteKind;
   name: string;
-  tagline: string;
   monthlyPrice: number | null;
   yearlyPrice: number | null;
-  highlights: string[];
+  productsLimit: number | null;
+  staffLimit: number | null;
+  pagesLimit: number | null;
+  trialDays: number | null;
   isPopular: boolean;
+  /** Can be bought on the sign-up page now. */
+  signupReady: boolean;
 }
 
 export interface App {
   key: string;
   name: string;
   category: string;
-  description: string;
+  line: string | null;
+  icon: string | null;
+  everyPlan: boolean;
   soldAlone: boolean;
   addonMonthly: number | null;
   addonYearly: number | null;
-  trialDays: number;
+  trialDays: number | null;
 }
 
 export interface PlanApp {
@@ -42,172 +47,71 @@ export interface Catalog {
   plans: Plan[];
   apps: App[];
   planApps: PlanApp[];
+  /** category key => name, in display order */
+  categories: Record<string, string>;
+  signupUrl: string | null;
+  /** "platform" (fresh), "snapshot" (last good copy) or "seed" */
+  source: "platform" | "snapshot" | "seed";
 }
 
-export const APP_CATEGORIES = [
-  "Sell more",
-  "B2B",
-  "Marketing",
-  "Protection",
-  "Shipping and tools",
-] as const;
-
-export const PLANS_SEED: Plan[] = [
-  {
-    slug: "starter",
-    kind: "shop",
-    name: "Starter",
-    tagline: "For a new shop getting its first orders.",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    highlights: [
-      "Online shop with cart and checkout",
-      "All payment providers",
-      "Delivery zones and Click and Collect",
-      "Orders, customers and discount codes",
-      "Admin app for iPhone and Android",
-    ],
-    isPopular: false,
-  },
-  {
-    slug: "growth",
-    kind: "shop",
-    name: "Growth",
-    tagline: "For a busy shop that wants repeat customers.",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    highlights: [
-      "Everything in Starter",
-      "Loyalty, pre-order and price match",
-      "Write with AI",
-      "Order risk and delivery protection",
-      "VIP access links",
-    ],
-    isPopular: true,
-  },
-  {
-    slug: "pro",
-    kind: "shop",
-    name: "Pro",
-    tagline: "For shops that sell to the trade too.",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    highlights: [
-      "Everything in Growth",
-      "Trade accounts and company prices",
-      "Bulk order form and sales reps",
-      "Ava shop assistant",
-      "Subscriptions and Claude connector",
-    ],
-    isPopular: false,
-  },
-  {
-    slug: "website-5",
-    kind: "website",
-    name: "Website 5",
-    tagline: "A simple site for a local business.",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    highlights: [
-      "5 pages, home page counts",
-      "Templates and sections",
-      "Forms and booking requests to your Inbox",
-      "Opening hours and map",
-      "Blog",
-    ],
-    isPopular: false,
-  },
-  {
-    slug: "website-10",
-    kind: "website",
-    name: "Website 10",
-    tagline: "More room for services, menus and news.",
-    monthlyPrice: null,
-    yearlyPrice: null,
-    highlights: [
-      "10 pages, home page counts",
-      "Everything in Website 5",
-      "Write with AI",
-      "Google tools",
-      "Move to an online shop any time",
-    ],
-    isPopular: true,
-  },
-];
-
-const app = (
-  key: string,
-  name: string,
-  category: string,
-  description: string,
-  trialDays = 0
-): App => ({
-  key,
-  name,
-  category,
-  description,
-  soldAlone: true,
-  addonMonthly: null,
-  addonYearly: null,
-  trialDays,
+const plan = (slug: string, kind: SiteKind, name: string, isPopular = false): Plan => ({
+  slug, kind, name, monthlyPrice: null, yearlyPrice: null, productsLimit: null, staffLimit: null,
+  pagesLimit: kind === "website" ? (slug.endsWith("10") ? 10 : 5) : null, trialDays: null, isPopular, signupReady: false,
 });
 
-export const APPS_SEED: App[] = [
-  app("signup_popup", "Sign-up pop-up", "Sell more", "Welcome codes for new email sign-ups"),
-  app("reviews", "Product reviews", "Sell more", "Star ratings and photo reviews"),
-  app("back_in_stock", "Back in stock", "Sell more", "Email customers when stock returns"),
-  app("loyalty", "Loyalty and rewards", "Sell more", "Points on every order"),
-  app("pre_order", "Pre-order", "Sell more", "Take orders before stock arrives"),
-  app("price_match", "Price match", "Sell more", "Customers send a lower price they found"),
-  app("subscriptions", "Subscriptions", "Sell more", "Repeat orders on a schedule"),
-  app("b2b", "Trade accounts", "B2B", "Applications, companies and their own prices"),
-  app("bulk_order", "Bulk order", "B2B", "One form to order many products"),
-  app("sales_reps", "Sales reps", "B2B", "Rep portal, commission and price proposals"),
-  app("google", "Google", "Marketing", "Search Console, Analytics, Merchant Center and Ads"),
-  app("write_ai", "Write with AI", "Marketing", "Product descriptions and page text"),
-  app("assistant", "Shop assistant", "Marketing", "Ava answers customers and helps them buy"),
-  app("claude_connector", "Claude connector", "Marketing", "Write and publish content from Claude"),
-  app("age_check", "Age check", "Protection", "Photo ID check for age-restricted products"),
-  app("order_risk", "Order risk", "Protection", "Flags orders that look like fraud"),
-  app("delivery_protection", "Delivery protection", "Protection", "Optional cover at checkout"),
-  app("vip", "VIP access", "Protection", "Private links to hidden products"),
-  app("sendcloud", "Sendcloud", "Shipping and tools", "Labels for Royal Mail and DPD"),
-  app("emails", "Emails", "Shipping and tools", "Order and marketing emails through Mailtrap"),
-  app("shopify_import", "Shopify import", "Shipping and tools", "Move everything from Shopify"),
+const app = (key: string, name: string, category: string, line: string): App => ({
+  key, name, category, line, icon: null, everyPlan: false, soldAlone: true, addonMonthly: null, addonYearly: null, trialDays: null,
+});
+
+const PLANS_SEED: Plan[] = [
+  plan("starter", "shop", "Starter"),
+  plan("growth", "shop", "Growth", true),
+  plan("pro", "shop", "Pro"),
+  plan("website-5", "website", "Website 5"),
+  plan("website-10", "website", "Website 10", true),
 ];
 
-/** Lowest shop plan that includes each app (lower plans get it as an add-on). */
+const APPS_SEED: App[] = [
+  app("popup", "Sign-up pop-up", "sell", "Emails for a discount code"),
+  app("reviews", "Product reviews", "sell", "Stars and reviews on products"),
+  app("bis", "Back in stock", "sell", "Email when it's back"),
+  app("loyalty", "Loyalty & rewards", "sell", "Points for every order"),
+  app("preorder", "Pre-order", "sell", "Sell before stock arrives"),
+  app("pricematch", "Price match", "sell", "Customers send a cheaper price"),
+  app("subs", "Subscriptions", "sell", "Repeat orders on a schedule"),
+  app("b2b", "Trade accounts", "b2b", "B2B companies and their prices"),
+  app("bulk", "Bulk order", "b2b", "Order many products in one go"),
+  app("reps", "Sales reps", "b2b", "Reps order for customers, earn commission"),
+  app("google", "Google", "marketing", "Search Console, Analytics, Merchant Center, Ads"),
+  app("writer", "Write with AI", "marketing", "Descriptions and SEO text"),
+  app("ava", "Shop assistant", "marketing", "AI chat that sells"),
+  app("claude", "Claude connector", "marketing", "Manage your shop from Claude"),
+  app("age", "Age check", "protection", "18+ pop-up and photo ID"),
+  app("risk", "Order risk", "protection", "Spot risky orders"),
+  app("protect", "Delivery protection", "protection", "Cover lost and damaged parcels"),
+  app("vip", "VIP access", "protection", "Products only some customers see"),
+  app("sendcloud", "Sendcloud", "tools", "Labels and tracking"),
+  app("emails", "Emails (Mailtrap)", "tools", "Send marketing emails"),
+  app("shopify", "Shopify import", "tools", "Bring products and customers over"),
+];
+
+/** Lowest shop plan (1 Starter, 2 Growth, 3 Pro) that includes each app; lower plans get it as an add-on. */
 const SHOP_LEVEL: Record<string, number> = {
-  signup_popup: 1, reviews: 1, back_in_stock: 1, google: 1, age_check: 1,
-  sendcloud: 1, emails: 1, shopify_import: 1,
-  loyalty: 2, pre_order: 2, price_match: 2, write_ai: 2, order_risk: 2,
-  delivery_protection: 2, vip: 2,
-  subscriptions: 3, b2b: 3, bulk_order: 3, sales_reps: 3, assistant: 3,
-  claude_connector: 3,
+  popup: 1, reviews: 1, bis: 1, google: 1, age: 1, sendcloud: 1, emails: 1, shopify: 1,
+  loyalty: 2, preorder: 2, pricematch: 2, writer: 2, risk: 2, protect: 2, vip: 2,
+  subs: 3, b2b: 3, bulk: 3, reps: 3, ava: 3, claude: 3,
 };
-
-/** Website plans: apps that make sense without a cart. */
 const WEBSITE_APPS: Record<string, [AppStatus, AppStatus]> = {
-  signup_popup: ["included", "included"],
-  google: ["included", "included"],
-  emails: ["included", "included"],
-  age_check: ["included", "included"],
-  write_ai: ["addon", "included"],
-  assistant: ["addon", "addon"],
-  claude_connector: ["addon", "addon"],
+  popup: ["included", "included"], google: ["included", "included"], emails: ["included", "included"],
+  age: ["included", "included"], writer: ["addon", "included"], ava: ["addon", "addon"], claude: ["addon", "addon"],
 };
 
-function buildPlanApps(): PlanApp[] {
+function seedPlanApps(): PlanApp[] {
   const rows: PlanApp[] = [];
-  const shopPlans = ["starter", "growth", "pro"];
   for (const a of APPS_SEED) {
-    shopPlans.forEach((planSlug, i) => {
-      rows.push({
-        planSlug,
-        appKey: a.key,
-        status: i + 1 >= (SHOP_LEVEL[a.key] ?? 1) ? "included" : "addon",
-      });
-    });
+    ["starter", "growth", "pro"].forEach((planSlug, i) =>
+      rows.push({ planSlug, appKey: a.key, status: i + 1 >= (SHOP_LEVEL[a.key] ?? 1) ? "included" : "addon" })
+    );
     const web = WEBSITE_APPS[a.key];
     if (web) {
       rows.push({ planSlug: "website-5", appKey: a.key, status: web[0] });
@@ -217,16 +121,58 @@ function buildPlanApps(): PlanApp[] {
   return rows;
 }
 
-export const PLAN_APPS_SEED: PlanApp[] = buildPlanApps();
+export const CATEGORIES_SEED: Record<string, string> = {
+  sell: "Sell more",
+  b2b: "B2B",
+  marketing: "Marketing",
+  protection: "Protection",
+  tools: "Shipping & tools",
+  design: "Design",
+  dropship: "Dropshipping",
+};
 
 export const CATALOG_SEED: Catalog = {
   plans: PLANS_SEED,
   apps: APPS_SEED,
-  planApps: PLAN_APPS_SEED,
+  planApps: seedPlanApps(),
+  categories: CATEGORIES_SEED,
+  signupUrl: null,
+  source: "seed",
 };
 
 export function formatPrice(pence: number | null): string | null {
   if (pence === null) return null;
   const pounds = pence / 100;
   return `£${Number.isInteger(pounds) ? pounds : pounds.toFixed(2)}`;
+}
+
+/** Plan card lines, worked out from the plan's limits and apps (no copy to keep in step). */
+export function planLines(catalog: Catalog, p: Plan): string[] {
+  const included = (slug: string) =>
+    new Set(catalog.planApps.filter((pa) => pa.planSlug === slug && pa.status === "included").map((pa) => pa.appKey));
+  const mine = included(p.slug);
+  const lines: string[] = [];
+
+  if (p.kind === "website") {
+    lines.push(p.pagesLimit ? `${p.pagesLimit} pages, home page counts` : "Unlimited pages");
+  } else {
+    lines.push(p.productsLimit ? `${p.productsLimit.toLocaleString("en-GB")} products` : "Unlimited products");
+  }
+  lines.push(p.staffLimit ? `${p.staffLimit} staff ${p.staffLimit === 1 ? "account" : "accounts"}` : "Unlimited staff accounts");
+
+  const samePlans = catalog.plans.filter((x) => x.kind === p.kind);
+  const prev = samePlans[samePlans.indexOf(p) - 1];
+  const names = (keys: string[]) =>
+    keys.map((k) => catalog.apps.find((a) => a.key === k)?.name).filter(Boolean) as string[];
+  if (prev) {
+    const extra = names([...mine].filter((k) => !included(prev.slug).has(k)));
+    lines.push(`Everything in ${prev.name}`);
+    if (extra.length) lines.push(`Plus ${extra.slice(0, 4).join(", ")}${extra.length > 4 ? ` and ${extra.length - 4} more` : ""}`);
+  } else {
+    lines.push(p.kind === "website" ? "Templates, sections and forms" : "Online shop with cart and checkout");
+    const some = names([...mine].filter((k) => !catalog.apps.find((a) => a.key === k)?.everyPlan));
+    if (some.length) lines.push(some.slice(0, 4).join(", "));
+  }
+  lines.push(`${mine.size} apps included`);
+  return lines;
 }

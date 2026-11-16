@@ -2,15 +2,8 @@
 import { Pool } from "pg";
 import { connection } from "next/server";
 import { SERVICES_SEED, type Service } from "./services-seed";
-import {
-  CATALOG_SEED,
-  type App,
-  type AppStatus,
-  type Catalog,
-  type Plan,
-  type PlanApp,
-  type SiteKind,
-} from "./catalog";
+import { CATALOG_SEED, type Catalog } from "./catalog";
+import { fetchRawCatalog, toCatalog, type RawCatalog } from "./platform";
 
 /**
  * Postgres access for the Railway database.
@@ -22,6 +15,7 @@ import {
 const globalForDb = globalThis as unknown as {
   __twcPool?: Pool;
   __twcSchema?: Promise<void>;
+  __twcSnapshot?: string;
 };
 
 function databaseUrl(): string | null {
@@ -71,37 +65,10 @@ async function ensureSchema(pool: Pool): Promise<void> {
           created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
         CREATE INDEX IF NOT EXISTS contact_messages_created_idx ON contact_messages (created_at);
-        CREATE TABLE IF NOT EXISTS plans (
-          id SERIAL PRIMARY KEY,
-          slug VARCHAR(60) NOT NULL UNIQUE,
-          kind VARCHAR(20) NOT NULL CHECK (kind IN ('shop', 'website')),
-          name VARCHAR(80) NOT NULL,
-          tagline VARCHAR(255) NOT NULL DEFAULT '',
-          monthly_price INT,
-          yearly_price INT,
-          highlights JSONB NOT NULL DEFAULT '[]',
-          is_popular BOOLEAN NOT NULL DEFAULT FALSE,
-          is_active BOOLEAN NOT NULL DEFAULT TRUE,
-          sort_order INT NOT NULL DEFAULT 0
-        );
-        CREATE TABLE IF NOT EXISTS apps (
-          id SERIAL PRIMARY KEY,
-          key VARCHAR(60) NOT NULL UNIQUE,
-          name VARCHAR(80) NOT NULL,
-          category VARCHAR(60) NOT NULL,
-          description VARCHAR(255) NOT NULL DEFAULT '',
-          sold_alone BOOLEAN NOT NULL DEFAULT TRUE,
-          addon_monthly INT,
-          addon_yearly INT,
-          trial_days INT NOT NULL DEFAULT 0,
-          is_active BOOLEAN NOT NULL DEFAULT TRUE,
-          sort_order INT NOT NULL DEFAULT 0
-        );
-        CREATE TABLE IF NOT EXISTS plan_apps (
-          plan_slug VARCHAR(60) NOT NULL REFERENCES plans (slug) ON UPDATE CASCADE ON DELETE CASCADE,
-          app_key VARCHAR(60) NOT NULL REFERENCES apps (key) ON UPDATE CASCADE ON DELETE CASCADE,
-          status VARCHAR(20) NOT NULL CHECK (status IN ('included', 'addon')),
-          PRIMARY KEY (plan_slug, app_key)
+        CREATE TABLE IF NOT EXISTS catalog_snapshot (
+          id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+          data JSONB NOT NULL,
+          fetched_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
       `);
 
@@ -116,32 +83,6 @@ async function ensureSchema(pool: Pool): Promise<void> {
               `INSERT INTO services (slug, title, tagline, summary, description, features, icon, sort_order)
                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
               [s.slug, s.title, s.tagline, s.summary, s.description, JSON.stringify(s.features), s.icon, i + 1]
-            );
-          }
-        }
-        const plans = await client.query("SELECT COUNT(*)::int AS n FROM plans");
-        if (plans.rows[0].n === 0) {
-          for (const [i, p] of CATALOG_SEED.plans.entries()) {
-            await client.query(
-              `INSERT INTO plans (slug, kind, name, tagline, monthly_price, yearly_price, highlights, is_popular, sort_order)
-               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-              [p.slug, p.kind, p.name, p.tagline, p.monthlyPrice, p.yearlyPrice, JSON.stringify(p.highlights), p.isPopular, i + 1]
-            );
-          }
-        }
-        const apps = await client.query("SELECT COUNT(*)::int AS n FROM apps");
-        if (apps.rows[0].n === 0) {
-          for (const [i, a] of CATALOG_SEED.apps.entries()) {
-            await client.query(
-              `INSERT INTO apps (key, name, category, description, sold_alone, addon_monthly, addon_yearly, trial_days, sort_order)
-               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-              [a.key, a.name, a.category, a.description, a.soldAlone, a.addonMonthly, a.addonYearly, a.trialDays, i + 1]
-            );
-          }
-          for (const pa of CATALOG_SEED.planApps) {
-            await client.query(
-              "INSERT INTO plan_apps (plan_slug, app_key, status) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING",
-              [pa.planSlug, pa.appKey, pa.status]
             );
           }
         }
@@ -235,55 +176,43 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
   }
 }
 
-/** Active plans, apps and which plan includes which app. */
+/**
+ * Plans and apps from the platform (super.twcarts.com). The last good answer is kept in Postgres, so the
+ * Pricing page still shows real plans if the platform is down; the seed is only for local development.
+ */
 export async function getCatalog(): Promise<Catalog> {
   await connection();
+  const raw = await fetchRawCatalog();
+  if (raw) {
+    void saveSnapshot(raw);
+    return toCatalog(raw, "platform");
+  }
   try {
     const pool = await ready();
-    if (!pool) return CATALOG_SEED;
-    const [plans, apps, planApps] = await Promise.all([
-      pool.query(
-        `SELECT slug, kind, name, tagline, monthly_price, yearly_price, highlights, is_popular
-         FROM plans WHERE is_active ORDER BY sort_order, id`
-      ),
-      pool.query(
-        `SELECT key, name, category, description, sold_alone, addon_monthly, addon_yearly, trial_days
-         FROM apps WHERE is_active ORDER BY sort_order, id`
-      ),
-      pool.query("SELECT plan_slug, app_key, status FROM plan_apps"),
-    ]);
-    return {
-      plans: plans.rows.map(
-        (r): Plan => ({
-          slug: r.slug,
-          kind: r.kind as SiteKind,
-          name: r.name,
-          tagline: r.tagline,
-          monthlyPrice: r.monthly_price,
-          yearlyPrice: r.yearly_price,
-          highlights: toStringArray(r.highlights),
-          isPopular: r.is_popular,
-        })
-      ),
-      apps: apps.rows.map(
-        (r): App => ({
-          key: r.key,
-          name: r.name,
-          category: r.category,
-          description: r.description,
-          soldAlone: r.sold_alone,
-          addonMonthly: r.addon_monthly,
-          addonYearly: r.addon_yearly,
-          trialDays: r.trial_days,
-        })
-      ),
-      planApps: planApps.rows.map(
-        (r): PlanApp => ({ planSlug: r.plan_slug, appKey: r.app_key, status: r.status as AppStatus })
-      ),
-    };
+    if (pool) {
+      const { rows } = await pool.query<{ data: RawCatalog }>("SELECT data FROM catalog_snapshot WHERE id = 1");
+      if (rows[0]) return toCatalog(rows[0].data, "snapshot");
+    }
   } catch (err) {
-    console.error("[db] getCatalog failed, using seed content:", err);
-    return CATALOG_SEED;
+    console.error("[db] catalog snapshot not readable:", err);
+  }
+  return CATALOG_SEED;
+}
+
+async function saveSnapshot(raw: RawCatalog): Promise<void> {
+  const json = JSON.stringify(raw);
+  if (globalForDb.__twcSnapshot === json) return; // unchanged since the last save in this server
+  try {
+    const pool = await ready();
+    if (!pool) return;
+    await pool.query(
+      `INSERT INTO catalog_snapshot (id, data, fetched_at) VALUES (1, $1, NOW())
+       ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, fetched_at = NOW()`,
+      [json]
+    );
+    globalForDb.__twcSnapshot = json;
+  } catch (err) {
+    console.error("[db] catalog snapshot not saved:", err);
   }
 }
 
