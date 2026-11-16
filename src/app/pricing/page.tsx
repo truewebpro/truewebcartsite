@@ -24,12 +24,12 @@ export default async function PricingPage({ searchParams }: Props) {
       <PricingPlans catalog={catalog} initialKind={kind} />
 
       <Container className="pt-12 pb-24">
-        <h2 className="font-display font-bold text-4xl text-navy">Questions about plans</h2>
+        <h2 className="font-display font-extrabold text-4xl text-navy">Questions about plans</h2>
         <div className="mt-7 grid gap-4 grid-cols-[repeat(auto-fit,minmax(320px,1fr))]">
           {PLAN_FAQ.map((q) => (
             <div key={q.q} className="bg-white border border-line rounded-[18px] p-6">
               <h3 className="text-[17px] font-semibold text-navy">{q.q}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted">{q.a}</p>
+              <p className="mt-2 text-base leading-relaxed text-muted">{q.a}</p>
             </div>
           ))}
         </div>

@@ -18,7 +18,7 @@
   --cta: #d92a04;       /* orange-red buttons, white text passes 4.5:1 */
   --cta-text: #b32303;  /* orange-red text on light grounds */
   --line: #e4dfd3;
-  --muted: #4c5563;
+  --muted: #2e3443;    /* secondary text, darker for readability */
 }
 
 @theme inline {
@@ -36,15 +36,15 @@
   --color-cta-text: var(--cta-text);
   --color-line: var(--line);
   --color-muted: var(--muted);
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-  --font-mono: var(--font-mono);
+  --font-display: var(--font-jakarta);
+  --font-body: var(--font-jakarta);
 }
 
 body {
   background: var(--paper);
   color: var(--graphite);
-  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), Arial, Helvetica, sans-serif;
+  font-size: 17px;
 }
 
 .blueprint-grid {

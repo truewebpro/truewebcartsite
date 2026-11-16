@@ -17,7 +17,7 @@ export default function OnlineShopPage() {
       <section className="bg-navy text-white">
         <Container className="pt-20 pb-16">
           <Eyebrow light>Online shop</Eyebrow>
-          <h1 className="mt-4 font-display font-bold text-[40px] sm:text-[56px] leading-[1.06] max-w-[860px]">
+          <h1 className="mt-4 font-display font-extrabold text-[40px] sm:text-[56px] leading-[1.06] max-w-[860px]">
             Every feature you need to sell online, to shoppers and to the trade.
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-[#D5DEEE] max-w-[680px]">
@@ -47,7 +47,7 @@ export default function OnlineShopPage() {
           >
             <div className="flex-[1_1_300px] min-w-0">
               <p className="font-display text-[15px] font-semibold text-cta-text">{String(i + 1).padStart(2, "0")}</p>
-              <h2 className="mt-2 font-display font-bold text-3xl leading-tight text-navy">{g.title}</h2>
+              <h2 className="mt-2 font-display font-extrabold text-3xl leading-tight text-navy">{g.title}</h2>
               <p className="mt-3 text-base leading-relaxed text-muted">{g.text}</p>
             </div>
             <ul className="flex-[2_1_560px] min-w-0 grid gap-x-7 gap-y-3.5 grid-cols-[repeat(auto-fit,minmax(250px,1fr))]">

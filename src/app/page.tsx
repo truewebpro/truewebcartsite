@@ -42,7 +42,7 @@ export default function Home() {
         <Container className="py-20 sm:py-24 flex flex-wrap gap-14 items-center">
           <div className="flex-[1_1_520px] min-w-0">
             <Eyebrow light>Online shops and business websites, built in the UK</Eyebrow>
-            <h1 className="mt-4 font-display font-bold text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.04]">
+            <h1 className="mt-4 font-display font-extrabold text-[40px] sm:text-[56px] lg:text-[64px] leading-[1.04]">
               Your own shop or website, with everything you need to sell.
             </h1>
             <p className="mt-6 text-lg sm:text-[19px] leading-relaxed text-[#D5DEEE] max-w-[560px]">
@@ -61,7 +61,7 @@ export default function Home() {
             <Link href="/online-shop" className="block bg-white text-graphite rounded-[20px] p-7 hover:-translate-y-0.5 transition-transform">
               <span className="text-[13px] font-semibold text-cta-text uppercase tracking-[0.06em]">Online shop</span>
               <span className="block mt-2 font-display text-[26px] font-bold text-navy">Sell products online</span>
-              <span className="block mt-2 text-[15px] leading-relaxed text-muted">
+              <span className="block mt-2 text-base leading-relaxed text-muted">
                 Products, cart, checkout, delivery, customers, discounts, B2B trade accounts and sales reps.
               </span>
             </Link>
@@ -90,7 +90,7 @@ export default function Home() {
       <section id="features">
         <Container className="pt-24 pb-10">
           <Eyebrow>Everything in one admin</Eyebrow>
-          <h2 className="mt-3 font-display font-bold text-4xl sm:text-[44px] leading-[1.1] text-navy max-w-[760px]">
+          <h2 className="mt-3 font-display font-extrabold text-4xl sm:text-[44px] leading-[1.1] text-navy max-w-[760px]">
             Built for shops that sell to the public and to the trade.
           </h2>
           <div className="mt-12 grid gap-5 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
@@ -98,7 +98,7 @@ export default function Home() {
               <div key={title} className="bg-white border border-line rounded-[20px] p-7">
                 <Icon aria-hidden className="w-7 h-7 text-navy" strokeWidth={1.8} />
                 <h3 className="mt-4 font-display text-[22px] font-bold text-navy">{title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-muted">{text}</p>
+                <p className="mt-2 text-base leading-relaxed text-muted">{text}</p>
               </div>
             ))}
           </div>
@@ -115,7 +115,7 @@ export default function Home() {
           <div className="bg-white border border-line rounded-[28px] p-8 sm:p-12 flex flex-wrap gap-12 items-center">
             <div className="flex-[1_1_400px] min-w-0">
               <Eyebrow>Store Builder</Eyebrow>
-              <h2 className="mt-3 font-display font-bold text-4xl leading-[1.1] text-navy">
+              <h2 className="mt-3 font-display font-extrabold text-4xl leading-[1.1] text-navy">
                 Start from a template, change anything.
               </h2>
               <p className="mt-4 text-[17px] leading-relaxed text-muted">
@@ -142,7 +142,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-between gap-6 items-end">
             <div className="max-w-[640px]">
               <Eyebrow light>App Store</Eyebrow>
-              <h2 className="mt-3 font-display font-bold text-4xl sm:text-[44px] leading-[1.1]">
+              <h2 className="mt-3 font-display font-extrabold text-4xl sm:text-[44px] leading-[1.1]">
                 Turn on the apps you need. Pay only for what you add.
               </h2>
             </div>
@@ -165,7 +165,7 @@ export default function Home() {
         <Container className="pt-24 pb-16 flex flex-wrap gap-14 items-center">
           <div className="flex-[1_1_460px] min-w-0">
             <Eyebrow>Admin app for iPhone and Android</Eyebrow>
-            <h2 className="mt-3 font-display font-bold text-4xl leading-[1.1] text-navy">Your shop in your pocket.</h2>
+            <h2 className="mt-3 font-display font-extrabold text-4xl leading-[1.1] text-navy">Your shop in your pocket.</h2>
             <ul className="mt-6 flex flex-col gap-3 text-base text-graphite list-disc pl-5">
               {APP_PHONE.map((t) => (
                 <li key={t}>{t}</li>
@@ -190,7 +190,7 @@ export default function Home() {
         <Container className="pt-8 pb-16">
           <div className="bg-white border border-line rounded-[28px] p-8 sm:p-10 flex flex-wrap gap-6 justify-between items-center">
             <div className="max-w-[720px]">
-              <h2 className="font-display font-bold text-3xl text-navy">Want us to build it for you?</h2>
+              <h2 className="font-display font-extrabold text-3xl text-navy">Want us to build it for you?</h2>
               <p className="mt-2.5 text-base leading-relaxed text-muted">
                 Our team sets up your shop, moves your products, designs your pages and hands it over ready to open.
                 We also build custom software and apps.

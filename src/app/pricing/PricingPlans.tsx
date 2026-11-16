@@ -57,7 +57,7 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
   return (
     <>
       <section id="plans" className="max-w-[1240px] mx-auto px-6 pt-18 sm:pt-20 pb-10 text-center">
-        <h1 className="font-display font-bold text-[40px] sm:text-[52px] leading-[1.08] text-navy">
+        <h1 className="font-display font-extrabold text-[40px] sm:text-[52px] leading-[1.08] text-navy">
           Simple plans. Add apps when you need them.
         </h1>
         <p className="mt-4 mx-auto max-w-[640px] text-lg leading-relaxed text-muted">
@@ -99,7 +99,7 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
                 }`}
               >
                 <div className="flex justify-between items-center gap-3">
-                  <h2 className="font-display font-bold text-[26px]">{p.name}</h2>
+                  <h2 className="font-display font-extrabold text-[26px]">{p.name}</h2>
                   {p.isPopular && (
                     <span className="px-3 py-1 rounded-full bg-cta text-white text-[13px] font-semibold">Most popular</span>
                   )}
@@ -108,11 +108,11 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
                 <p className="min-h-[56px] flex items-baseline gap-1.5">
                   {price ? (
                     <>
-                      <span className="font-display font-bold text-[44px]">{price}</span>
+                      <span className="font-display font-extrabold text-[44px]">{price}</span>
                       <span className="text-base">{yearly ? "/year" : "/month"}</span>
                     </>
                   ) : (
-                    <span className="font-display font-bold text-2xl">Ask for a price</span>
+                    <span className="font-display font-extrabold text-2xl">Ask for a price</span>
                   )}
                 </p>
                 <Link
@@ -141,7 +141,7 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
       </section>
 
       <section id="apps" className="scroll-mt-24 max-w-[1240px] mx-auto px-6 py-12">
-        <h2 className="font-display font-bold text-4xl text-navy">Apps in each plan</h2>
+        <h2 className="font-display font-extrabold text-4xl text-navy">Apps in each plan</h2>
         <p className="mt-2.5 max-w-[720px] text-base leading-relaxed text-muted">
           Apps not in your plan can be added on their own, monthly or yearly. Most have a free trial, and carry on as a
           paid add-on when the trial ends unless you remove them.

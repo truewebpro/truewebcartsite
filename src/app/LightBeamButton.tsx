@@ -33,13 +33,13 @@ export function LightBeamButton({ children, onClick, className = "", disabled = 
           font-weight: 500;
           color: #ffffff;
           background:
-            linear-gradient(#0D163F, #0D163F) padding-box,
+            linear-gradient(#0B2F66, #0B2F66) padding-box,
             conic-gradient(
               from calc(var(--lb-gradient-angle) - 0deg),
               transparent 0%,
-              #0D163F 5%,
-              #DF081A 15%,
-              #0D163F 30%,
+              #0B2F66 5%,
+              #D92A04 15%,
+              #0B2F66 30%,
               transparent 40%,
               transparent 100%
             ) border-box;
@@ -104,7 +104,7 @@ export function LightBeamButton({ children, onClick, className = "", disabled = 
           z-index: 1;
           width: 100%;
           aspect-ratio: 1;
-          background: linear-gradient(-50deg, transparent, #DF081A, transparent);
+          background: linear-gradient(-50deg, transparent, #D92A04, transparent);
           mask-image: radial-gradient(circle at bottom, transparent 40%, black);
           opacity: 0.6;
           animation: lb-shimmer 4s linear infinite;
