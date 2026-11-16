@@ -49,11 +49,11 @@ const DEFAULT_OPTIONS: ServiceOption[] = SERVICES_SEED.map((s) => ({ slug: s.slu
 const INITIAL: ContactState = { status: "idle", message: "" };
 
 const inputCls =
-  "w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0D163F] transition-colors";
+  "w-full bg-white border border-[#E1E1E1] rounded-[8px] px-4 py-3 text-[14px] focus:outline-none focus:border-[#0B2F66] transition-colors";
 
 function FieldError({ text }: { text?: string }) {
   if (!text) return null;
-  return <p className="text-[12px] text-[#DF081A] mt-1">{text}</p>;
+  return <p className="text-[12px] text-[#D92A04] mt-1">{text}</p>;
 }
 
 export default function ContactUs02Orbit({
@@ -96,18 +96,18 @@ export default function ContactUs02Orbit({
             className="scroll-mt-28 bg-white rounded-[16px] p-10 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)] flex flex-col"
           >
             <div className="mb-10">
-              <span className="text-[11px] text-[#777776] font-bold tracking-[0.2em] uppercase block mb-6">
+              <span className="text-xs text-muted font-bold tracking-[0.2em] uppercase block mb-6">
                 WHAT WE GET ASKED
               </span>
               <h2
-                className="text-[42px] font-semibold bg-gradient-to-r from-[#0D163F] to-[#DF081A] bg-clip-text text-transparent leading-tight mb-6"
+                className="text-[42px] font-semibold text-navy leading-tight mb-6"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 Your questions
                 <br />
                 Answered
               </h2>
-              <p className="text-[#777776] text-[14px] leading-relaxed max-w-[320px]">
+              <p className="text-muted text-[15px] leading-relaxed max-w-[320px]">
                 Have a question before reaching out? Here are the answers to what we get asked most.
               </p>
             </div>
@@ -122,7 +122,7 @@ export default function ContactUs02Orbit({
                     className="bg-[#F9F8FB] hover:bg-[#F2F4F6] transition-all duration-300 rounded-[8px] overflow-hidden cursor-pointer group"
                   >
                     <div className="p-4 flex items-center gap-4">
-                      <span className="shrink-0 text-[#0D163F]">
+                      <span className="shrink-0 text-[#0B2F66]">
                         {isOpen ? <Minus size={18} strokeWidth={3} /> : <Plus size={18} strokeWidth={3} />}
                       </span>
                       <span
@@ -142,7 +142,7 @@ export default function ContactUs02Orbit({
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <p className="px-11 pb-4 text-[14px] text-[#777776] leading-relaxed">{item.a}</p>
+                          <p className="px-11 pb-4 text-[14px] text-muted leading-relaxed">{item.a}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -161,30 +161,30 @@ export default function ContactUs02Orbit({
             className="bg-white rounded-[16px] p-10 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)] flex flex-col"
           >
             <div className="mb-10">
-              <span className="text-[11px] text-[#777776] font-bold tracking-[0.2em] uppercase block mb-6">
+              <span className="text-xs text-muted font-bold tracking-[0.2em] uppercase block mb-6">
                 REACH OUT TO US
               </span>
               <h2
-                className="text-[42px] font-semibold bg-gradient-to-r from-[#0D163F] to-[#DF081A] bg-clip-text text-transparent leading-tight mb-6"
+                className="text-[42px] font-semibold text-navy leading-tight mb-6"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               >
                 Ready?
                 <br />
                 Let&apos;s connect
               </h2>
-              <p className="text-[#777776] text-[14px] leading-relaxed">
+              <p className="text-muted text-[15px] leading-relaxed">
                 We&apos;d love to learn more about your business. Fill out the form and we&apos;ll reach out shortly.
               </p>
             </div>
 
             {state.status === "success" ? (
               <div className="flex flex-col items-start gap-4 py-6" role="status">
-                <CheckCircle2 className="w-10 h-10 text-[#0D163F]" />
+                <CheckCircle2 className="w-10 h-10 text-[#0B2F66]" />
                 <p className="text-[18px] font-medium text-[#131213]">{state.message}</p>
                 <button
                   type="button"
                   onClick={() => window.location.reload()}
-                  className="text-[14px] text-[#0D163F] underline underline-offset-4 cursor-pointer"
+                  className="text-[14px] text-[#0B2F66] underline underline-offset-4 cursor-pointer"
                 >
                   Send another message
                 </button>
@@ -200,22 +200,22 @@ export default function ContactUs02Orbit({
                 </div>
 
                 {state.status === "error" && !state.fieldErrors && (
-                  <p role="alert" className="text-[14px] text-[#DF081A] bg-[#DF081A]/5 rounded-[8px] px-4 py-3">
+                  <p role="alert" className="text-[14px] text-[#D92A04] bg-[#D92A04]/5 rounded-[8px] px-4 py-3">
                     {state.message}
                   </p>
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="cu-name" className="text-[11px] text-[#777776] font-bold uppercase block">
-                      FULL NAME <span className="text-[#DF081A]">&#10033;</span>
+                    <label htmlFor="cu-name" className="text-xs text-muted font-bold uppercase block">
+                      FULL NAME <span className="text-[#D92A04]">&#10033;</span>
                     </label>
                     <input id="cu-name" name="name" type="text" placeholder="John Smith" className={inputCls} />
                     <FieldError text={errs.name} />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="cu-email" className="text-[11px] text-[#777776] font-bold uppercase block">
-                      EMAIL <span className="text-[#DF081A]">&#10033;</span>
+                    <label htmlFor="cu-email" className="text-xs text-muted font-bold uppercase block">
+                      EMAIL <span className="text-[#D92A04]">&#10033;</span>
                     </label>
                     <input
                       id="cu-email"
@@ -230,7 +230,7 @@ export default function ContactUs02Orbit({
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label htmlFor="cu-business" className="text-[11px] text-[#777776] font-bold uppercase block">
+                    <label htmlFor="cu-business" className="text-xs text-muted font-bold uppercase block">
                       BUSINESS NAME
                     </label>
                     <input
@@ -242,8 +242,8 @@ export default function ContactUs02Orbit({
                     />
                   </div>
                   <div className="space-y-2 relative">
-                    <label htmlFor="cu-service" className="text-[11px] text-[#777776] font-bold uppercase block">
-                      SERVICE INTERESTED IN <span className="text-[#DF081A]">&#10033;</span>
+                    <label htmlFor="cu-service" className="text-xs text-muted font-bold uppercase block">
+                      SERVICE INTERESTED IN <span className="text-[#D92A04]">&#10033;</span>
                     </label>
                     <select
                       id="cu-service"
@@ -264,8 +264,8 @@ export default function ContactUs02Orbit({
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="cu-message" className="text-[11px] text-[#777776] font-bold uppercase block">
-                    TELL US ABOUT YOUR PROJECT <span className="text-[#DF081A]">&#10033;</span>
+                  <label htmlFor="cu-message" className="text-xs text-muted font-bold uppercase block">
+                    TELL US ABOUT YOUR PROJECT <span className="text-[#D92A04]">&#10033;</span>
                   </label>
                   <textarea
                     id="cu-message"
@@ -281,7 +281,7 @@ export default function ContactUs02Orbit({
                     type="checkbox"
                     id="cu-call"
                     name="wants_call"
-                    className="w-4 h-4 rounded-[4px] border-[#E1E1E1] accent-[#0D163F] cursor-pointer"
+                    className="w-4 h-4 rounded-[4px] border-[#E1E1E1] accent-[#0B2F66] cursor-pointer"
                   />
                   <label htmlFor="cu-call" className="text-[13px] text-[#444444] cursor-pointer">
                     WOULD YOU LIKE A FREE CONSULTATION CALL?
