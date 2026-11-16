@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s | Trueweb Cart",
   },
   description:
-    "Your own online shop or business website with payments, delivery, B2B trade, an AI shop assistant and 21 apps. Built and supported in the UK.",
+    "Your own online shop or business website with payments, delivery, B2B trade, an AI shop assistant and 30+ apps. Built and supported in the UK.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
