@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import "./home/home.css";
+import "./home/mock.css";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -31,7 +32,7 @@ export const viewport: Viewport = {
 
 /** Sets the saved theme before the page paints, so there is no flash. Light is the default. */
 /** A ?theme=dark or ?theme=light link shows that theme without saving it (handy for sharing previews). */
-const THEME_SCRIPT = `try{var q=new URLSearchParams(location.search).get("theme");var t=q||localStorage.getItem("tw-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`;
+const THEME_SCRIPT = `(function(){var r=document.documentElement;function z(){r.style.setProperty("--hz",String(Math.min(1,r.clientWidth/1440)))}z();addEventListener("resize",z)})();try{var q=new URLSearchParams(location.search).get("theme");var t=q||localStorage.getItem("tw-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

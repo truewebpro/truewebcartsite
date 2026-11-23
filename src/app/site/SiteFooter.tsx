@@ -2,11 +2,13 @@
 import Link from "next/link";
 import { FOOTER_COLUMNS, SIGNUP_URL } from "./links";
 import { SocialIcons } from "./icons";
+import SectionBg from "../home/SectionBg";
 
 /** Call to action strip, moving colour line, tips sign-up and link columns. No logo, no app badges. */
 export default function SiteFooter() {
   return (
     <footer className="relative overflow-hidden text-[var(--h-body)] bg-[linear-gradient(180deg,var(--h-bg)_0%,var(--h-bg2)_50%,var(--h-bg3)_100%)]">
+      <SectionBg glow={false} />
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div className="h-glow h-drift w-[520px] h-[520px] -left-20 top-32" style={{ background: "var(--h-glow-a)" }} />
         <div className="h-glow h-drift w-[480px] h-[480px] left-[40%] top-56" style={{ background: "var(--h-glow-b)", animationDelay: "-7s" }} />
@@ -58,7 +60,7 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 xl:gap-6">
             {FOOTER_COLUMNS.map((c) => (
               <div key={c.title}>
                 <p className="text-[15px] font-extrabold text-[var(--h-text)] mb-4">{c.title}</p>

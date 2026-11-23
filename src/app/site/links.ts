@@ -100,40 +100,53 @@ export const NAV: NavEntry[] = [
 /** Kept for any inner page that still lists plain links. */
 export const NAV_LINKS = NAV.map((n) => ({ label: n.label, href: n.href }));
 
+/** Footer columns, as in the approved footer mockup. /blog, /about, /terms, /privacy and /cookies are still to be made. */
 export const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Products",
+    title: "Online shop",
     links: [
-      { label: "Online shop", href: "/online-shop" },
-      { label: "Websites", href: "/websites" },
+      { label: "Features", href: "/online-shop" },
+      { label: "Shop builder", href: "/online-shop" },
       { label: "Templates", href: "/websites#templates" },
       { label: "App Store", href: "/pricing#apps" },
+      { label: "Domains", href: "/#domains" },
       { label: "Mobile app", href: "/#mobile-app" },
     ],
   },
   {
-    title: "Solutions",
+    title: "Websites",
     links: [
-      { label: "Fashion", href: "/online-shop" },
-      { label: "Food and drink", href: "/online-shop" },
-      { label: "Beauty", href: "/online-shop" },
-      { label: "Wholesale", href: "/online-shop" },
+      { label: "Website builder", href: "/websites" },
+      { label: "Templates", href: "/websites#templates" },
+      { label: "Blog", href: "/blog" },
+      { label: "Custom domain", href: "/#domains" },
     ],
   },
   {
     title: "Pricing",
     links: [
       { label: "Plans", href: "/pricing" },
+      { label: "Compare plans", href: "/pricing" },
       { label: "3 day free trial", href: "/pricing" },
       { label: "Move from Shopify", href: "/online-shop" },
     ],
   },
   {
-    title: "Support",
+    title: "Help",
     links: [
-      { label: "Contact us", href: "/contact" },
+      { label: "Help centre", href: "/contact" },
       { label: "FAQs", href: "/#faqs" },
-      { label: "Services", href: "/services" },
+      { label: "Contact us", href: "/contact" },
+      { label: "Chat with us", href: "/contact" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About us", href: "/about" },
+      { label: "Terms", href: "/terms" },
+      { label: "Privacy", href: "/privacy" },
+      { label: "Cookies", href: "/cookies" },
     ],
   },
 ];

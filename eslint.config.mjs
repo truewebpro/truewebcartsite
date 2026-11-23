@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated from the approved mockup (buildtmp/gen_site_desktop.py, gen_site_pieces.py)
+    "src/app/home/desktop/**",
   ]),
 ]);
 

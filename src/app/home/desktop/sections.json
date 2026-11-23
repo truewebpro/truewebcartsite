@@ -1,0 +1,68 @@
+[
+ [
+  "Hero",
+  "linear-gradient(180deg, #FFFFFF 0%, #F3F6FC 50%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #050F24 0%, #0A2857 100%)",
+  "785"
+ ],
+ [
+  "Builder",
+  "linear-gradient(180deg, #DCE6F7 0%, #F3F6FC 35%, #FFFFFF 100%)",
+  "linear-gradient(180deg, #0A2857 0%, #071633 100%)",
+  "978"
+ ],
+ [
+  "Plans",
+  "linear-gradient(180deg, #FFFFFF 0%, #F3F6FC 50%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #071633 0%, #0B2350 100%)",
+  "831"
+ ],
+ [
+  "Describe",
+  "linear-gradient(180deg, #DCE6F7 0%, #FFFFFF 45%, #F3F6FC 100%)",
+  "linear-gradient(180deg, #0B2350 0%, #071633 100%)",
+  "665"
+ ],
+ [
+  "Templates",
+  "linear-gradient(180deg, #F3F6FC 0%, #FFFFFF 40%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #071633 0%, #0B2350 100%)",
+  "920"
+ ],
+ [
+  "Integrations",
+  "linear-gradient(180deg, #DCE6F7 0%, #F3F6FC 50%, #FFFFFF 100%)",
+  "linear-gradient(180deg, #0B2350 0%, #071633 100%)",
+  "1178"
+ ],
+ [
+  "Foundations",
+  "linear-gradient(180deg, #FFFFFF 0%, #F3F6FC 50%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #071633 0%, #0B2350 100%)",
+  "893"
+ ],
+ [
+  "Analytics",
+  "linear-gradient(180deg, #DCE6F7 0%, #F3F6FC 50%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #0B2350 0%, #071633 50%, #0B2350 100%)",
+  "820"
+ ],
+ [
+  "MobileApp",
+  "linear-gradient(180deg, #DCE6F7 0%, #F3F6FC 50%, #DCE6F7 100%)",
+  "linear-gradient(180deg, #0B2350 0%, #071633 50%, #0B2350 100%)",
+  "1121"
+ ],
+ [
+  "Domains",
+  "linear-gradient(180deg, #DCE6F7 0%, #F3F6FC 40%, #FFFFFF 100%)",
+  "linear-gradient(180deg, #0B2350 0%, #071633 100%)",
+  "703"
+ ],
+ [
+  "Band",
+  "linear-gradient(180deg, #FFFFFF 0%, #F3F6FC 50%, #FFFFFF 100%)",
+  "linear-gradient(180deg, #050F24 0%, #071633 50%, #050F24 100%)",
+  "764"
+ ]
+]
