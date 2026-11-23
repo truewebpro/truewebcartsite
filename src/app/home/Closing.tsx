@@ -1,12 +1,13 @@
 // src/app/home/Closing.tsx
 import { Check, Search } from "lucide-react";
 import { Heading, Section, StartForm } from "./parts";
+import SectionBg from "./SectionBg";
 
 const RESULTS: [string, boolean][] = [[".com", false], [".co.uk", true], [".shop", true], [".store", true]];
 
 export function Domains() {
   return (
-    <Section id="domains">
+    <Section id="domains" className="bg-[linear-gradient(180deg,#DCE6F7_0%,#F3F6FC_40%,#FFFFFF_100%)] dark:bg-[linear-gradient(180deg,#0B2350_0%,#071633_100%)]">
       <Heading title="Get the perfect domain for your online shop" sub="Search for a new name or connect one you already own. We set it up and keep it secure." />
       <div className="h-glass mt-10 mx-auto max-w-[760px] rounded-[28px] p-4 sm:p-6">
         <form action="/contact" method="get" className="flex flex-col sm:flex-row gap-2.5">
@@ -54,18 +55,23 @@ const FAQS = [
 
 export function Faqs() {
   return (
-    <section id="faqs" className="relative py-[56px] sm:py-[64px] lg:py-[72px] scroll-mt-20">
-      <div className="mx-auto max-w-[1320px] px-3 sm:px-6 lg:px-[60px]">
-        <div className="relative overflow-hidden rounded-[32px] sm:rounded-[44px] bg-[radial-gradient(80%_90%_at_50%_0%,#12306E_0%,#071633_55%,#040B1C_100%)] px-5 py-12 sm:px-12 sm:py-16 dark:ring-1 dark:ring-[rgba(160,190,255,0.22)]">
-          <h2 className="text-center text-[30px] sm:text-[44px] font-extrabold tracking-[-1px] text-white">Frequently asked questions</h2>
-          <div className="mt-8 sm:mt-10 mx-auto max-w-[820px] grid gap-3">
+    <section id="faqs" className="relative overflow-hidden scroll-mt-16 py-[40px] sm:py-[50px] bg-[linear-gradient(180deg,#F7E3F2_0%,#F3F6FC_45%,#FFFFFF_100%)] dark:bg-[linear-gradient(180deg,#1E2257_0%,#0A1638_45%,#050F24_100%)]">
+      <SectionBg />
+      <div className="relative mx-auto max-w-[1440px] px-3 sm:px-6 xl:px-[60px]">
+        <div className="relative overflow-hidden rounded-[28px] sm:rounded-[44px] dark:shadow-[0_0_0_1px_rgba(160,190,255,0.22)]">
+          <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_85%_0%,#1D3F8F_0%,#0A2857_45%,#050F24_100%)]" />
+          <div aria-hidden className="s12b absolute -right-20 -top-[120px] w-[460px] h-[460px] rounded-full bg-[#D92A04] opacity-[0.18] blur-[110px]" />
+          <div className="relative px-5 pt-12 pb-10 sm:px-12 sm:pt-16 lg:px-[110px] xl:px-[170px] xl:pt-20 xl:pb-[60px]">
+            <h2 className="mb-4 sm:mb-6 text-[34px] sm:text-[48px] xl:text-[64px] font-extrabold tracking-[-2px] leading-[1.05] text-white">Frequently asked questions</h2>
             {FAQS.map(([q, a], k) => (
-              <details key={q} className="h-faq group rounded-[20px] bg-white/[0.06] border border-white/[0.12]" open={k === 0}>
-                <summary className="flex items-center gap-4 px-5 py-4 sm:px-6 sm:py-5">
-                  <span className="flex-1 text-[16px] sm:text-[18px] font-bold text-white">{q}</span>
-                  <span className="h-plus shrink-0 w-9 h-9 rounded-full bg-white text-[#081F45] inline-flex items-center justify-center text-[22px] font-bold leading-none" aria-hidden>+</span>
+              <details key={q} name="faq" className="h-faq border-b border-white/[0.14] py-4 sm:py-[22px]" open={k === 0}>
+                <summary className="flex items-center justify-between gap-5">
+                  <span className="text-[17px] sm:text-[21px] xl:text-[25px] font-bold text-white">{q}</span>
+                  <span className="h-plus shrink-0 inline-flex w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white items-center justify-center" aria-hidden>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#081F45" strokeWidth="2.6" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                  </span>
                 </summary>
-                <p className="px-5 pb-5 sm:px-6 text-[15px] sm:text-[16px] leading-relaxed text-[#C9D4EA]">{a}</p>
+                <p className="mt-3 max-w-[820px] text-[15px] sm:text-[18px] leading-[1.55] text-[#C9D4EA]">{a}</p>
               </details>
             ))}
           </div>
@@ -79,8 +85,9 @@ const TICKS = ["3 days free", "No credit card needed", "Apps built in", "iPhone 
 
 export function SignupBand() {
   return (
-    <section className="relative py-[56px] sm:py-[64px] lg:py-[72px]">
-      <div className="mx-auto max-w-[1320px] px-3 sm:px-6 lg:px-[60px]">
+    <section className="relative overflow-hidden py-[56px] sm:py-[64px] lg:py-[72px] bg-[linear-gradient(180deg,#FFFFFF_0%,#F3F6FC_50%,#FFFFFF_100%)] dark:bg-[linear-gradient(180deg,#050F24_0%,#071633_50%,#050F24_100%)]">
+      <SectionBg />
+      <div className="relative mx-auto max-w-[1320px] px-3 sm:px-6 lg:px-[60px]">
         <div className="relative overflow-hidden rounded-[32px] sm:rounded-[44px] bg-[radial-gradient(80%_90%_at_50%_0%,#12306E_0%,#071633_55%,#040B1C_100%)] pt-14 sm:pt-20 pb-8 dark:ring-1 dark:ring-[rgba(160,190,255,0.22)]">
           <div aria-hidden className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(160,190,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(160,190,255,0.12)_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_40%,#000,transparent)]" />
           <div className="relative px-5 text-center">

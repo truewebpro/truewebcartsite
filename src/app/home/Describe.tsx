@@ -1,7 +1,8 @@
 // src/app/home/Describe.tsx
-import { Sparkles } from "lucide-react";
+// Phones, tablets and small laptops. Desktop uses home/desktop/Describe.tsx (the mockup itself).
 import { SIGNUP_URL } from "../site/links";
-import { Heading, Section } from "./parts";
+import { Heading } from "./parts";
+import SectionBg from "./SectionBg";
 
 const IDEAS = [
   "A candle shop with gifts and home scents",
@@ -10,50 +11,47 @@ const IDEAS = [
   "A kids clothing brand with organic cotton",
 ];
 const CHIPS = ["Candle shop", "Clothing brand", "Coffee roastery", "Bakery", "Jewellery", "Pet shop"];
+const SPARK = "M12 2l2.2 6.3L20.5 10l-6.3 2.2L12 18.5l-2.2-6.3L3.5 10l6.3-1.7L12 2Zm7 12 1 2.6 2.6 1-2.6 1L19 21.2l-1-2.6-2.6-1 2.6-1L19 14Z";
 
 export default function Describe() {
   return (
-    <Section>
-      <Heading
-        title="Describe your online shop. We set it up in minutes."
-        sub="Write one line about what you sell. We pick a template, write your first product text and get your online shop ready for you to edit."
-      />
-      <form action={SIGNUP_URL} method="get" className="h-glass mt-10 mx-auto max-w-[820px] rounded-[28px] p-3 sm:p-4">
-        <div className="relative flex items-start gap-3 rounded-[20px] bg-[var(--h-input)] border border-[var(--h-input-bd)] p-4 sm:p-5 min-h-[120px]">
-          <Sparkles className="w-5 h-5 mt-0.5 shrink-0 text-[#D92A04]" aria-hidden />
-          <label htmlFor="describe-shop" className="sr-only">What do you sell?</label>
-          <textarea
-            id="describe-shop"
-            name="idea"
-            rows={2}
-            placeholder=" "
-            className="peer w-full resize-none bg-transparent outline-none text-[17px] text-[var(--h-text)]"
-          />
-          <span
-            aria-hidden
-            className="pointer-events-none absolute left-[52px] sm:left-[56px] right-4 top-4 sm:top-5 h-[26px] overflow-hidden text-[17px] text-[var(--h-soft)] peer-focus:hidden peer-[:not(:placeholder-shown)]:hidden"
-          >
-            <span className="block h-rotate4">
-              {IDEAS.map((i) => (
-                <span key={i} className="block h-[26px] leading-[26px] truncate">{i}</span>
+    <section className="relative overflow-hidden py-14 sm:py-16 bg-[linear-gradient(180deg,#DCE6F7_0%,#FFFFFF_45%,#F3F6FC_100%)] dark:bg-[linear-gradient(180deg,#0B2350_0%,#071633_100%)]">
+      <SectionBg />
+      <div aria-hidden className="s4-sky dark:[background:linear-gradient(180deg,rgba(40,90,180,0),rgba(40,90,180,0.35))]" />
+      <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+        <Heading
+          title="Describe your online shop. We set it up in minutes."
+          sub="Write one line about what you sell. We pick a template, write your first product text and get your online shop ready for you to edit."
+        />
+        <div className="relative mt-10 sm:mt-12 mx-auto max-w-[860px] p-2.5 rounded-[26px] bg-white/55 backdrop-blur-[16px] border border-white/85 shadow-[0_30px_70px_rgba(11,47,102,0.16)] dark:bg-white/10 dark:border-white/[0.22]">
+          <div className="relative min-h-[150px] rounded-[18px] bg-white border border-[#E6E9F0] p-5 sm:p-6 pb-[84px] sm:pb-6">
+            <p className="sr-only">For example: {IDEAS.join(", ")}.</p>
+            <div aria-hidden className="relative h-[52px] sm:h-[30px]">
+              {IDEAS.map((t, k) => (
+                <span key={t} className={`h-type h-type${k} absolute left-0 top-0 text-[16px] sm:text-[20px] leading-[26px] text-[#1C1E27]`}>
+                  {t}
+                  <span className="s4-caret ml-0.5" />
+                </span>
               ))}
-            </span>
-          </span>
-        </div>
-        <div className="mt-3 flex flex-col md:flex-row md:items-center gap-3">
-          <div className="flex gap-2 overflow-x-auto h-noscroll -mx-1 px-1 md:flex-wrap md:overflow-visible">
-            {CHIPS.map((c) => (
-              <span key={c} className="shrink-0 px-3.5 py-2 rounded-full text-[14px] font-bold bg-[var(--h-chip)] border border-[var(--h-card-bd)] text-[var(--h-text)]">
-                {c}
-              </span>
-            ))}
+            </div>
+            <a
+              href={SIGNUP_URL}
+              className="s4-go absolute left-3.5 right-3.5 bottom-3.5 sm:left-auto sm:right-3.5 inline-flex items-center justify-center gap-2.5 px-[26px] py-3.5 rounded-full bg-[#D92A04] text-white text-[17px] font-extrabold"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden><path d={SPARK} /></svg>
+              Build my online shop
+            </a>
           </div>
-          <button type="submit" className="md:ml-auto shrink-0 px-6 py-3.5 rounded-full bg-cta text-white font-extrabold hover:bg-[#c02503] transition-colors">
-            Build my online shop
-          </button>
         </div>
-      </form>
-      <p className="mt-4 text-center text-[13px] text-[var(--h-soft)]">AI can make mistakes. Check everything before your online shop goes live.</p>
-    </Section>
+        <p className="relative mt-4 text-center text-[13px] text-[#5A6275] dark:text-[#9AA6BF]">AI can make mistakes. Check everything before your online shop goes live.</p>
+        <ul className="relative mt-6 flex flex-wrap justify-center gap-2.5">
+          {CHIPS.map((c) => (
+            <li key={c} className="px-[18px] py-2.5 rounded-full bg-white/75 border border-[#DDE3EE] text-[15px] font-bold text-[#081F45] dark:bg-white/[0.08] dark:border-white/[0.22] dark:text-white">
+              {c}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

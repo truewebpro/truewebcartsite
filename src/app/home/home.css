@@ -534,3 +534,101 @@
   border-radius: 7px;
   padding: 2px;
 }
+
+/* desktop sections built from the mockup: light and dark copies, full-width background, scaled 1280 to 1440 */
+.h-stage {
+  background: var(--bgl);
+  overflow: hidden;
+}
+[data-theme="dark"] .h-stage {
+  background: var(--bgd);
+}
+.h-stage-inner {
+  width: 1440px;
+  margin: 0 auto;
+  zoom: var(--hz, 1);
+}
+.h-only-dark {
+  display: none;
+}
+[data-theme="dark"] .h-only-light {
+  display: none;
+}
+[data-theme="dark"] .h-only-dark {
+  display: block;
+}
+.h-dlink {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* section background from the mockup: grid, light beams and a soft white glow */
+:root,
+[data-theme="light"] {
+  --h-gridline: rgba(11, 47, 102, 0.1);
+  --h-beam: #0b2f66;
+  --h-softglow: rgba(255, 255, 255, 0.95);
+}
+[data-theme="dark"] {
+  --h-gridline: rgba(160, 190, 255, 0.1);
+  --h-beam: #6fa0ff;
+  --h-softglow: rgba(40, 90, 180, 0.35);
+}
+
+/* typing lines in the describe box (phones): each line is revealed left to right, then the next */
+.h-type {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+.h-type0 { animation: h-type0 16s steps(40, end) infinite; }
+.h-type1 { animation: h-type1 16s steps(40, end) infinite; }
+.h-type2 { animation: h-type2 16s steps(40, end) infinite; }
+.h-type3 { animation: h-type3 16s steps(40, end) infinite; }
+@keyframes h-type0 { 0% { clip-path: inset(0 100% 0 0); opacity: 1 } 11.25%, 23% { clip-path: inset(0 0 0 0); opacity: 1 } 23.5%, 100% { opacity: 0 } }
+@keyframes h-type1 { 0%, 25% { clip-path: inset(0 100% 0 0); opacity: 0 } 25.01% { opacity: 1 } 36.25%, 48% { clip-path: inset(0 0 0 0); opacity: 1 } 48.5%, 100% { opacity: 0 } }
+@keyframes h-type2 { 0%, 50% { clip-path: inset(0 100% 0 0); opacity: 0 } 50.01% { opacity: 1 } 61.25%, 73% { clip-path: inset(0 0 0 0); opacity: 1 } 73.5%, 100% { opacity: 0 } }
+@keyframes h-type3 { 0%, 75% { clip-path: inset(0 100% 0 0); opacity: 0 } 75.01% { opacity: 1 } 86.25%, 98% { clip-path: inset(0 0 0 0); opacity: 1 } 98.5%, 100% { opacity: 0 } }
+@media (prefers-reduced-motion: reduce) {
+  .h-type { animation: none !important; opacity: 0; }
+  .h-type0 { opacity: 1; clip-path: none; }
+}
+
+/* light/dark copies of mockup pieces used on phones and tablets */
+.h-tl { display: contents; }
+.h-td { display: none; }
+[data-theme="dark"] .h-tl { display: none; }
+[data-theme="dark"] .h-td { display: contents; }
+
+/* mockup pieces laid out for phones and tablets */
+.m-intcards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (min-width: 768px) {
+  .m-intcards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.m-intcards > div { animation: none !important; }
+.m-appchips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.m-appchips > div { animation: none !important; }
+.m-info > div,
+.m-info > div > div { width: 100% !important; }
+.m-fnd-tabs { width: 100% !important; overflow-x: auto; scrollbar-width: none; }
+.m-fnd-tabs > div { min-width: 120px; }
+.m-fnd-panel { width: 100% !important; }
+@media (max-width: 1023px) {
+  .m-fnd .s8-anim {
+    grid-template-columns: 1fr !important;
+    padding: 28px 22px !important;
+    align-content: center;
+    gap: 22px;
+  }
+  .m-fnd .s8-anim > div:first-child > div { font-size: 34px !important; }
+  .m-fnd .s8-anim p { font-size: 16px !important; }
+}
+.m-tabs span { white-space: nowrap; flex-shrink: 0; }

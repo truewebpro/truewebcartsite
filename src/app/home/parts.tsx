@@ -2,13 +2,20 @@
 import type { ReactNode } from "react";
 import { Check } from "lucide-react";
 import { SIGNUP_URL } from "../site/links";
+import SectionBg from "./SectionBg";
 
 /** Every section: same space above its heading and below its last item. */
 export function Section({
   id, children, className = "", glows = false,
 }: { id?: string; children: ReactNode; className?: string; glows?: boolean }) {
   return (
-    <section id={id} className={`relative overflow-hidden py-[56px] sm:py-[64px] lg:py-[72px] scroll-mt-20 ${className}`}>
+    <section
+      id={id}
+      className={`relative overflow-hidden py-[56px] sm:py-[64px] lg:py-[72px] scroll-mt-20 ${
+        className || "bg-[linear-gradient(180deg,#FFFFFF_0%,#F3F6FC_50%,#DCE6F7_100%)] dark:bg-[linear-gradient(180deg,#071633_0%,#0B2350_100%)]"
+      }`}
+    >
+      <SectionBg />
       {glows && (
         <div aria-hidden className="absolute inset-0 pointer-events-none">
           <div className="h-glow h-drift w-[420px] h-[420px] -left-24 top-10" style={{ background: "var(--h-glow-a)" }} />
@@ -23,11 +30,11 @@ export function Section({
 export function Heading({ title, sub, align = "center" }: { title: ReactNode; sub?: ReactNode; align?: "center" | "left" }) {
   const c = align === "center" ? "text-center mx-auto" : "";
   return (
-    <div className={`max-w-[760px] ${c}`}>
-      <h2 className="text-[30px] leading-[1.1] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-1px] text-[var(--h-text)] text-balance">
+    <div className={`max-w-[900px] ${c}`}>
+      <h2 className="text-[32px] leading-[1.08] sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-1.2px] lg:tracking-[-1.6px] text-[var(--h-text)] text-balance">
         {title}
       </h2>
-      {sub && <p className={`mt-4 text-[16px] sm:text-[18px] leading-relaxed text-[var(--h-muted)] max-w-[620px] ${c}`}>{sub}</p>}
+      {sub && <p className={`mt-4 text-[16px] sm:text-[18px] lg:text-[20px] leading-[1.5] text-[var(--h-body)] max-w-[700px] ${c}`}>{sub}</p>}
     </div>
   );
 }
