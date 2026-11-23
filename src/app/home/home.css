@@ -1,0 +1,536 @@
+/* Home page and site chrome: light and dark themes, glass, and motion.
+   The theme is set on <html data-theme="light|dark"> by the inline script in layout.tsx.
+   Inner pages wrap their content in data-theme="light" until they get a dark design. */
+
+:root,
+[data-theme="light"] {
+  --h-bg: #ffffff;
+  --h-bg2: #f3f6fc;
+  --h-bg3: #dce6f7;
+  --h-text: #081f45;
+  --h-body: #2e3443;
+  --h-muted: #4a5163;
+  --h-soft: #6b7385;
+  --h-card: #ffffff;
+  --h-card-bd: #e6e9f0;
+  --h-glass: rgba(255, 255, 255, 0.62);
+  --h-glass-strong: rgba(255, 255, 255, 0.82);
+  --h-glass-bd: rgba(255, 255, 255, 0.9);
+  --h-glass-shadow: 0 24px 60px rgba(11, 47, 102, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --h-line: rgba(11, 47, 102, 0.12);
+  --h-grid: rgba(11, 47, 102, 0.08);
+  --h-chip: #ffffff;
+  --h-input: #ffffff;
+  --h-input-bd: #dde3ee;
+  --h-cta-text: #b32303;
+  --h-active: #d92a04;
+  --h-bar: linear-gradient(90deg, rgba(214, 226, 255, 0.55), rgba(255, 255, 255, 0.35) 45%, rgba(255, 222, 210, 0.55));
+  --h-bar-bd: rgba(255, 255, 255, 0.9);
+  --h-bar-shadow: inset 0 1px 0 #ffffff, 0 6px 24px rgba(11, 47, 102, 0.08);
+  --h-panel: linear-gradient(90deg, rgba(228, 236, 255, 0.9), rgba(255, 255, 255, 0.88) 45%, rgba(255, 233, 226, 0.9));
+  --h-dim: rgba(8, 31, 69, 0.16);
+  --h-drop: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.28) 55%, rgba(255, 255, 255, 0.45) 100%);
+  --h-drop-bd: rgba(255, 255, 255, 0.85);
+  --h-drop-shadow: inset 0 1px 1px #ffffff, inset 0 -2px 3px rgba(11, 47, 102, 0.1), inset 3px 0 5px rgba(91, 134, 214, 0.18),
+    inset -3px 0 5px rgba(217, 42, 4, 0.14), 0 6px 16px rgba(11, 47, 102, 0.16), 0 1px 2px rgba(11, 47, 102, 0.1);
+  --h-glow-a: #8fb0ff;
+  --h-glow-b: #ffb9a3;
+  --h-glow-c: #8fe3c4;
+  --h-glow-op: 0.45;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --h-bg: #050f24;
+  --h-bg2: #071633;
+  --h-bg3: #0a2857;
+  --h-text: #ffffff;
+  --h-body: #c9d4ea;
+  --h-muted: #afc0de;
+  --h-soft: #8fa3c8;
+  --h-card: rgba(255, 255, 255, 0.05);
+  --h-card-bd: rgba(255, 255, 255, 0.12);
+  --h-glass: rgba(255, 255, 255, 0.06);
+  --h-glass-strong: rgba(14, 28, 60, 0.85);
+  --h-glass-bd: rgba(255, 255, 255, 0.14);
+  --h-glass-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --h-line: rgba(160, 190, 255, 0.16);
+  --h-grid: rgba(160, 190, 255, 0.08);
+  --h-chip: rgba(255, 255, 255, 0.08);
+  --h-input: rgba(255, 255, 255, 0.08);
+  --h-input-bd: rgba(255, 255, 255, 0.22);
+  --h-cta-text: #ff8a66;
+  --h-active: #ff8a66;
+  --h-bar: linear-gradient(90deg, rgba(30, 60, 130, 0.55), rgba(8, 20, 48, 0.45) 45%, rgba(110, 34, 24, 0.5));
+  --h-bar-bd: rgba(255, 255, 255, 0.12);
+  --h-bar-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 6px 24px rgba(0, 0, 0, 0.25);
+  --h-panel: linear-gradient(90deg, rgba(24, 48, 110, 0.92), rgba(8, 20, 48, 0.9) 45%, rgba(90, 30, 24, 0.9));
+  --h-dim: rgba(0, 0, 0, 0.4);
+  --h-drop: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 55%, rgba(255, 255, 255, 0.12) 100%);
+  --h-drop-bd: rgba(255, 255, 255, 0.28);
+  --h-drop-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 3px 0 6px rgba(91, 160, 255, 0.25),
+    inset -3px 0 6px rgba(255, 120, 80, 0.22), 0 6px 18px rgba(0, 0, 0, 0.35);
+  --h-glow-a: #2450b8;
+  --h-glow-b: #8a2a14;
+  --h-glow-c: #0f6b5a;
+  --h-glow-op: 0.35;
+  color-scheme: dark;
+}
+
+.h-page {
+  background: var(--h-bg);
+  color: var(--h-body);
+}
+
+/* glass surfaces */
+.h-glass {
+  background: var(--h-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--h-glass-bd);
+  box-shadow: var(--h-glass-shadow);
+}
+.h-card {
+  background: var(--h-card);
+  border: 1px solid var(--h-card-bd);
+}
+
+/* faint grid behind sections */
+.h-grid {
+  background-image: linear-gradient(var(--h-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--h-grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, #000 30%, transparent 100%);
+}
+
+/* soft colour glows */
+.h-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(100px);
+  opacity: var(--h-glow-op);
+  pointer-events: none;
+}
+
+/* navbar */
+.h-bar {
+  background: var(--h-bar);
+  -webkit-backdrop-filter: blur(14px) saturate(220%);
+  backdrop-filter: blur(14px) saturate(220%);
+  border-bottom: 1px solid var(--h-bar-bd);
+  box-shadow: var(--h-bar-shadow);
+}
+.h-panel {
+  background: var(--h-panel);
+  -webkit-backdrop-filter: blur(22px) saturate(200%);
+  backdrop-filter: blur(22px) saturate(200%);
+  border-bottom: 1px solid var(--h-bar-bd);
+}
+.h-link {
+  position: relative;
+  isolation: isolate;
+}
+.h-link .h-drop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 9999px;
+  background: var(--h-drop);
+  -webkit-backdrop-filter: blur(4px) saturate(220%) brightness(1.06);
+  backdrop-filter: blur(4px) saturate(220%) brightness(1.06);
+  border: 1px solid var(--h-drop-bd);
+  box-shadow: var(--h-drop-shadow);
+  opacity: 0;
+  transform: scale(0.7, 0.5);
+  transition: opacity 0.2s ease, transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.h-link .h-drop::before {
+  content: "";
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 2px;
+  height: 38%;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+  opacity: 0.9;
+}
+[data-theme="dark"] .h-link .h-drop::before {
+  opacity: 0.45;
+}
+.h-link .h-label {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+.h-link:hover .h-drop,
+.h-link:focus-visible .h-drop,
+.h-link[data-open="true"] .h-drop {
+  opacity: 1;
+  transform: none;
+}
+.h-link:hover .h-label,
+.h-link:focus-visible .h-label,
+.h-link[data-open="true"] .h-label {
+  transform: scale(1.04);
+}
+
+@keyframes h-panel-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes h-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.h-panel-in {
+  animation: h-panel-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+.h-panel-in .h-stagger {
+  animation: h-fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.h-panel-in .h-stagger:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.h-panel-in .h-stagger:nth-child(3) {
+  animation-delay: 0.12s;
+}
+@keyframes h-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.h-fade-in {
+  animation: h-fade 0.3s ease both;
+}
+
+/* hero light beams along the grid */
+@keyframes h-beam-x {
+  0% {
+    transform: translateX(-260px);
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(1700px);
+    opacity: 0;
+  }
+}
+@keyframes h-beam-y {
+  0% {
+    transform: translateY(-260px);
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1100px);
+    opacity: 0;
+  }
+}
+.h-beam-x {
+  position: absolute;
+  left: 0;
+  width: 240px;
+  height: 2px;
+  border-radius: 2px;
+  animation: h-beam-x linear infinite;
+}
+.h-beam-y {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 240px;
+  border-radius: 2px;
+  animation: h-beam-y linear infinite;
+}
+
+/* words of the headline rise in */
+@keyframes h-word {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.h-word {
+  display: inline-block;
+  animation: h-word 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* spinning badge */
+@keyframes h-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.h-spin {
+  animation: h-spin 14s linear infinite;
+}
+
+/* the start button gently pulses */
+@keyframes h-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 42, 4, 0.45);
+  }
+  80%,
+  100% {
+    box-shadow: 0 0 0 18px rgba(217, 42, 4, 0);
+  }
+}
+.h-ring {
+  animation: h-ring 2s ease-out infinite;
+}
+
+/* floating */
+@keyframes h-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.h-float {
+  animation: h-float 6s ease-in-out infinite;
+}
+
+/* drifting glows */
+@keyframes h-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, -30px) scale(1.08);
+  }
+}
+.h-drift {
+  animation: h-drift 20s ease-in-out infinite;
+}
+
+/* endless horizontal strips */
+@keyframes h-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.h-marquee {
+  display: flex;
+  width: max-content;
+  animation: h-marquee 40s linear infinite;
+}
+.h-marquee-rev {
+  animation-direction: reverse;
+}
+.h-marquee-wrap:hover .h-marquee {
+  animation-play-state: paused;
+}
+.h-fade-edges {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* vertical feed */
+@keyframes h-feed {
+  to {
+    transform: translateY(-50%);
+  }
+}
+.h-feed {
+  animation: h-feed 28s linear infinite;
+}
+
+/* moving colour line */
+@keyframes h-line {
+  to {
+    background-position: 200% 0;
+  }
+}
+.h-colour-line {
+  background: linear-gradient(90deg, #d92a04, #f5a524, #3ddc91, #5b86d6, #d92a04);
+  background-size: 200% 100%;
+  animation: h-line 6s linear infinite;
+}
+
+/* rotating placeholder in the describe box */
+@keyframes h-rotate4 {
+  0%,
+  20% {
+    transform: translateY(0);
+  }
+  25%,
+  45% {
+    transform: translateY(-25%);
+  }
+  50%,
+  70% {
+    transform: translateY(-50%);
+  }
+  75%,
+  95% {
+    transform: translateY(-75%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.h-rotate4 {
+  animation: h-rotate4 12s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+/* phone: lock screen alerts, then the order opens */
+@keyframes h-alert {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.96);
+  }
+  10%,
+  44% {
+    opacity: 1;
+    transform: none;
+  }
+  50%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+.h-alert {
+  animation: h-alert 12s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes h-order {
+  0%,
+  46% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  52%,
+  94% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.h-order {
+  animation: h-order 12s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes h-lock {
+  0%,
+  46% {
+    opacity: 1;
+  }
+  52%,
+  94% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.h-lock {
+  animation: h-lock 12s ease infinite;
+}
+
+/* FAQ plus turns into a cross */
+.h-faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+.h-faq summary::-webkit-details-marker {
+  display: none;
+}
+.h-faq .h-plus {
+  transition: transform 0.3s ease;
+}
+.h-faq[open] .h-plus {
+  transform: rotate(45deg);
+}
+
+/* bar chart grows */
+@keyframes h-grow {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.h-bar-grow {
+  transform-origin: bottom;
+  animation: h-grow 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* hide scrollbars on swipe rows */
+.h-noscroll {
+  scrollbar-width: none;
+}
+.h-noscroll::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h-beam-x,
+  .h-beam-y {
+    display: none;
+  }
+  .h-word,
+  .h-spin,
+  .h-ring,
+  .h-float,
+  .h-drift,
+  .h-marquee,
+  .h-feed,
+  .h-colour-line,
+  .h-rotate4,
+  .h-bar-grow,
+  .h-panel-in,
+  .h-panel-in .h-stagger,
+  .h-fade-in {
+    animation: none !important;
+  }
+  .h-alert {
+    animation: none;
+    opacity: 1;
+  }
+  .h-order {
+    animation: none;
+    opacity: 0;
+  }
+  .h-lock {
+    animation: none;
+  }
+}
+
+/* logo sits on a small white tile in dark mode */
+[data-theme="dark"] .dark-tile {
+  background: #ffffff;
+  border-radius: 7px;
+  padding: 2px;
+}
