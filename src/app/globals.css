@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* dark: utilities follow the site switch (data-theme), not the phone setting */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   /* Blueprint palette, recoloured to the Trueweb Cart brand marks */
   --ink: #0d163f;       /* brand navy — hero & footer ground */
@@ -36,8 +39,8 @@
   --color-cta-text: var(--cta-text);
   --color-line: var(--line);
   --color-muted: var(--muted);
-  --font-display: var(--font-jakarta);
-  --font-body: var(--font-jakarta);
+  --font-display: var(--font-jakarta), Arial, Helvetica, sans-serif;
+  --font-body: var(--font-jakarta), Arial, Helvetica, sans-serif;
 }
 
 body {
