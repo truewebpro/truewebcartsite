@@ -86,7 +86,7 @@ function Assistant() {
         <span className="w-8 h-8 rounded-full bg-[linear-gradient(135deg,#F5A524,#D92A04)]" />
         <span className="text-[15px] font-extrabold text-[var(--h-text)]">Shop assistant</span>
       </div>
-      <p className="mt-3 ml-auto w-fit max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-br-md bg-[#081F45] text-white text-[14px]">
+      <p className="mt-3 ml-auto w-fit max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-br-md bg-[#081F45] dark:bg-[#2A6DF4] text-white text-[14px]">
         Add customer reviews under my products
       </p>
       <p className="mt-2 w-fit max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-[#E3F4EA] text-[#0F5A36] text-[14px] font-bold">

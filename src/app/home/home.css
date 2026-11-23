@@ -632,3 +632,6 @@
   .m-fnd .s8-anim p { font-size: 16px !important; }
 }
 .m-tabs span { white-space: nowrap; flex-shrink: 0; }
+
+/* Customer chat bubbles: navy disappears on dark panels, so use blue there. */
+[data-theme="dark"] span[style*="16px 16px 4px 16px"][style*="#081F45" i] { background: #2A6DF4 !important; }

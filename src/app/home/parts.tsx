@@ -81,7 +81,7 @@ export function StartForm({ id, dark = false }: { id: string; dark?: boolean }) 
       <button type="submit" className="h-ring h-[58px] sm:h-[64px] px-8 rounded-full bg-cta text-white text-[18px] font-extrabold hover:bg-[#c02503] transition-colors shrink-0">
         Start Free Today
       </button>
-      <DaysBadge uid={id} className="!hidden sm:!inline-flex absolute sm:-right-3 sm:-top-14 sm:w-[84px] sm:h-[84px] lg:-right-12 lg:-top-16 lg:w-[96px] lg:h-[96px]" />
+      <DaysBadge uid={id} className="!hidden sm:!inline-flex absolute sm:-right-4 sm:-top-[72px] sm:w-[72px] sm:h-[72px] lg:-right-12 lg:-top-16 lg:w-[96px] lg:h-[96px]" />
     </form>
   );
 }
