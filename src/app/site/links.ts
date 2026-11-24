@@ -37,8 +37,8 @@ export const NAV: NavEntry[] = [
       {
         title: "Sell online",
         items: [
-          { label: "Online shop", line: "Sell anything, anywhere", href: "/online-shop", icon: "cart" },
-          { label: "Websites", line: "Pages for any business", href: "/websites", icon: "globe" },
+          { label: "Ecommerce Website", line: "Sell online with cart and payments", href: "/online-shop", icon: "cart" },
+          { label: "Business Website", line: "Show your business, no selling", href: "/websites", icon: "globe" },
           { label: "Templates", line: "Ready-made designs", href: "/websites#templates", icon: "layout" },
         ],
       },
@@ -104,7 +104,7 @@ export const NAV_LINKS = NAV.map((n) => ({ label: n.label, href: n.href }));
 /** Footer columns, as in the approved footer mockup. /blog, /about, /terms, /privacy and /cookies are still to be made. */
 export const FOOTER_COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
   {
-    title: "Online shop",
+    title: "Ecommerce Website",
     links: [
       { label: "Features", href: "/online-shop" },
       { label: "Shop builder", href: "/online-shop" },
@@ -115,7 +115,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
     ],
   },
   {
-    title: "Websites",
+    title: "Business Website",
     links: [
       { label: "Website builder", href: "/websites" },
       { label: "Templates", href: "/websites#templates" },

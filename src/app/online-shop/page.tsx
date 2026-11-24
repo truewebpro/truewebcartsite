@@ -6,7 +6,7 @@ import { Container, CtaBand, Eyebrow } from "../site/ui";
 import { SHOP_FEATURES } from "@/lib/features";
 
 export const metadata: Metadata = {
-  title: "Online shop features",
+  title: "Ecommerce Website features",
   description:
     "Products, checkout and payments, UK delivery, orders, loyalty, B2B trade and sales reps, an AI shop assistant and more, all in one admin.",
 };
@@ -16,7 +16,7 @@ export default function OnlineShopPage() {
     <PageShell>
       <section className="bg-navy text-white">
         <Container className="pt-20 pb-16">
-          <Eyebrow light>Online shop</Eyebrow>
+          <Eyebrow light>Ecommerce Website</Eyebrow>
           <h1 className="mt-4 font-display font-extrabold text-[40px] sm:text-[56px] leading-[1.06] max-w-[860px]">
             Every feature you need to sell online, to shoppers and to the trade.
           </h1>
