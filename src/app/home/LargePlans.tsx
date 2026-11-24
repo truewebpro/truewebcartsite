@@ -5,6 +5,9 @@ import Link from "next/link";
 import { type Catalog, type Plan, formatPrice, planLines } from "@/lib/catalog";
 import { SIGNUP_URL } from "../site/links";
 
+/** Super admin tools, not listed in the App Store yet: not named or counted on the site. */
+const NOT_LISTED = ["claude", "shopify"];
+
 /** Plans at or above this monthly price (pence) show here instead of in the 4 cards. */
 export const LARGE_FROM = 40000;
 
@@ -15,8 +18,8 @@ const COPY: Record<string, { tag: string; lines: (apps: number) => string[] }> =
       "Everything in Elite",
       `${apps} apps included`,
       "Write with AI and Shop assistant (5,000 chats a month)",
-      "Subscriptions and Claude connector",
-      "Dropship and Shopify import",
+      "Subscriptions",
+      "Dropship",
       "Priority support",
     ],
   },
@@ -50,7 +53,7 @@ export default function LargePlans({ catalog }: { catalog: Catalog }) {
   const plans = largePlans(catalog);
   if (!plans.length) return null;
   const top = plans[plans.length - 1].slug;
-  const included = (slug: string) => catalog.planApps.filter((pa) => pa.planSlug === slug && pa.status === "included").length;
+  const included = (slug: string) => catalog.planApps.filter((pa) => pa.planSlug === slug && pa.status === "included" && !NOT_LISTED.includes(pa.appKey)).length;
 
   return (
     <section className="relative overflow-hidden pb-16 sm:pb-20 bg-[#DCE6F7] dark:bg-[#0B2350]">
