@@ -5,7 +5,7 @@ import { Button, Container, CtaBand, Eyebrow } from "../site/ui";
 import { GO_LIVE_STEPS, SECTION_TYPES, TEMPLATES, WEBSITE_FEATURES } from "@/lib/features";
 
 export const metadata: Metadata = {
-  title: "Business websites and templates",
+  title: "Business Website: pages and templates",
   description:
     "A website for your restaurant, salon or service business: templates, sections, forms and booking requests, opening hours and a map. 5 and 10 page plans.",
 };
@@ -16,7 +16,7 @@ export default function WebsitesPage() {
       <section className="bg-navy text-white">
         <Container className="py-20 flex flex-wrap gap-12 items-center">
           <div className="flex-[1_1_520px] min-w-0">
-            <Eyebrow light>Websites</Eyebrow>
+            <Eyebrow light>Business Website</Eyebrow>
             <h1 className="mt-4 font-display font-extrabold text-[40px] sm:text-[56px] leading-[1.06]">
               A website for your business, without a cart or checkout.
             </h1>

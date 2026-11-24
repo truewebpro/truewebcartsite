@@ -145,8 +145,8 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
               value={kind}
               onChange={setKind}
               options={[
-                { value: "shop", label: "Online shop" },
-                { value: "website", label: "Website" },
+                { value: "shop", label: "Ecommerce Website" },
+                { value: "website", label: "Business Website" },
               ]}
             />
           )}
