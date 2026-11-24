@@ -5,6 +5,7 @@ import Stage from "./home/Stage";
 import Hero from "./home/Hero";
 import ShopBuilder from "./home/ShopBuilder";
 import Plans from "./home/Plans";
+import LargePlans from "./home/LargePlans";
 import Describe from "./home/Describe";
 import { Domains, Faqs, SignupBand } from "./home/Closing";
 import { TemplatesMobile, IntegrationsMobile, FoundationsMobile, AnalyticsMobile, MobileAppMobile } from "./home/MobilePieces";
@@ -32,6 +33,7 @@ export default async function Home() {
       <Stage name="Hero" light={<HeroLight />} dark={<HeroDark />} mobile={<Hero />} />
       <Stage name="Builder" light={<BuilderLight />} dark={<BuilderDark />} mobile={<ShopBuilder />} />
       <Stage name="Plans" id="plans" light={<PlansLight catalog={catalog} />} dark={<PlansDark catalog={catalog} />} mobile={<Plans catalog={catalog} />} />
+      <LargePlans catalog={catalog} />
       <Stage name="Describe" light={<DescribeLight />} dark={<DescribeDark />} mobile={<Describe />} />
       <Stage
         name="Templates"
