@@ -9,7 +9,7 @@ export function PlansLight({ catalog }: { catalog: Catalog }) {
   const href = (slug: string) => {
     const p = find(slug);
     if (!p || !p.signupReady || !catalog.signupUrl) return `/contact?plan=${slug}`;
-    return `${catalog.signupUrl}?${new URLSearchParams({ plan: p.slug, interval: "month" })}`;
+    return `${SIGNUP_URL}?${new URLSearchParams({ plan: p.slug })}`; // "Start 3 days free": the free trial
   };
   return (
 <div style={{ position: "relative", width: "1440px", height: "831px", overflow: "hidden", background: "linear-gradient(180deg, #FFFFFF 0%, #F3F6FC 50%, #DCE6F7 100%)", fontFamily: "'Plus Jakarta Sans', Arial, sans-serif", color: "#1C1E27" }}><div style={{ position: "absolute", left: "0", right: "0", top: "0", height: "880px", transform: "translateY(-8px)" }}>
@@ -39,7 +39,7 @@ export function PlansDark({ catalog }: { catalog: Catalog }) {
   const href = (slug: string) => {
     const p = find(slug);
     if (!p || !p.signupReady || !catalog.signupUrl) return `/contact?plan=${slug}`;
-    return `${catalog.signupUrl}?${new URLSearchParams({ plan: p.slug, interval: "month" })}`;
+    return `${SIGNUP_URL}?${new URLSearchParams({ plan: p.slug })}`; // "Start 3 days free": the free trial
   };
   return (
 <div style={{ position: "relative", width: "1440px", height: "831px", overflow: "hidden", background: "linear-gradient(180deg, #071633 0%, #0B2350 100%)", fontFamily: "'Plus Jakarta Sans', Arial, sans-serif", color: "#1C1E27" }}><div style={{ position: "absolute", left: "0", right: "0", top: "0", height: "880px", transform: "translateY(-8px)" }}>

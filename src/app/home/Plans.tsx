@@ -27,7 +27,7 @@ const BLOBS = [
 
 function chooseHref(catalog: Catalog, p: Plan) {
   if (!p.signupReady || !catalog.signupUrl) return `/contact?plan=${encodeURIComponent(p.slug)}`;
-  return `${catalog.signupUrl}?${new URLSearchParams({ plan: p.slug, interval: "month" })}`;
+  return `${SIGNUP_URL}?${new URLSearchParams({ plan: p.slug })}`; // "Start 3 days free": the free trial
 }
 
 function Card({
