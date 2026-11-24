@@ -1,6 +1,7 @@
 // src/app/site/links.ts
 export const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL ?? "https://admin.twcarts.com";
-export const SIGNUP_URL = `${ADMIN_URL}/signup`;
+/** "Start free" and the email boxes: the 3-day free trial, no card (admin.twcarts.com/signup/trial?email=). */
+export const SIGNUP_URL = `${ADMIN_URL}/signup/trial`;
 export const DEMO_SHOP_URL = process.env.NEXT_PUBLIC_DEMO_SHOP_URL ?? "https://www.twcarts.site";
 
 export type MenuIcon =
