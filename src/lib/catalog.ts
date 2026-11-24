@@ -155,7 +155,7 @@ export function planLines(catalog: Catalog, p: Plan): string[] {
   const lines: string[] = [];
 
   if (p.kind === "website") {
-    lines.push(p.pagesLimit ? `${p.pagesLimit} pages, home page counts` : "Unlimited pages");
+    lines.push(p.pagesLimit === 1 ? "1 page" : p.pagesLimit ? `${p.pagesLimit} pages, home page counts` : "Unlimited pages");
   } else {
     lines.push(p.productsLimit ? `${p.productsLimit.toLocaleString("en-GB")} products` : "Unlimited products");
   }
