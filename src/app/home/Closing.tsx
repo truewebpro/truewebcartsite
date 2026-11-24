@@ -48,7 +48,7 @@ const FAQS = [
   ["Do I need a credit card to start?", "No. You only add payment details when you choose a plan."],
   ["Can I sell to customers anywhere?", "Yes. Customers anywhere can visit your online shop and buy. You choose which countries you deliver to."],
   ["Can I use my own domain?", "Yes. Every plan includes a custom domain, so your online shop can live at your own address."],
-  ["Can I move my online shop from Shopify?", "Yes. The Shopify import app brings your products and customers over in a few steps."],
+  ["Can I move my online shop from Shopify?", "Yes. We move your products and customers from Shopify for you."],
   ["Is there a phone app?", "Yes. The TWCarts app for iPhone and Android lets you see orders, reply to customers and print labels on the go."],
   ["Can I cancel any time?", "Yes. There is no contract and no setup fee. Cancel from your account whenever you like."],
 ];

@@ -4,6 +4,7 @@
 import { Fragment, useState, type MouseEvent } from "react";
 import { Check } from "lucide-react";
 import { formatPrice, planLines, type Catalog, type Plan, type SiteKind } from "@/lib/catalog";
+import { LARGE_FROM } from "../home/LargePlans";
 
 type Interval = "monthly" | "yearly";
 
@@ -46,6 +47,10 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
   const yearly = interval === "yearly";
 
   const plans = catalog.plans.filter((p) => p.kind === kind);
+  // Enterprise and Unlimited (from £400 a month) get their own row, so the main row stays 3 or 4 cards
+  const isLarge = (p: Plan) => p.kind === "shop" && (p.monthlyPrice ?? 0) >= LARGE_FROM;
+  const small = plans.filter((p) => !isLarge(p));
+  const large = plans.filter(isLarge);
   const status = new Map(catalog.planApps.map((pa) => [`${pa.planSlug}:${pa.appKey}`, pa.status]));
   // website plans list only the apps that apply to them; apps on every plan are named once, above the table
   const apps = catalog.apps.filter(
@@ -61,6 +66,55 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
     if (!p.signupReady || !catalog.signupUrl) return `/contact?plan=${encodeURIComponent(p.slug)}`;
     const q = new URLSearchParams({ plan: p.slug, interval: yearly && p.yearlyPrice ? "year" : "month" });
     return `${catalog.signupUrl}?${q.toString()}`;
+  };
+
+  const card = (p: Plan) => {
+    const price = formatPrice(yearly ? p.yearlyPrice : p.monthlyPrice);
+    const dark = p.isPopular;
+    return (
+      <div
+        key={p.slug}
+        className={`rounded-3xl p-8 flex flex-col gap-4 border ${
+          dark ? "bg-navy text-white border-navy" : "bg-white text-graphite border-line"
+        }`}
+      >
+        <div className="flex justify-between items-center gap-3">
+          <h2 className="font-display font-extrabold text-[26px]">{p.name}</h2>
+          {p.isPopular && (
+            <span className="px-3 py-1 rounded-full bg-cta text-white text-[13px] font-semibold">Most popular</span>
+          )}
+        </div>
+        <p className="min-h-[56px] flex items-baseline gap-1.5">
+          {price ? (
+            <>
+              <span className="font-display font-extrabold text-[44px]">{price}</span>
+              <span className="text-base">{yearly ? "/year" : "/month"} + VAT</span>
+            </>
+          ) : yearly && p.monthlyPrice ? (
+            <span className="font-display font-bold text-xl">Monthly only</span>
+          ) : (
+            <span className="font-display font-bold text-2xl">Ask for a price</span>
+          )}
+        </p>
+        <a
+          href={chooseHref(p)}
+          onClick={addTracking}
+          className={`py-3.5 rounded-full text-center font-semibold transition-colors ${
+            dark ? "bg-cta text-white hover:bg-[#c02503]" : "bg-navy text-white hover:bg-navy-deep"
+          }`}
+        >
+          {p.signupReady ? `Start with ${p.name}` : `Ask about ${p.name}`}
+        </a>
+        <ul className="flex flex-col gap-2.5">
+          {planLines(catalog, p).map((h) => (
+            <li key={h} className="flex gap-2.5 text-[15px]">
+              <Check aria-hidden className="w-[18px] h-[18px] mt-0.5 shrink-0" strokeWidth={2.6} />
+              <span>{h}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   };
 
   // ad and social links (utm_*, gclid, fbclid) go on to the sign-up, so it knows where people came from
@@ -108,55 +162,15 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
         </div>
 
         <div className="mt-11 grid gap-5 grid-cols-[repeat(auto-fit,minmax(290px,1fr))] text-left">
-          {plans.map((p) => {
-            const price = formatPrice(yearly ? p.yearlyPrice : p.monthlyPrice);
-            const dark = p.isPopular;
-            return (
-              <div
-                key={p.slug}
-                className={`rounded-3xl p-8 flex flex-col gap-4 border ${
-                  dark ? "bg-navy text-white border-navy" : "bg-white text-graphite border-line"
-                }`}
-              >
-                <div className="flex justify-between items-center gap-3">
-                  <h2 className="font-display font-extrabold text-[26px]">{p.name}</h2>
-                  {p.isPopular && (
-                    <span className="px-3 py-1 rounded-full bg-cta text-white text-[13px] font-semibold">Most popular</span>
-                  )}
-                </div>
-                <p className="min-h-[56px] flex items-baseline gap-1.5">
-                  {price ? (
-                    <>
-                      <span className="font-display font-extrabold text-[44px]">{price}</span>
-                      <span className="text-base">{yearly ? "/year" : "/month"} + VAT</span>
-                    </>
-                  ) : yearly && p.monthlyPrice ? (
-                    <span className="font-display font-bold text-xl">Monthly only</span>
-                  ) : (
-                    <span className="font-display font-bold text-2xl">Ask for a price</span>
-                  )}
-                </p>
-                <a
-                  href={chooseHref(p)}
-                  onClick={addTracking}
-                  className={`py-3.5 rounded-full text-center font-semibold transition-colors ${
-                    dark ? "bg-cta text-white hover:bg-[#c02503]" : "bg-navy text-white hover:bg-navy-deep"
-                  }`}
-                >
-                  {p.signupReady ? `Start with ${p.name}` : `Ask about ${p.name}`}
-                </a>
-                <ul className="flex flex-col gap-2.5">
-                  {planLines(catalog, p).map((h) => (
-                    <li key={h} className="flex gap-2.5 text-[15px]">
-                      <Check aria-hidden className="w-[18px] h-[18px] mt-0.5 shrink-0" strokeWidth={2.6} />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+          {small.map(card)}
         </div>
+        {large.length > 0 && (
+          <>
+            <h2 className="mt-14 font-display font-extrabold text-[30px] sm:text-[36px] text-navy">For large businesses</h2>
+            <p className="mt-2 text-base text-muted">Every app, priority help and room to grow. Start with 3 days free.</p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2 text-left">{large.map(card)}</div>
+          </>
+        )}
         <p className="mt-5 text-sm text-muted">
           Prices exclude VAT. Upgrade or downgrade any time and the difference is worked out for you.
         </p>
