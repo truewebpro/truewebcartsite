@@ -17,7 +17,7 @@ const INCLUDES: [string, string][] = [
 const LINES: Record<string, { tag: string; lines: string[] }> = {
   basic: { tag: "For your first online shop", lines: ["Online shop and checkout", "Payments built in", "Delivery labels", "Product reviews", "Sign-up pop-up", "Google tools"] },
   ecommerce: { tag: "Grow your sales", lines: ["Everything in Basic", "Loyalty and rewards", "Pre-orders", "Write with AI", "Order risk checks", "Delivery protection"] },
-  elite: { tag: "Sell more, do less", lines: ["Everything in Ecommerce", "Subscriptions", "Shop assistant (AI chat)", "Claude connector", "Trade accounts (B2B)"] },
+  elite: { tag: "Sell more, do less", lines: ["Everything in Ecommerce", "Subscriptions", "Shop assistant (AI chat)", "VAT display switch", "Trade accounts (B2B)"] },
 };
 
 const BLOBS = [

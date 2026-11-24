@@ -37,6 +37,9 @@ export interface App {
   trialDays: number | null;
 }
 
+/** Super admin tools, not in the App Store yet: the site never names, lists or counts them. */
+export const NOT_LISTED = ["claude", "shopify"];
+
 export interface PlanApp {
   planSlug: string;
   appKey: string;
@@ -85,14 +88,12 @@ const APPS_SEED: App[] = [
   app("google", "Google", "marketing", "Search Console, Analytics, Merchant Center, Ads"),
   app("writer", "Write with AI", "marketing", "Descriptions and SEO text"),
   app("ava", "Shop assistant", "marketing", "AI chat that sells"),
-  app("claude", "Claude connector", "marketing", "Manage your shop from Claude"),
   app("age", "Age check", "protection", "18+ pop-up and photo ID"),
   app("risk", "Order risk", "protection", "Spot risky orders"),
   app("protect", "Delivery protection", "protection", "Cover lost and damaged parcels"),
   app("vip", "VIP access", "protection", "Products only some customers see"),
   app("sendcloud", "Sendcloud", "tools", "Labels and tracking"),
   app("emails", "Emails (Mailtrap)", "tools", "Send marketing emails"),
-  app("shopify", "Shopify import", "tools", "Bring products and customers over"),
 ];
 
 /** Lowest shop plan (1 Starter, 2 Growth, 3 Pro) that includes each app; lower plans get it as an add-on. */

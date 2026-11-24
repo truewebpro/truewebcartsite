@@ -1,5 +1,5 @@
 // src/lib/platform.ts
-import type { App, AppStatus, Catalog, Plan, PlanApp, SiteKind } from "./catalog";
+import { NOT_LISTED, type App, type AppStatus, type Catalog, type Plan, type PlanApp, type SiteKind } from "./catalog";
 
 /**
  * Reads plans and apps from the platform (super.twcarts.com/public-api/catalog), so prices and what each plan
@@ -77,7 +77,7 @@ export function toCatalog(raw: RawCatalog, source: Catalog["source"]): Catalog {
     isPopular: Boolean(p.is_popular),
     signupReady: Boolean(p.signup_ready),
   }));
-  const apps: App[] = raw.apps.map((a) => ({
+  const apps: App[] = raw.apps.filter((a) => !NOT_LISTED.includes(String(a.key))).map((a) => ({
     key: String(a.key),
     name: String(a.name),
     category: String(a.category),
@@ -91,7 +91,7 @@ export function toCatalog(raw: RawCatalog, source: Catalog["source"]): Catalog {
   }));
   const planApps: PlanApp[] = raw.plans.flatMap((p) =>
     Object.entries(p.apps ?? {})
-      .filter(([, mode]) => mode === "included" || mode === "addon")
+      .filter(([key, mode]) => (mode === "included" || mode === "addon") && !NOT_LISTED.includes(key))
       .map(([appKey, mode]) => ({ planSlug: String(p.slug), appKey, status: mode as AppStatus }))
   );
   return {
