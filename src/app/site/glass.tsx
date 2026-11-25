@@ -6,13 +6,7 @@ import Link from "next/link";
 import SectionBg from "../home/SectionBg";
 import { SIGNUP_URL } from "./links";
 
-const BLOBS = ["#FF8A5C", "#5B86D6", "#3DDC91", "#F5A524", "#A77BF3", "#2A6DF4"];
 export const COLS = ["#D92A04", "#2A6DF4", "#0F6B3A", "#6B3FA0", "#F5A524", "#0B2F66"];
-
-/** A soft colour blob that drifts behind the glass, so the glass picks up its colour. */
-export function Blob({ i, style }: { i: number; style: React.CSSProperties }) {
-  return <span aria-hidden className="gx-blob" style={{ background: BLOBS[((i % 6) + 6) % 6], ...style }} />;
-}
 
 export function Tick() {
   return (
@@ -122,7 +116,6 @@ export function Band({
 export function FaqPanel({ title, sub, items, name }: { title: string; sub: string; items: { q: string; a: string }[]; name: string }) {
   return (
     <div className="gx-faq">
-      <span aria-hidden className="gx-blob" style={{ width: 300, height: 300, background: "#2A6DF4", right: -80, top: -80, opacity: 0.35 }} />
       <div>
         <h2>{title}</h2>
         <p className="gx-s">{sub}</p>

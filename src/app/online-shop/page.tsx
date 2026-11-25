@@ -8,7 +8,7 @@ import { Box, CreditCard, Truck, ListChecks, Heart, Building2, MessageSquare, Br
 import PageShell from "../PageShell";
 import { SHOP_FEATURES } from "@/lib/features";
 import { SIGNUP_URL } from "../site/links";
-import { Band, Blob, COLS, GlassPage, Hero, Ico, Sec, Tick } from "../site/glass";
+import { Band, COLS, GlassPage, Hero, Ico, Sec, Tick } from "../site/glass";
 import ScrollTabs from "../site/ScrollTabs";
 
 export const metadata: Metadata = {
@@ -202,9 +202,6 @@ const WORKS = [
 function HeroShop() {
   return (
     <>
-      <Blob i={0} style={{ width: 300, height: 300, right: -40, top: -40 }} />
-      <Blob i={2} style={{ width: 280, height: 280, left: -40, bottom: -40, animationDelay: "-6s" }} />
-      <Blob i={1} style={{ width: 220, height: 220, left: "40%", top: "30%", animationDelay: "-10s" }} />
       <div className="gx-browser" aria-hidden>
         <div className="gx-top"><i /><i /><i /><span className="gx-url">bloomandco.twcarts.com</span></div>
         <div className="gx-shopnav"><b>Bloom &amp; Co</b><span>New in &nbsp; Gifts &nbsp; <span className="gx-cart">Cart (2)</span></span></div>
@@ -260,8 +257,6 @@ export default function OnlineShopPage() {
         {SHOP_FEATURES.map((g, i) => (
           <Sec key={g.id} tone={i % 2 ? "b" : "a"}>
             <section id={g.id} className={`gx-grp gx-lg ${i % 2 ? "gx-flip" : ""}`} aria-labelledby={`${g.id}-h`}>
-              <Blob i={i} style={i % 2 ? { left: -60, top: -50 } : { right: -60, top: -50 }} />
-              <Blob i={i + 2} style={{ ...(i % 2 ? { right: "20%" } : { left: "30%" }), bottom: -90, animationDelay: `-${i * 2}s` }} />
               <div className="gx-txt">
                 <Ico color={COLS[i % 6]}>{ICON[g.id] ?? <Box size={24} />}</Ico>
                 <h2 id={`${g.id}-h`}>{g.title}</h2>

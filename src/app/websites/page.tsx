@@ -9,7 +9,7 @@ import PageShell from "../PageShell";
 import { getCatalog } from "@/lib/db";
 import { WEBSITE_FEATURES, SECTION_TYPES, GO_LIVE_STEPS } from "@/lib/features";
 import { SIGNUP_URL } from "../site/links";
-import { Band, Blob, COLS, GlassPage, Heading, Hero, Ico, Sec } from "../site/glass";
+import { Band, COLS, GlassPage, Heading, Hero, Ico, Sec } from "../site/glass";
 import PlanCard from "../site/PlanCard";
 
 export const metadata: Metadata = {
@@ -29,8 +29,6 @@ const WEBSITE_SECTIONS = SECTION_TYPES.filter((s) => s !== "Featured products" &
 function HeroSite() {
   return (
     <>
-      <Blob i={3} style={{ width: 300, height: 300, right: -40, top: -40 }} />
-      <Blob i={4} style={{ width: 280, height: 280, left: -40, bottom: -40, animationDelay: "-6s" }} />
       <div className="gx-browser" aria-hidden>
         <div className="gx-top"><i /><i /><i /><span className="gx-url">marisol-kitchen.com</span></div>
         <div className="gx-shopnav" style={{ background: "#7A2E1F" }}>
@@ -91,7 +89,6 @@ export default async function WebsitesPage() {
           <div className="gx-cards gx-c3">
             {WEBSITE_FEATURES.map((f, i) => (
               <div key={f.title} className="gx-card gx-lg">
-                <Blob i={i} style={{ right: -50, top: -60 }} />
                 <Ico color={COLS[i % 6]}>{FEATURE_ICON[i]}</Ico>
                 <h3>{f.title}</h3>
                 <p>{f.text}</p>
@@ -102,8 +99,6 @@ export default async function WebsitesPage() {
 
         <Sec tone="b">
           <div className="gx-panel gx-lg">
-            <Blob i={1} style={{ left: -60, top: -60 }} />
-            <Blob i={3} style={{ right: "10%", bottom: -90 }} />
             <Heading title="Sections you can add to any page" sub="Press + between sections, pick one and see it live." />
             <div className="gx-chips">
               {WEBSITE_SECTIONS.map((s) => (
@@ -131,7 +126,6 @@ export default async function WebsitesPage() {
               </div>
             </div>
             <div className="gx-card gx-lg flex flex-col justify-center">
-              <Blob i={2} style={{ right: -50, bottom: -60 }} />
               <h3 className="!m-0">Need something specific?</h3>
               <p>Trades, clinics, studios and more on the way. We can also design one for you.</p>
               <Link className="gx-btn gx-g gx-sm mt-4 self-start" href="/contact">Talk to us</Link>
@@ -144,7 +138,6 @@ export default async function WebsitesPage() {
           <ol className="gx-cards gx-c4 list-none p-0">
             {GO_LIVE_STEPS.map((s, i) => (
               <li key={s.title} className="gx-card gx-lg">
-                <Blob i={i + 2} style={{ right: -60, bottom: -70 }} />
                 <span className="gx-num" aria-hidden>{i + 1}</span>
                 <h3>{s.title}</h3>
                 <p>{s.text}</p>

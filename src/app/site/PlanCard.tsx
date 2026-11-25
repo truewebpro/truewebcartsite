@@ -1,7 +1,7 @@
 // src/app/site/PlanCard.tsx
 // One plan as a liquid glass card. Used on the pricing page and the Business Website page.
 import { formatPrice, planLines, type Catalog, type Plan } from "@/lib/catalog";
-import { Blob, Tick } from "./glass";
+import { Tick } from "./glass";
 
 export function planHref(catalog: Catalog, p: Plan, yearly: boolean) {
   if (!p.signupReady || !catalog.signupUrl) return `/contact?plan=${encodeURIComponent(p.slug)}`;
@@ -47,10 +47,6 @@ export default function PlanCard({
   return (
     <div className={`gx-plan gx-lg ${pop ? "gx-pop" : ""}`}>
       {pop && <span className="gx-badge">Most popular</span>}
-      <div className="gx-clip" aria-hidden>
-        <Blob i={i} style={{ right: -60, top: -60 }} />
-        <Blob i={i + 2} style={{ left: -80, bottom: -90 }} />
-      </div>
       <h3>{p.name}</h3>
       {forLine && <p className="gx-for">{forLine}</p>}
       <div className="gx-price">

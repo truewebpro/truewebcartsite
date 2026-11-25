@@ -202,11 +202,8 @@ footer .gx-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10
 .gx-lg.gx-shine::after{animation:gxSheen 7s ease-in-out infinite}
 @keyframes gxSheen{0%,100%{opacity:.35;transform:translateX(-4%)}50%{opacity:.65;transform:translateX(4%)}}
 /* colourful blobs that move behind the glass */
-.gx-blob{position:absolute;border-radius:50%;filter:blur(90px) saturate(.8);opacity:.3;pointer-events:none;animation:gxDrift 22s ease-in-out infinite}
-[data-theme="dark"] .gx-blob{opacity:.22;mix-blend-mode:screen}
-@keyframes gxDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
-.gx-grp .gx-blob{width:420px;height:420px;z-index:-2}
-/* glass pills */
+[data-theme="dark"] @keyframes gxDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
+.gx-grp /* glass pills */
 .gx-lgp{position:relative;background:linear-gradient(140deg,var(--gx-lg-a),var(--gx-lg-b));-webkit-backdrop-filter:blur(18px) saturate(190%);backdrop-filter:blur(18px) saturate(190%);box-shadow:0 6px 16px rgba(11,47,102,.10),inset 0 1px 0 var(--gx-lg-rim),inset 0 -1px 0 rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.5)}
 [data-theme="dark"] .gx-lgp{border-color:rgba(255,255,255,.14)}
 .gx-tabs a.gx-on{background:linear-gradient(140deg,#16336B,#081F45)!important;color:#fff;box-shadow:0 8px 18px rgba(8,31,69,.3),inset 0 1px 0 rgba(255,255,255,.35)!important}
@@ -241,9 +238,7 @@ footer .gx-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10
 .gx-card{border-radius:24px;padding:26px;overflow:hidden}
 .gx-card h3,.gx-card .gx-card-h{margin:14px 0 0;color:var(--gx-text);font-size:20px;font-weight:800;letter-spacing:-.3px}
 .gx-card p{margin:8px 0 0;font-size:15px;line-height:1.55;color:var(--gx-muted)}
-.gx-card .gx-blob{width:300px;height:300px;z-index:-2;opacity:.2}
-[data-theme="dark"] .gx-card .gx-blob{opacity:.16}
-.gx-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.gx-card [data-theme="dark"] .gx-card .gx-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
 .gx-chips span{padding:9px 16px;border-radius:99px;font-size:14px;font-weight:700;color:var(--gx-text)}
 .gx-num{width:40px;height:40px;border-radius:99px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(140deg,#16336B,#081F45);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
 [data-theme="dark"] .gx-num{background:linear-gradient(140deg,#fff,#DCE6FF);color:#081F45}
@@ -274,8 +269,7 @@ footer .gx-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10
 .gx-plan li{display:flex;gap:9px;font-size:14.5px;color:var(--gx-body)}
 .gx-plan li svg{flex:none;margin-top:2px}
 .gx-plan li.gx-b{font-weight:800;color:var(--gx-text)}
-.gx-plan .gx-blob{width:340px;height:340px;z-index:-2}
-.gx-plan .gx-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-2}
+.gx-plan .gx-plan .gx-clip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-2}
 
 /* app table */
 .gx-tblwrap{margin-top:30px;border-radius:26px;overflow:hidden}
@@ -353,3 +347,15 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-plans>.gx-plan{flex:1 1 300px;max-width:380px}
 .gx-plans.gx-two>.gx-plan{max-width:440px}
 @media(min-width:1100px){.gx-plans.gx-four{display:grid;grid-template-columns:repeat(4,1fr)}.gx-plans.gx-four>.gx-plan{max-width:none}}
+
+/* shine sweep (agreed 25/11/2026): a soft white reflection glides across each glass card every few seconds.
+   Cards take turns so they never flash together. No colour blobs. */
+.gx-lg::after{inset:0;left:0;right:0;height:auto;border-radius:inherit;opacity:1;filter:none;
+ background:linear-gradient(115deg,transparent 0%,transparent 36%,rgba(150,180,235,.28) 44%,rgba(255,255,255,.95) 48%,rgba(150,180,235,.22) 53%,transparent 60%);
+ background-size:250% 100%;background-repeat:no-repeat;animation:gxSweep 6s ease-in-out infinite}
+[data-theme="dark"] .gx-lg::after{opacity:1;background:linear-gradient(115deg,transparent 0%,transparent 38%,rgba(255,255,255,.26) 48%,rgba(140,180,255,.1) 54%,transparent 62%);background-size:250% 100%;background-repeat:no-repeat}
+.gx-cards>.gx-lg:nth-child(3n+2)::after,.gx-plans>.gx-lg:nth-child(3n+2)::after{animation-delay:-2s}
+.gx-cards>.gx-lg:nth-child(3n)::after,.gx-plans>.gx-lg:nth-child(3n)::after{animation-delay:-4s}
+.gx-lg.gx-shine::after{animation:gxSweep 6s ease-in-out infinite}
+@keyframes gxSweep{0%{background-position:130% 0}55%,100%{background-position:-30% 0}}
+@media (prefers-reduced-motion:reduce){.gx-page *::after,.gx-page *::before{animation:none!important}}
