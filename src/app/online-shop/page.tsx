@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Box, CreditCard, Truck, ListChecks, Heart, Building2, MessageSquare, Brush, Search, BarChart3, ShoppingCart, Check } from "lucide-react";
+import { Box, CreditCard, Truck, ListChecks, Heart, Building2, MessageSquare, Brush, Search, BarChart3, ShoppingCart, Check, ChevronDown } from "lucide-react";
 import PageShell from "../PageShell";
 import { SHOP_FEATURES } from "@/lib/features";
 import { SIGNUP_URL } from "../site/links";
@@ -261,18 +261,33 @@ export default function OnlineShopPage() {
                 <Ico color={COLS[i % 6]}>{ICON[g.id] ?? <Box size={24} />}</Ico>
                 <h2 id={`${g.id}-h`}>{g.title}</h2>
                 <p className="gx-sub">{g.text}</p>
-                <ul>
-                  {g.items.map((it) => (
-                    <li key={it.text}>
+                <ul className="gx-keys">
+                  {g.keys.map((k) => (
+                    <li key={k}>
                       <Tick />
-                      <span>
-                        {it.text}
-                        {it.app && <span className="gx-tag">App</span>}
-                        {it.soon && <span className="gx-tag gx-s">Coming soon</span>}
-                      </span>
+                      <span>{k}</span>
                     </li>
                   ))}
                 </ul>
+                <details className="gx-all">
+                  <summary className="gx-lgp">
+                    <span className="gx-all-open">See all {g.items.length} features</span>
+                    <span className="gx-all-close">Show fewer</span>
+                    <ChevronDown size={15} strokeWidth={2.6} aria-hidden />
+                  </summary>
+                  <ul>
+                    {g.items.map((it) => (
+                      <li key={it.text}>
+                        <Tick />
+                        <span>
+                          {it.text}
+                          {it.app && <span className="gx-tag">App</span>}
+                          {it.soon && <span className="gx-tag gx-s">Coming soon</span>}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </div>
               <div className="gx-mini" aria-hidden>{MINI[g.id]}</div>
             </section>

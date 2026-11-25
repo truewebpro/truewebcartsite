@@ -12,6 +12,8 @@ export interface FeatureGroup {
   id: string;
   title: string;
   text: string;
+  /** The 3 key points shown on the card. The full list opens under "See all features". */
+  keys: [string, string, string];
   items: FeatureItem[];
 }
 
@@ -24,6 +26,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "catalogue",
     title: "Products and catalogue",
     text: "Add products your way: by hand, by spreadsheet or straight from Shopify.",
+    keys: ["Products with variants, options and photos", "Collections that fill themselves", "Import from a spreadsheet or Shopify"],
     items: [
       f("Products with variants, options and photos"),
       f("Brands, types and tags"),
@@ -41,6 +44,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "checkout",
     title: "Checkout and payments",
     text: "A quick checkout for guests and returning customers, with the payment provider you already use.",
+    keys: ["Guest checkout, account optional", "Card, PayPal and other payment providers", "Discount codes and store credit"],
     items: [
       f("Guest checkout, account optional"),
       f("Find address as you type"),
@@ -58,6 +62,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "delivery",
     title: "Delivery",
     text: "Set delivery by country or postcode, with labels and tracking from your Sendcloud account.",
+    keys: ["Delivery by country or postcode", "Free delivery over a set amount", "Labels and tracking with Sendcloud"],
     items: [
       f("Delivery zones by country or postcode"),
       f("Flat or price-based rates"),
@@ -71,6 +76,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "orders",
     title: "Orders",
     text: "Every order sits in exactly one stage, so your team always knows what to do next.",
+    keys: ["Clear stages from Pending to Delivered", "Pick lists, packing slips and invoices", "Abandoned carts and checkouts"],
     items: [
       f("Stages from Pending to Delivered"),
       f("Draft orders"),
@@ -85,6 +91,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "customers",
     title: "Customers and loyalty",
     text: "Bring customers back with rewards, reviews and timely emails.",
+    keys: ["Loyalty points and rewards", "Reviews with photos", "Back in stock alerts"],
     items: [
       f("Customer accounts with order history and invoices"),
       f("Email sign-ups saved as customers"),
@@ -101,6 +108,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "b2b",
     title: "Trade and sales reps",
     text: "Sell to trade customers on the same online shop, at their own prices.",
+    keys: ["Trade accounts with their own prices", "Bulk order form", "Sales reps with commission"],
     items: [
       a("Trade account applications"),
       a("Company prices per product and quantity"),
@@ -116,6 +124,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "ai",
     title: "AI assistant and Inbox",
     text: "Your shop assistant answers customers day and night, and your team picks up when a person is needed.",
+    keys: ["Answers customers day and night", "Suggests products and adds them to the cart", "Hand over to your team any time"],
     items: [
       a("Answers, product picks and add to cart"),
       a("Discount codes only when a customer hesitates"),
@@ -130,6 +139,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "design",
     title: "Shop design",
     text: "Change how your online shop looks without a developer.",
+    keys: ["Templates and ready sections", "Live preview as you edit", "Your colours, fonts and menus"],
     items: [
       f("Templates from the Store Builder"),
       f("Home page built from sections, with live preview"),
@@ -145,6 +155,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "marketing",
     title: "Marketing and Google",
     text: "Get found on Google and get reviewed.",
+    keys: ["Discount codes with rules", "Page titles and text for Google", "Google Analytics, Merchant Center and Ads"],
     items: [
       f("Discount codes with rules"),
       f("Page titles and meta text for every page"),
@@ -158,6 +169,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     id: "admin",
     title: "Admin, reports and phone app",
     text: "Know how your online shop is doing and let the right people in.",
+    keys: ["Live sales, orders and visitors", "Reports to CSV and PDF", "Admin app for iPhone and Android"],
     items: [
       f("Live sales, orders and visitors on your admin home"),
       f("Reports with CSV and PDF export"),
