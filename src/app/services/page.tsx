@@ -37,7 +37,7 @@ export default async function ServicesPage() {
 
         <Sec tone="a" id="all-services">
           <div className="gx-cards gx-c3 !mt-0">
-            {services.map((s, i) => (
+            {services.map((s) => (
               <Link key={s.slug} href={`/services/${s.slug}`} className="gx-card gx-lg gx-svc">
                 <span className="gx-gico"><ServiceIcon name={s.icon} className="w-6 h-6" /></span>
                 <h2 className="gx-card-h">{s.title}</h2>

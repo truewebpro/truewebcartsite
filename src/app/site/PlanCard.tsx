@@ -14,7 +14,6 @@ const pounds = (pence: number) => `£${Math.round(pence / 100).toLocaleString("e
 export default function PlanCard({
   catalog,
   plan: p,
-  i,
   yearly = false,
   popular,
   lines,
@@ -23,7 +22,7 @@ export default function PlanCard({
 }: {
   catalog: Catalog;
   plan: Plan;
-  i: number;
+  i?: number;
   yearly?: boolean;
   popular?: boolean;
   lines?: string[];
