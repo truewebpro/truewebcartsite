@@ -4,7 +4,6 @@
 import { useActionState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { submitContact, type ContactState } from "./actions";
-import { Blob } from "../site/glass";
 
 export interface ServiceOption {
   slug: string;
@@ -28,8 +27,6 @@ export default function ContactForm({ services, defaultService = "" }: { service
 
   return (
     <div className="gx-form gx-lg">
-      <Blob i={0} style={{ right: -70, top: -70 }} />
-      <Blob i={1} style={{ left: -70, bottom: -80 }} />
       {state.status === "success" ? (
         <div className="flex flex-col items-start gap-4 py-6" role="status">
           <CheckCircle2 className="w-10 h-10 text-[var(--gx-green)]" aria-hidden />

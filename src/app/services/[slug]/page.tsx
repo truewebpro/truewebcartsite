@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import PageShell from "../../PageShell";
 import ServiceIcon from "../../ServiceIcon";
 import { getServiceBySlug, getServices } from "@/lib/db";
-import { Arrow, Band, Blob, GlassPage, Sec, Tick } from "../../site/glass";
+import { Arrow, Band, GlassPage, Sec, Tick } from "../../site/glass";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -35,7 +35,6 @@ export default async function ServicePage({ params }: Props) {
               <p className="gx-lead !text-[21px] !font-semibold !text-[var(--gx-text)]">{service.tagline}</p>
               <p className="gx-lead">{service.description}</p>
               <div className="gx-panel gx-lg mt-8">
-                <Blob i={2} style={{ right: -60, top: -60 }} />
                 <h2 className="m-0 mb-4 text-[20px] font-extrabold text-[var(--gx-text)]">What&apos;s included</h2>
                 <ul className="list-none m-0 p-0 grid gap-3">
                   {service.features.map((f) => (

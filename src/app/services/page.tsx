@@ -5,7 +5,7 @@ import Link from "next/link";
 import PageShell from "../PageShell";
 import ServiceIcon from "../ServiceIcon";
 import { getServices } from "@/lib/db";
-import { Arrow, Band, Blob, GlassPage, Heading, Hero, Sec } from "../site/glass";
+import { Arrow, Band, GlassPage, Heading, Hero, Sec } from "../site/glass";
 
 export const metadata: Metadata = {
   title: "IT services",
@@ -37,9 +37,8 @@ export default async function ServicesPage() {
 
         <Sec tone="a" id="all-services">
           <div className="gx-cards gx-c3 !mt-0">
-            {services.map((s, i) => (
+            {services.map((s) => (
               <Link key={s.slug} href={`/services/${s.slug}`} className="gx-card gx-lg gx-svc">
-                <Blob i={i} style={{ right: -50, top: -60 }} />
                 <span className="gx-gico"><ServiceIcon name={s.icon} className="w-6 h-6" /></span>
                 <h2 className="gx-card-h">{s.title}</h2>
                 <p>{s.summary}</p>
@@ -47,7 +46,6 @@ export default async function ServicesPage() {
               </Link>
             ))}
             <div className="gx-card gx-lg flex flex-col justify-center">
-              <Blob i={4} style={{ left: -50, bottom: -60 }} />
               <h2 className="gx-card-h !m-0">Not sure which fits?</h2>
               <p>Tell us what you are trying to do and we will shape the solution.</p>
               <Link className="gx-btn gx-o gx-sm mt-4 self-start" href="/contact">Talk to us</Link>
@@ -60,7 +58,6 @@ export default async function ServicesPage() {
           <ol className="gx-cards gx-c4 list-none p-0">
             {HOW.map((s, i) => (
               <li key={s.t} className="gx-card gx-lg">
-                <Blob i={i + 1} style={{ right: -60, bottom: -70 }} />
                 <span className="gx-num" aria-hidden>{i + 1}</span>
                 <h3>{s.t}</h3>
                 <p>{s.d}</p>
