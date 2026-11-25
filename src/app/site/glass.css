@@ -370,3 +370,11 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-all>summary:focus-visible{outline:2px solid #2A6DF4;outline-offset:2px}
 .gx-all[open]>ul{animation:gxFadein .35s ease}
 @keyframes gxFadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* equal height plan cards (agreed 25/11/2026): every card in a row is as tall as the tallest,
+   the list grows and the button sits at the bottom so all buttons line up */
+.gx-plans{align-items:stretch}
+.gx-plans>.gx-plan{display:flex;flex-direction:column}
+.gx-plan>ul{flex:1;align-content:start}
+.gx-plan .gx-plan-btn{margin-top:24px}
+.gx-plans>.gx-plan:nth-child(3n+2)::after{animation-delay:-2s}
+.gx-plans>.gx-plan:nth-child(3n)::after{animation-delay:-4s}
