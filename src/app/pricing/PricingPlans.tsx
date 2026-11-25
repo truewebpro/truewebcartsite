@@ -46,7 +46,7 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
   const yearly = interval === "yearly";
 
   const plans = catalog.plans.filter((p) => p.kind === kind);
-  // Enterprise and Unlimited (from £400 a month) get their own row, so the main row stays 3 or 4 cards
+  // plans from £299 a month get their own "For large businesses" row, so the main row stays at 4 cards
   const isLarge = (p: Plan) => p.kind === "shop" && (p.monthlyPrice ?? 0) >= LARGE_FROM;
   const small = plans.filter((p) => !isLarge(p));
   const large = plans.filter(isLarge);
@@ -70,6 +70,9 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
     TRACKING_KEYS.forEach((k) => here.get(k) && url.searchParams.set(k, here.get(k) as string));
     link.href = url.toString();
   };
+
+  // 4 plans sit 4 in a row (2 by 2 on tablets), 2 plans sit side by side
+  const rowClass = (n: number) => (n === 2 ? "gx-two" : n === 4 ? "gx-four" : "");
 
   const card = (p: Plan, i: number) => <PlanCard key={p.slug} catalog={catalog} plan={p} i={i} yearly={yearly} onClick={addTracking} />;
 
@@ -106,13 +109,13 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
       </Hero>
 
       <Sec tone="a" id="plans">
-        <div className={`gx-plans ${small.length === 2 ? "gx-two" : ""} ${small.length >= 4 ? "gx-four" : ""}`}>{small.map(card)}</div>
+        <div className={`gx-plans ${rowClass(small.length)}`}>{small.map(card)}</div>
         {large.length > 0 && (
           <>
             <div className="mt-16">
               <Heading title="For large businesses" sub="Every app, priority help and room to grow. Start with 3 days free." />
             </div>
-            <div className="gx-plans gx-two">{large.map((p, i) => card(p, i + 3))}</div>
+            <div className={`gx-plans ${rowClass(large.length)}`}>{large.map((p, i) => card(p, i + 4))}</div>
           </>
         )}
         <p className="gx-h2sub gx-center !text-[14px]">Prices exclude VAT. Upgrade or downgrade any time and the difference is worked out for you.</p>
