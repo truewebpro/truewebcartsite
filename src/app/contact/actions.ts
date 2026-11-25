@@ -57,7 +57,7 @@ export async function submitContact(
   const fieldErrors: NonNullable<ContactState["fieldErrors"]> = {};
   if (name.length < 2 || name.length > 160) fieldErrors.name = "Please enter your name.";
   if (!EMAIL_RE.test(email) || email.length > 190) fieldErrors.email = "Please enter a valid email address.";
-  if (!service || !SLUG_RE.test(service)) fieldErrors.service = "Please choose a service.";
+  if (!service || !SLUG_RE.test(service)) fieldErrors.service = "Choose what your message is about.";
   if (message.length < 10) fieldErrors.message = "Please tell us a little more (at least 10 characters).";
   if (message.length > 5000) fieldErrors.message = "That message is a bit long, please shorten it.";
 

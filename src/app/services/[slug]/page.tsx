@@ -1,11 +1,12 @@
+// src/app/services/[slug]/page.tsx
+// One service, built from the approved liquid glass mockup.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
 import PageShell from "../../PageShell";
 import ServiceIcon from "../../ServiceIcon";
-import LightBeamButton from "../../LightBeamButton";
 import { getServiceBySlug, getServices } from "@/lib/db";
+import { Arrow, Band, Blob, GlassPage, Sec, Tick } from "../../site/glass";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -13,94 +14,66 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = await getServiceBySlug(slug);
   if (!service) return { title: "Service not found" };
-  return {
-    title: service.title,
-    description: service.summary,
-  };
+  return { title: service.title, description: service.summary };
 }
 
 export default async function ServicePage({ params }: Props) {
   const { slug } = await params;
   const [service, all] = await Promise.all([getServiceBySlug(slug), getServices()]);
   if (!service) notFound();
-
   const others = all.filter((s) => s.slug !== service.slug);
 
   return (
     <PageShell>
-      <section className="py-16 sm:py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <Link
-            href="/services"
-            className="inline-flex items-center gap-2 text-[14px] text-muted hover:text-[#0B2F66] transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" /> All services
-          </Link>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            <div className="lg:col-span-7">
-              <span className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B2F66] to-[#D92A04] text-white flex items-center justify-center mb-7">
-                <ServiceIcon name={service.icon} className="w-7 h-7" />
-              </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-navy tracking-tight leading-[1.08] mb-5">
-                {service.title}
-              </h1>
-              <p
-                className="text-[22px] text-navy italic leading-snug mb-7"
-              >
-                {service.tagline}
-              </p>
-              <p className="text-[17px] text-muted leading-relaxed mb-10">{service.description}</p>
-
-              <div className="bg-white rounded-[20px] p-8 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)]">
-                <h2 className="text-[13px] font-bold text-muted tracking-[0.2em] uppercase mb-6">
-                  What&apos;s included
-                </h2>
-                <ul className="flex flex-col gap-4">
+      <GlassPage>
+        <Sec tone="a">
+          <Link className="gx-back" href="/services"><Arrow back /> All services</Link>
+          <div className="gx-split">
+            <div>
+              <span className="gx-gico !w-[58px] !h-[58px]"><ServiceIcon name={service.icon} className="w-7 h-7" /></span>
+              <h1 className="gx-h1 !mt-5">{service.title}</h1>
+              <p className="gx-lead !text-[21px] !font-semibold !text-[var(--gx-text)]">{service.tagline}</p>
+              <p className="gx-lead">{service.description}</p>
+              <div className="gx-panel gx-lg mt-8">
+                <Blob i={2} style={{ right: -60, top: -60 }} />
+                <h2 className="m-0 mb-4 text-[20px] font-extrabold text-[var(--gx-text)]">What&apos;s included</h2>
+                <ul className="list-none m-0 p-0 grid gap-3">
                   {service.features.map((f) => (
-                    <li key={f} className="flex items-start gap-3 text-[16px] text-navy">
-                      <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full bg-[#0B2F66] text-white flex items-center justify-center">
-                        <Check className="w-3 h-3" strokeWidth={3} />
-                      </span>
-                      {f}
-                    </li>
+                    <li key={f} className="flex gap-2.5 text-[16px] text-[var(--gx-text)]"><Tick />{f}</li>
                   ))}
                 </ul>
               </div>
             </div>
-
-            <aside className="lg:col-span-5 lg:sticky lg:top-28 flex flex-col gap-6">
-              <div className="rounded-[20px] p-8 text-white bg-[radial-gradient(120%_90%_at_50%_0%,#1a2557_0%,#0B2F66_45%,#060a1f_100%)]">
-                <h2 className="text-[26px] font-extrabold leading-snug mb-3">Interested in {service.title}?</h2>
-                <p className="text-[15px] text-white/70 leading-relaxed mb-7">
-                  Tell us a little about your project and we&apos;ll come back with a clear, fixed quote.
-                </p>
-                <LightBeamButton href={`/contact?service=${service.slug}`}>Get a quote</LightBeamButton>
+            <aside className="grid gap-[18px]">
+              <div className="gx-quote">
+                <h2 className="gx-quote-h">Interested in {service.title}?</h2>
+                <p>Tell us a little about your project and we will come back with a clear, fixed quote.</p>
+                <Link className="gx-btn gx-o w-full" href={`/contact?service=${service.slug}`}>Get a quote</Link>
               </div>
-
               {others.length > 0 && (
-                <div className="bg-white rounded-[20px] p-6 border border-[#E4E4E5]">
-                  <h2 className="text-[13px] font-bold text-muted tracking-[0.2em] uppercase mb-4">
-                    Other services
-                  </h2>
-                  <ul className="flex flex-col">
+                <nav className="gx-panel gx-lg !p-6" aria-label="Other services">
+                  <h2 className="m-0 mb-1.5 text-[16px] font-extrabold text-[var(--gx-text)]">Other services</h2>
+                  <div className="gx-olist">
                     {others.map((s) => (
-                      <li key={s.slug}>
-                        <Link
-                          href={`/services/${s.slug}`}
-                          className="flex items-center justify-between py-3 text-[15px] text-neutral-700 hover:text-[#0B2F66] border-b border-neutral-100 last:border-0 transition-colors"
-                        >
-                          {s.title} <span aria-hidden="true">→</span>
-                        </Link>
-                      </li>
+                      <Link key={s.slug} href={`/services/${s.slug}`}>
+                        {s.title}
+                        <span aria-hidden>›</span>
+                      </Link>
                     ))}
-                  </ul>
-                </div>
+                  </div>
+                </nav>
               )}
             </aside>
           </div>
-        </div>
-      </section>
+        </Sec>
+        <Band
+          title="Have a project in mind?"
+          accent="Get a fixed quote."
+          text="Tell us what you need. We reply within one working day."
+          primary={{ href: `/contact?service=${service.slug}`, label: "Get a quote" }}
+          secondary={{ href: "/services", label: "See services" }}
+        />
+      </GlassPage>
     </PageShell>
   );
 }
