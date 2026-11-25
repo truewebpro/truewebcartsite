@@ -5,8 +5,8 @@ import Link from "next/link";
 import { type Catalog, type Plan, formatPrice, planLines } from "@/lib/catalog";
 import { SIGNUP_URL } from "../site/links";
 
-/** Plans at or above this monthly price (pence) show here instead of in the 4 cards. */
-export const LARGE_FROM = 40000;
+/** Plans at or above this monthly price (pence) go in the "For large businesses" row on the pricing page (from £299: Advanced, Business, Enterprise, Unlimited). */
+export const LARGE_FROM = 29900;
 
 const COPY: Record<string, { tag: string; lines: (apps: number) => string[] }> = {
   enterprise: {

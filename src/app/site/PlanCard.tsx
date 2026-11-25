@@ -59,9 +59,6 @@ export default function PlanCard({
         )}
       </div>
       <div className="gx-alt">{alt}</div>
-      <a className={`gx-btn ${pop ? "gx-o" : "gx-g"}`} href={planHref(catalog, p, yearly)} onClick={onClick}>
-        {p.signupReady ? "Start 3 days free" : `Ask about ${p.name}`}
-      </a>
       <ul>
         {items.map((l, k) => (
           <li key={l} className={k === 0 && l.startsWith("Everything") ? "gx-b" : ""}>
@@ -70,6 +67,9 @@ export default function PlanCard({
           </li>
         ))}
       </ul>
+      <a className={`gx-plan-btn gx-btn ${pop ? "gx-o" : "gx-g"}`} href={planHref(catalog, p, yearly)} onClick={onClick}>
+        {p.signupReady ? "Start 3 days free" : `Ask about ${p.name}`}
+      </a>
     </div>
   );
 }
