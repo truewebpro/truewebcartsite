@@ -201,9 +201,7 @@ footer .gx-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10
 [data-theme="dark"] .gx-lg::after{opacity:.18}
 .gx-lg.gx-shine::after{animation:gxSheen 7s ease-in-out infinite}
 @keyframes gxSheen{0%,100%{opacity:.35;transform:translateX(-4%)}50%{opacity:.65;transform:translateX(4%)}}
-/* colourful blobs that move behind the glass */
-[data-theme="dark"] @keyframes gxDrift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
-.gx-grp /* glass pills */
+/* glass pills */
 .gx-lgp{position:relative;background:linear-gradient(140deg,var(--gx-lg-a),var(--gx-lg-b));-webkit-backdrop-filter:blur(18px) saturate(190%);backdrop-filter:blur(18px) saturate(190%);box-shadow:0 6px 16px rgba(11,47,102,.10),inset 0 1px 0 var(--gx-lg-rim),inset 0 -1px 0 rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.5)}
 [data-theme="dark"] .gx-lgp{border-color:rgba(255,255,255,.14)}
 .gx-tabs a.gx-on{background:linear-gradient(140deg,#16336B,#081F45)!important;color:#fff;box-shadow:0 8px 18px rgba(8,31,69,.3),inset 0 1px 0 rgba(255,255,255,.35)!important}
