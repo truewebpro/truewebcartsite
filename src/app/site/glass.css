@@ -357,3 +357,16 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-lg.gx-shine::after{animation:gxSweep 6s ease-in-out infinite}
 @keyframes gxSweep{0%{background-position:130% 0}55%,100%{background-position:-30% 0}}
 @media (prefers-reduced-motion:reduce){.gx-page *::after,.gx-page *::before{animation:none!important}}
+/* short feature cards (agreed 25/11/2026): 3 key points, full list under "See all features" */
+.gx-grp ul.gx-keys{grid-template-columns:1fr;margin-top:18px}
+.gx-grp ul.gx-keys li{font-size:15px}
+.gx-all{margin-top:16px}
+.gx-all>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:99px;font-size:13.5px;font-weight:800;color:var(--gx-text)}
+.gx-all>summary::-webkit-details-marker{display:none}
+.gx-all>summary svg{transition:transform .25s}
+.gx-all[open]>summary svg{transform:rotate(180deg)}
+.gx-all .gx-all-close,.gx-all[open] .gx-all-open{display:none}
+.gx-all[open] .gx-all-close{display:inline}
+.gx-all>summary:focus-visible{outline:2px solid #2A6DF4;outline-offset:2px}
+.gx-all[open]>ul{animation:gxFadein .35s ease}
+@keyframes gxFadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
