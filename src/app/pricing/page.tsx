@@ -1,16 +1,17 @@
 // src/app/pricing/page.tsx
+// Pricing page, built from the approved liquid glass mockup. Plans and apps come from super admin.
 import type { Metadata } from "next";
 import PageShell from "../PageShell";
-import { Container } from "../site/ui";
 import PricingPlans from "./PricingPlans";
 import { getCatalog } from "@/lib/db";
 import { PLAN_FAQ } from "@/lib/features";
 import type { SiteKind } from "@/lib/catalog";
+import { Band, FaqPanel, GlassPage, Sec } from "../site/glass";
 
 export const metadata: Metadata = {
   title: "Pricing, plans and apps",
   description:
-    "Plans for online shops and business websites, monthly or yearly with 2 months free, plus apps you can add on their own.",
+    "Plans for Ecommerce Websites and Business Websites, monthly or yearly with 2 months free, plus apps you can add on their own.",
 };
 
 type Props = { searchParams: Promise<{ kind?: string | string[] }> };
@@ -21,19 +22,13 @@ export default async function PricingPage({ searchParams }: Props) {
 
   return (
     <PageShell>
-      <PricingPlans catalog={catalog} initialKind={kind} />
-
-      <Container className="pt-12 pb-24">
-        <h2 className="font-display font-extrabold text-4xl text-navy">Questions about plans</h2>
-        <div className="mt-7 grid gap-4 grid-cols-[repeat(auto-fit,minmax(320px,1fr))]">
-          {PLAN_FAQ.map((q) => (
-            <div key={q.q} className="bg-white border border-line rounded-[18px] p-6">
-              <h3 className="text-[17px] font-semibold text-navy">{q.q}</h3>
-              <p className="mt-2 text-base leading-relaxed text-muted">{q.a}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
+      <GlassPage>
+        <PricingPlans catalog={catalog} initialKind={kind} />
+        <Sec tone="a">
+          <FaqPanel name="plan-faq" title="Questions about plans" sub="Still not sure? Talk to us and we will help you pick." items={PLAN_FAQ} />
+        </Sec>
+        <Band title="Open your online shop today." accent="Pay nothing for 3 days." text="No credit card required. Cancel any time." secondary={{ href: "/contact", label: "Talk to us" }} />
+      </GlassPage>
     </PageShell>
   );
 }

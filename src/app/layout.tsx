@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import "./home/home.css";
 import "./home/mock.css";
+import "./site/glass.css";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",

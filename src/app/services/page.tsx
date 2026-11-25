@@ -1,67 +1,82 @@
+// src/app/services/page.tsx
+// Services page, built from the approved liquid glass mockup. Services come from the database.
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import PageShell from "../PageShell";
 import ServiceIcon from "../ServiceIcon";
-import LightBeamButton from "../LightBeamButton";
 import { getServices } from "@/lib/db";
+import { Arrow, Band, Blob, GlassPage, Heading, Hero, Sec } from "../site/glass";
 
 export const metadata: Metadata = {
   title: "IT services",
-  description:
-    "Web design and development, e-commerce, custom software, SEO and ongoing support from Trueweb Cart.",
+  description: "Web design and development, ecommerce, custom software, SEO and ongoing support from TrueWeb Pro.",
 };
+
+const HOW = [
+  { t: "Tell us the problem", d: "A short call or message about what you want to achieve." },
+  { t: "Get a fixed quote", d: "A clear price and timeline, so there are no surprises." },
+  { t: "We build it", d: "You see progress early and often, and say what to change." },
+  { t: "We look after it", d: "Hosting, fixes and changes from a named contact." },
+];
 
 export default async function ServicesPage() {
   const services = await getServices();
 
   return (
     <PageShell>
-      <section className="py-16 sm:py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="max-w-2xl mb-14">
-            <span className="text-[13px] font-medium text-muted tracking-[0.08em] uppercase mb-5 block">
-              Our Services
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-[60px] font-extrabold text-navy tracking-tight leading-[1.08] mb-6">
-              IT services,{" "}
-              <span
-                className="text-cta-text"
-              >
-                built around your business.
-              </span>
-            </h1>
-            <p className="text-[17px] text-muted leading-relaxed">
-              From a first website to a custom platform and the support that keeps it running , 
-              pick what you need, or bring us the problem and we&apos;ll shape the solution.
-            </p>
+      <GlassPage>
+        <Hero>
+          <span className="gx-pill">TrueWeb Pro services</span>
+          <h1 className="gx-h1">IT services, built around your business.</h1>
+          <p className="gx-lead">From a first website to a custom platform, and the support that keeps it running. Pick what you need, or bring us the problem.</p>
+          <div className="gx-cta justify-center">
+            <Link className="gx-btn gx-o" href="/contact">Get a quote</Link>
+            <Link className="gx-btn gx-g" href="#all-services">See services</Link>
           </div>
+        </Hero>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/services/${s.slug}`}
-                className="group bg-white rounded-[20px] p-8 border border-[#E4E4E5] shadow-[0_10px_40px_rgba(0,0,0,0.02)] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(13,22,63,0.10)] transition-all duration-300 flex flex-col"
-              >
-                <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0B2F66] to-[#D92A04] text-white flex items-center justify-center mb-6">
-                  <ServiceIcon name={s.icon} className="w-6 h-6" />
-                </span>
-                <h2 className="text-[22px] font-medium text-navy mb-3 leading-snug">{s.title}</h2>
-                <p className="text-[15px] text-muted leading-relaxed mb-6 flex-1">{s.summary}</p>
-                <span className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0B2F66] group-hover:gap-2.5 transition-all">
-                  Learn more <ArrowRight className="w-4 h-4" />
-                </span>
+        <Sec tone="a" id="all-services">
+          <div className="gx-cards gx-c3 !mt-0">
+            {services.map((s, i) => (
+              <Link key={s.slug} href={`/services/${s.slug}`} className="gx-card gx-lg gx-svc">
+                <Blob i={i} style={{ right: -50, top: -60 }} />
+                <span className="gx-gico"><ServiceIcon name={s.icon} className="w-6 h-6" /></span>
+                <h2 className="gx-card-h">{s.title}</h2>
+                <p>{s.summary}</p>
+                <span className="gx-more">Learn more <Arrow /></span>
               </Link>
             ))}
+            <div className="gx-card gx-lg flex flex-col justify-center">
+              <Blob i={4} style={{ left: -50, bottom: -60 }} />
+              <h2 className="gx-card-h !m-0">Not sure which fits?</h2>
+              <p>Tell us what you are trying to do and we will shape the solution.</p>
+              <Link className="gx-btn gx-o gx-sm mt-4 self-start" href="/contact">Talk to us</Link>
+            </div>
           </div>
+        </Sec>
 
-          <div className="mt-16 mb-6 flex flex-col items-center text-center gap-5">
-            <p className="text-[17px] text-muted">Not sure which service fits? Tell us what you&apos;re trying to do.</p>
-            <LightBeamButton href="/contact">Talk to us</LightBeamButton>
-          </div>
-        </div>
-      </section>
+        <Sec tone="b">
+          <Heading title="How we work" />
+          <ol className="gx-cards gx-c4 list-none p-0">
+            {HOW.map((s, i) => (
+              <li key={s.t} className="gx-card gx-lg">
+                <Blob i={i + 1} style={{ right: -60, bottom: -70 }} />
+                <span className="gx-num" aria-hidden>{i + 1}</span>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+              </li>
+            ))}
+          </ol>
+        </Sec>
+
+        <Band
+          title="Have a project in mind?"
+          accent="Get a fixed quote."
+          text="Tell us what you need. We reply within one working day."
+          primary={{ href: "/contact", label: "Get a quote" }}
+          secondary={{ href: "#all-services", label: "See services" }}
+        />
+      </GlassPage>
     </PageShell>
   );
 }

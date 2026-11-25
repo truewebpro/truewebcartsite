@@ -43,7 +43,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
     text: "A quick checkout for guests and returning customers, with the payment provider you already use.",
     items: [
       f("Guest checkout, account optional"),
-      f("Find address by house number and postcode"),
+      f("Find address as you type"),
       f("Worldpay, Viva Wallet, CyberSource, PayPal and Stripe"),
       f("Bank transfer orders"),
       f("Refunds from the admin"),
@@ -57,14 +57,14 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   {
     id: "delivery",
     title: "Delivery",
-    text: "UK delivery set up by postcode, with labels and tracking from your Sendcloud account.",
+    text: "Set delivery by country or postcode, with labels and tracking from your Sendcloud account.",
     items: [
-      f("Delivery zones by postcode"),
+      f("Delivery zones by country or postcode"),
       f("Flat or price-based rates"),
       f("Free delivery over a set amount"),
       f("Click and Collect from your locations"),
       f("Tracking links on every order"),
-      a("Sendcloud labels for Royal Mail and DPD"),
+      a("Sendcloud labels for your carriers"),
     ],
   },
   {
@@ -99,8 +99,8 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   },
   {
     id: "b2b",
-    title: "B2B trade and sales reps",
-    text: "Sell to trade customers on the same shop, at their own prices.",
+    title: "Trade and sales reps",
+    text: "Sell to trade customers on the same online shop, at their own prices.",
     items: [
       a("Trade account applications"),
       a("Company prices per product and quantity"),
@@ -115,13 +115,13 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   {
     id: "ai",
     title: "AI assistant and Inbox",
-    text: "Ava answers customers day and night, and your team picks up when a person is needed.",
+    text: "Your shop assistant answers customers day and night, and your team picks up when a person is needed.",
     items: [
-      a("Ava: answers, product picks, add to cart"),
+      a("Answers, product picks and add to cart"),
       a("Discount codes only when a customer hesitates"),
       a("Voice questions"),
       f("Inbox for website chats with saved replies"),
-      f("Take over a chat or hand it back to Ava"),
+      f("Take over a chat or hand it back"),
       f("Ask TrueWebCart: help inside your admin"),
       soon("Email, WhatsApp and Messenger in the Inbox"),
     ],
@@ -129,7 +129,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   {
     id: "design",
     title: "Shop design",
-    text: "Change how your shop looks without a developer.",
+    text: "Change how your online shop looks without a developer.",
     items: [
       f("Templates from the Store Builder"),
       f("Home page built from sections, with live preview"),
@@ -144,7 +144,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   {
     id: "marketing",
     title: "Marketing and Google",
-    text: "Get found and get reviewed.",
+    text: "Get found on Google and get reviewed.",
     items: [
       f("Discount codes with rules"),
       f("Page titles and meta text for every page"),
@@ -157,7 +157,7 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   {
     id: "admin",
     title: "Admin, reports and phone app",
-    text: "Know how the shop is doing and let the right people in.",
+    text: "Know how your online shop is doing and let the right people in.",
     items: [
       f("Live sales, orders and visitors on your admin home"),
       f("Reports with CSV and PDF export"),
@@ -177,7 +177,7 @@ export const WEBSITE_FEATURES = [
   { title: "Photo gallery and cards", text: "Show your work, rooms or dishes in galleries and photo cards." },
   { title: "Reviews", text: "Show what your customers say, with Google Reviews coming soon." },
   { title: "Blog and news", text: "Post news and articles, each with its own page title for search." },
-  { title: "AI assistant", text: "Ava answers questions about your business and takes details for you." },
+  { title: "AI assistant", text: "Your assistant answers questions about your business and takes details for you." },
 ];
 
 export const SECTION_TYPES = [
@@ -198,10 +198,10 @@ export const GO_LIVE_STEPS = [
 ];
 
 export const PLAN_FAQ = [
-  { q: "Is there a free trial?", a: "Apps have free trials. When a trial ends the app carries on as a paid add-on, and we remind you 3 days before." },
+  { q: "Is there a free trial?", a: "Yes. Every plan starts with 3 days free and no credit card. Pick a plan any time to keep your online shop or website." },
   { q: "Can I change plan later?", a: "Yes. When you upgrade you only pay the difference for the rest of the period. Add-ons your new plan includes are removed and credited." },
-  { q: "What if a payment fails?", a: "Your shop stays open. You have 7 days to update your card before paid apps switch off. Nothing is deleted." },
-  { q: "Can I cancel?", a: "Yes. Your shop stays open until the end of the paid period and your data is kept for 90 days." },
+  { q: "What if a payment fails?", a: "Your online shop stays open. You have 7 days to update your card before paid apps switch off. Nothing is deleted." },
+  { q: "Can I cancel?", a: "Yes. Your online shop stays open until the end of the paid period and your data is kept for 90 days." },
   { q: "How do I pay?", a: "By card through Stripe. Your card details never reach us. Bills and invoices are in your admin." },
-  { q: "Who sets up my shop?", a: "We do. We build it behind a password page, hand it over to you, and it opens when you choose a plan." },
+  { q: "Who sets up my online shop?", a: "You can, in about 5 minutes. Or we build it for you behind a password page and hand it over." },
 ];

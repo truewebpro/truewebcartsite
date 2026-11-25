@@ -2,8 +2,9 @@
 "use client";
 
 import { Fragment, useState, type MouseEvent } from "react";
-import { Check } from "lucide-react";
-import { formatPrice, planLines, type Catalog, type Plan, type SiteKind } from "@/lib/catalog";
+import { formatPrice, type Catalog, type Plan, type SiteKind } from "@/lib/catalog";
+import { Hero, Sec, Heading } from "../site/glass";
+import PlanCard from "../site/PlanCard";
 import { LARGE_FROM } from "../home/LargePlans";
 
 type Interval = "monthly" | "yearly";
@@ -22,16 +23,14 @@ function Toggle<T extends string>({
   onChange: (v: T) => void;
 }) {
   return (
-    <div role="group" aria-label={label} className="inline-flex p-1.5 rounded-full bg-white border border-line">
+    <div role="group" aria-label={label} className="gx-tog gx-lgp">
       {options.map((o) => (
         <button
           key={o.value}
           type="button"
           aria-pressed={value === o.value}
           onClick={() => onChange(o.value)}
-          className={`px-5 py-2.5 rounded-full text-[15px] font-semibold transition-colors ${
-            value === o.value ? "bg-navy text-white" : "text-graphite hover:bg-navy/5"
-          }`}
+          className={value === o.value ? "gx-on" : ""}
         >
           {o.label}
         </button>
@@ -62,61 +61,6 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
     ...[...new Set(apps.map((a) => a.category))].filter((c) => !(c in catalog.categories)),
   ];
 
-  const chooseHref = (p: Plan) => {
-    if (!p.signupReady || !catalog.signupUrl) return `/contact?plan=${encodeURIComponent(p.slug)}`;
-    const q = new URLSearchParams({ plan: p.slug, interval: yearly && p.yearlyPrice ? "year" : "month" });
-    return `${catalog.signupUrl}?${q.toString()}`;
-  };
-
-  const card = (p: Plan) => {
-    const price = formatPrice(yearly ? p.yearlyPrice : p.monthlyPrice);
-    const dark = p.isPopular;
-    return (
-      <div
-        key={p.slug}
-        className={`rounded-3xl p-8 flex flex-col gap-4 border ${
-          dark ? "bg-navy text-white border-navy" : "bg-white text-graphite border-line"
-        }`}
-      >
-        <div className="flex justify-between items-center gap-3">
-          <h2 className="font-display font-extrabold text-[26px]">{p.name}</h2>
-          {p.isPopular && (
-            <span className="px-3 py-1 rounded-full bg-cta text-white text-[13px] font-semibold">Most popular</span>
-          )}
-        </div>
-        <p className="min-h-[56px] flex items-baseline gap-1.5">
-          {price ? (
-            <>
-              <span className="font-display font-extrabold text-[44px]">{price}</span>
-              <span className="text-base">{yearly ? "/year" : "/month"} + VAT</span>
-            </>
-          ) : yearly && p.monthlyPrice ? (
-            <span className="font-display font-bold text-xl">Monthly only</span>
-          ) : (
-            <span className="font-display font-bold text-2xl">Ask for a price</span>
-          )}
-        </p>
-        <a
-          href={chooseHref(p)}
-          onClick={addTracking}
-          className={`py-3.5 rounded-full text-center font-semibold transition-colors ${
-            dark ? "bg-cta text-white hover:bg-[#c02503]" : "bg-navy text-white hover:bg-navy-deep"
-          }`}
-        >
-          {p.signupReady ? `Start with ${p.name}` : `Ask about ${p.name}`}
-        </a>
-        <ul className="flex flex-col gap-2.5">
-          {planLines(catalog, p).map((h) => (
-            <li key={h} className="flex gap-2.5 text-[15px]">
-              <Check aria-hidden className="w-[18px] h-[18px] mt-0.5 shrink-0" strokeWidth={2.6} />
-              <span>{h}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  };
-
   // ad and social links (utm_*, gclid, fbclid) go on to the sign-up, so it knows where people came from
   const addTracking = (e: MouseEvent<HTMLAnchorElement>) => {
     const link = e.currentTarget;
@@ -127,18 +71,17 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
     link.href = url.toString();
   };
 
+  const card = (p: Plan, i: number) => <PlanCard key={p.slug} catalog={catalog} plan={p} i={i} yearly={yearly} onClick={addTracking} />;
+
   return (
     <>
-      <section id="plans" className="max-w-[1240px] mx-auto px-6 pt-18 sm:pt-20 pb-10 text-center">
-        <h1 className="font-display font-extrabold text-[40px] sm:text-[52px] leading-[1.08] text-navy">
-          Simple plans. Add apps when you need them.
-        </h1>
-        <p className="mt-4 mx-auto max-w-[640px] text-lg leading-relaxed text-muted">
-          Every plan includes hosting, SSL, your own domain, the admin app and support. Pay monthly, or yearly and get
-          2 months free.
+      <Hero>
+        <span className="gx-pill">3 days free on every plan</span>
+        <h1 className="gx-h1">Simple plans. Add apps when you need them.</h1>
+        <p className="gx-lead">
+          Every plan includes hosting, SSL, your own domain, the admin app and support. Pay monthly, or yearly and get 2 months free.
         </p>
-
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
+        <div className="gx-cta flex-col items-center !gap-3">
           {hasWebsites && (
             <Toggle
               label="Kind of site"
@@ -160,105 +103,94 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
             ]}
           />
         </div>
+      </Hero>
 
-        <div className="mt-11 grid gap-5 grid-cols-[repeat(auto-fit,minmax(290px,1fr))] text-left">
-          {small.map(card)}
-        </div>
+      <Sec tone="a" id="plans">
+        <div className={`gx-plans ${small.length === 2 ? "gx-two" : ""} ${small.length >= 4 ? "gx-four" : ""}`}>{small.map(card)}</div>
         {large.length > 0 && (
           <>
-            <h2 className="mt-14 font-display font-extrabold text-[30px] sm:text-[36px] text-navy">For large businesses</h2>
-            <p className="mt-2 text-base text-muted">Every app, priority help and room to grow. Start with 3 days free.</p>
-            <div className="mt-8 grid gap-5 md:grid-cols-2 text-left">{large.map(card)}</div>
+            <div className="mt-16">
+              <Heading title="For large businesses" sub="Every app, priority help and room to grow. Start with 3 days free." />
+            </div>
+            <div className="gx-plans gx-two">{large.map((p, i) => card(p, i + 3))}</div>
           </>
         )}
-        <p className="mt-5 text-sm text-muted">
-          Prices exclude VAT. Upgrade or downgrade any time and the difference is worked out for you.
-        </p>
-      </section>
+        <p className="gx-h2sub gx-center !text-[14px]">Prices exclude VAT. Upgrade or downgrade any time and the difference is worked out for you.</p>
+      </Sec>
 
-      <section id="apps" className="scroll-mt-24 max-w-[1240px] mx-auto px-6 py-12">
-        <h2 className="font-display font-extrabold text-4xl text-navy">Apps in each plan</h2>
-        <p className="mt-2.5 max-w-[720px] text-base leading-relaxed text-muted">
-          Apps not in your plan can be added on their own, monthly or yearly, and many have a free trial.
-          {everyPlan.length > 0 && ` Every plan includes ${everyPlan.map((a) => a.name).join(" and ")}.`}
-        </p>
-        <div className="mt-7 bg-white border border-line rounded-[22px] overflow-x-auto">
-          <table className="w-full min-w-[720px] border-collapse text-[15px]">
-            <thead>
-              <tr className="bg-[#F1EEE6] text-left">
-                <th scope="col" className="px-5 py-4 font-semibold">App</th>
-                {plans.map((p) => (
-                  <th key={p.slug} scope="col" className="px-5 py-4 font-semibold w-[140px]">
-                    {p.name}
-                  </th>
-                ))}
-                <th scope="col" className="px-5 py-4 font-semibold w-[200px]">On its own</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categoryKeys.map((cat) => (
-                <Fragment key={cat}>
-                  <tr>
-                    <th
-                      scope="rowgroup"
-                      colSpan={plans.length + 2}
-                      className="px-5 pt-5 pb-2 text-left font-display text-[17px] text-cta-text border-t border-line"
-                    >
-                      {catalog.categories[cat] ?? cat}
-                    </th>
-                  </tr>
-                  {apps
-                    .filter((a) => a.category === cat)
-                    .map((a) => {
-                      const addon = formatPrice(yearly ? a.addonYearly : a.addonMonthly);
-                      return (
-                        <tr key={a.key} className="border-t border-[#EFEBE2]">
-                          <th scope="row" className="px-5 py-3 text-left font-normal">
-                            <span className="flex items-center gap-3">
-                              {a.icon ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={a.icon} alt="" width={28} height={28} loading="lazy" className="w-7 h-7 rounded-lg object-contain shrink-0" />
-                              ) : (
-                                <span aria-hidden className="w-7 h-7 rounded-lg bg-[#EEF2FA] shrink-0" />
-                              )}
-                              <span>
-                                <span className="block font-semibold text-navy">{a.name}</span>
-                                {a.line && <span className="block mt-0.5 text-[13px] text-muted">{a.line}</span>}
+      <Sec tone="b" id="apps">
+        <Heading
+          title="Apps in each plan"
+          sub={`Apps not in your plan can be added on their own, monthly or yearly, and many have a free trial.${
+            everyPlan.length > 0 ? ` Every plan includes ${everyPlan.map((a) => a.name).join(" and ")}.` : ""
+          }`}
+        />
+        <div className="gx-tblwrap gx-lg">
+          <div className="gx-tblscroll">
+            <table className="gx-apps">
+              <thead>
+                <tr>
+                  <th scope="col">App</th>
+                  {plans.map((p) => (
+                    <th key={p.slug} scope="col">{p.name}</th>
+                  ))}
+                  <th scope="col">On its own</th>
+                </tr>
+              </thead>
+              <tbody>
+                {categoryKeys.map((cat) => (
+                  <Fragment key={cat}>
+                    <tr className="gx-cat">
+                      <th scope="rowgroup" colSpan={plans.length + 2}>{catalog.categories[cat] ?? cat}</th>
+                    </tr>
+                    {apps
+                      .filter((a) => a.category === cat)
+                      .map((a) => {
+                        const addon = formatPrice(yearly ? a.addonYearly : a.addonMonthly);
+                        return (
+                          <tr key={a.key}>
+                            <th scope="row">
+                              <span className="flex items-center gap-3">
+                                {a.icon ? (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={a.icon} alt="" width={28} height={28} loading="lazy" className="w-7 h-7 rounded-lg object-contain shrink-0 bg-white" />
+                                ) : (
+                                  <span aria-hidden className="w-7 h-7 rounded-lg bg-[var(--gx-chip)] shrink-0" />
+                                )}
+                                <span>
+                                  <span className="block font-bold">{a.name}</span>
+                                  {a.line && <span className="block mt-0.5 text-[13px] font-normal text-[var(--gx-muted)]">{a.line}</span>}
+                                </span>
                               </span>
-                            </span>
-                          </th>
-                          {plans.map((p) => {
-                            const s = status.get(`${p.slug}:${a.key}`);
-                            return (
-                              <td
-                                key={p.slug}
-                                className={`px-5 py-3 font-semibold ${
-                                  s === "included" ? "text-[#0F6B3A]" : s === "addon" ? "text-navy" : "text-muted font-normal"
-                                }`}
-                              >
-                                {s === "included" ? "Included" : s === "addon" ? "Add-on" : "Not available"}
-                              </td>
-                            );
-                          })}
-                          <td className="px-5 py-3 text-sm text-muted">
-                            {a.soldAlone ? (
-                              <>
-                                {addon ? `${addon}${yearly ? "/year" : "/month"}` : "Price on request"}
-                                {(a.trialDays ?? 0) > 0 && <span className="block">{a.trialDays}-day free trial</span>}
-                              </>
-                            ) : (
-                              "In plans only"
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </Fragment>
-              ))}
-            </tbody>
-          </table>
+                            </th>
+                            {plans.map((p) => {
+                              const st = status.get(`${p.slug}:${a.key}`);
+                              return (
+                                <td key={p.slug}>
+                                  {st === "included" ? <span className="gx-yes">Included</span> : st === "addon" ? <span className="gx-add">Add-on</span> : <span className="gx-no">Not available</span>}
+                                </td>
+                              );
+                            })}
+                            <td className="!text-[13px] text-[var(--gx-muted)]">
+                              {a.soldAlone ? (
+                                <>
+                                  {addon ? `${addon}${yearly ? "/year" : "/month"}` : "Price on request"}
+                                  {(a.trialDays ?? 0) > 0 && <span className="block">{a.trialDays}-day free trial</span>}
+                                </>
+                              ) : (
+                                "In plans only"
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </section>
+      </Sec>
     </>
   );
 }
