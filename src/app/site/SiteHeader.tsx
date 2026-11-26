@@ -146,7 +146,7 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
             className="hidden lg:block absolute inset-x-0 top-full z-10 h-panel h-panel-in shadow-[0_30px_60px_rgba(8,31,69,0.14)]"
             onMouseEnter={() => openNow(open)}
           >
-            <div className={`mx-auto max-w-[1180px] px-8 py-8 grid gap-6 ${current.groups.some((g) => g.cols === 2) ? "grid-cols-[1.75fr_1fr_270px]" : "grid-cols-[1fr_1fr_300px]"}`}>
+            <div className={`mx-auto max-w-[1180px] px-8 py-8 grid gap-6 ${current.hideCard ? "grid-cols-[2fr_1fr]" : current.groups.some((g) => g.cols === 2) ? "grid-cols-[1.75fr_1fr_270px]" : "grid-cols-[1fr_1fr_300px]"}`}>
               {current.groups.map((g, gi) => (
                 <div key={g.title} className="h-stagger">
                   <p className="px-3 pb-2 text-[12px] font-extrabold text-[var(--h-soft)]">{g.title}</p>
@@ -159,9 +159,9 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
                           className="flex gap-3 items-start p-3 rounded-2xl hover:bg-[var(--h-chip)] transition-colors"
                         >
                           <IconTile icon={it.icon} index={gi * 3 + ii} />
-                          <span>
-                            <span className="block text-[14px] font-extrabold text-[var(--h-text)]">{it.label}</span>
-                            <span className="block mt-0.5 text-[13px] text-[var(--h-muted)]">{it.line}</span>
+                          <span className="min-w-0">
+                            <span className="block text-[14px] font-extrabold text-[var(--h-text)] whitespace-nowrap">{it.label}</span>
+                            <span className="block mt-0.5 text-[13px] text-[var(--h-muted)] whitespace-nowrap">{it.line}</span>
                           </span>
                         </Link>
                       </li>
@@ -175,8 +175,8 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
                   )}
                 </div>
               ))}
-              {current.groups.length < 2 && <div aria-hidden />}
-              {current.promo ? (
+              {current.groups.length < 2 && !current.hideCard && <div aria-hidden />}
+              {current.hideCard ? null : current.promo ? (
                 <Link
                   href={current.promo.href}
                   onClick={() => setOpen(null)}
