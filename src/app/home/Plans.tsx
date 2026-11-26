@@ -17,7 +17,7 @@ const LINES: Record<string, { tag: string; lines: string[] }> = {
 /** Badge for a plan: Most popular wins; Starter gets its own badge. */
 export function planBadge(p: Plan, popular: boolean): string | null {
   if (popular) return "Most popular";
-  if (p.name.toLowerCase() === "starter") return "Best to start";
+  if (p.name.toLowerCase() === "starter") return "Starter";
   return null;
 }
 
