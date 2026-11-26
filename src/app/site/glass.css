@@ -443,3 +443,10 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-fcard .gx-all{margin-top:14px}
 .gx-fcard .gx-ffoot{margin-top:auto}
 .gx-fcard .gx-ffoot .gx-more{padding-top:18px;font-size:14px;font-weight:800;color:var(--gx-text);display:inline-flex;gap:6px;align-items:center;text-decoration:none;white-space:nowrap}
+/* full-width navy card: Services "Not sure which fits?" (26/11/2026) */
+.gx-navycard{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;border-radius:28px;padding:36px 40px;color:#fff;background:radial-gradient(120% 140% at 0% 0%,#1F4C9A 0,#0B2350 45%,#071A40 100%);box-shadow:0 24px 60px rgba(7,26,64,.28),inset 0 1px 0 rgba(255,255,255,.14)}
+.gx-navycard h2{margin:0;font-size:28px;line-height:1.15;font-weight:800;letter-spacing:-.6px;color:#fff}
+.gx-navycard p{margin:8px 0 0;font-size:16px;color:#C9D4EA}
+.gx-navycard .gx-btn{flex:none}
+[data-theme="dark"] .gx-navycard{box-shadow:0 24px 60px rgba(0,0,0,.35),inset 0 0 0 1px rgba(255,255,255,.14)}
+@media (max-width:639px){.gx-navycard{padding:28px 24px}.gx-navycard h2{font-size:24px}}

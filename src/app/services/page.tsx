@@ -50,10 +50,12 @@ export default async function ServicesPage() {
                 footer={<Link className="gx-more" href={`/services/${s.slug}`}>Learn more <Arrow /></Link>}
               />
             ))}
-            <div className="gx-card gx-lg flex flex-col justify-center">
-              <h2 className="gx-card-h !m-0">Not sure which fits?</h2>
-              <p>Tell us what you are trying to do and we will shape the solution.</p>
-              <Link className="gx-btn gx-o gx-sm mt-4 self-start" href="/contact">Talk to us</Link>
+            <div className="gx-navycard">
+              <div>
+                <h2>Not sure which fits?</h2>
+                <p>Tell us what you are trying to do and we will shape the solution.</p>
+              </div>
+              <Link className="gx-btn gx-o" href="/contact">Talk to us</Link>
             </div>
           </div>
         </Sec>
