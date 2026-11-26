@@ -1,7 +1,8 @@
 // src/app/site/icons.tsx
 import {
-  ArrowLeftRight, BookOpen, CircleHelp, Coffee, Globe, LayoutGrid, LayoutTemplate, Link2, Mail,
-  MessageCircle, Package, Play, Shirt, ShoppingCart, Smartphone, Sparkles,
+  ArrowLeftRight, BookOpen, Boxes, Building2, CircleHelp, Code2, Coffee, Globe, LayoutGrid, LayoutTemplate, Link2, Mail,
+  Megaphone, MessageCircle, Package, PenTool, Play, Plug, Receipt, Search, Shirt, ShoppingCart, Smartphone, Sparkles,
+  Store, Truck,
 } from "lucide-react";
 import type { MenuIcon } from "./links";
 
@@ -9,6 +10,8 @@ const MAP = {
   cart: ShoppingCart, globe: Globe, layout: LayoutTemplate, grid: LayoutGrid, phone: Smartphone, link: Link2,
   shirt: Shirt, cup: Coffee, spark: Sparkles, box: Package,
   book: BookOpen, play: Play, move: ArrowLeftRight, help: CircleHelp, chat: MessageCircle, mail: Mail,
+  pen: PenTool, code: Code2, plug: Plug, search: Search, megaphone: Megaphone, store: Store,
+  truck: Truck, receipt: Receipt, boxes: Boxes, building: Building2,
 } as const;
 
 /** Coloured tile tints, cycled by position. Text colour first, tile colour second. */
