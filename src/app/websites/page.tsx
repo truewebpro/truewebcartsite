@@ -4,10 +4,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Globe, FileText, Mail, CalendarDays, Clock, List, Image as Photo, Star, Newspaper, MessageSquare } from "lucide-react";
+import { Globe, FileText, Mail, CalendarDays, Clock, Image as Photo, Newspaper, MessageSquare } from "lucide-react";
 import PageShell from "../PageShell";
 import { getCatalog } from "@/lib/db";
-import { WEBSITE_FEATURES, SECTION_TYPES, GO_LIVE_STEPS } from "@/lib/features";
+import { WEBSITE_GROUPS, SECTION_TYPES, GO_LIVE_STEPS } from "@/lib/features";
+import FeatureCard from "../site/FeatureCard";
 import { SIGNUP_URL } from "../site/links";
 import { Band, COLS, GlassPage, Heading, Hero, Ico, Sec } from "../site/glass";
 import PlanCard from "../site/PlanCard";
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
     "A website for your restaurant, salon or service business: templates, sections, forms and booking requests, opening hours and a map.",
 };
 
-const FEATURE_ICON: ReactNode[] = [
-  <FileText key="1" size={24} />, <Mail key="2" size={24} />, <CalendarDays key="3" size={24} />, <Clock key="4" size={24} />,
-  <List key="5" size={24} />, <Photo key="6" size={24} />, <Star key="7" size={24} />, <Newspaper key="8" size={24} />, <MessageSquare key="9" size={24} />,
-];
+const FEATURE_ICON: Record<string, ReactNode> = {
+  pages: <FileText size={24} />, enquiries: <Mail size={24} />, visit: <CalendarDays size={24} />,
+  show: <Photo size={24} />, blog: <Newspaper size={24} />, ai: <MessageSquare size={24} />,
+};
 
 // sections that only make sense on an online shop are left out here
 const WEBSITE_SECTIONS = SECTION_TYPES.filter((s) => s !== "Featured products" && s !== "Collections");
@@ -87,12 +88,8 @@ export default async function WebsitesPage() {
         <Sec tone="a">
           <Heading title="What your website can do" sub="Everything a local business needs to be found, look good and get enquiries." />
           <div className="gx-cards gx-c3">
-            {WEBSITE_FEATURES.map((f, i) => (
-              <div key={f.title} className="gx-card gx-lg">
-                <Ico color={COLS[i % 6]}>{FEATURE_ICON[i]}</Ico>
-                <h3>{f.title}</h3>
-                <p>{f.text}</p>
-              </div>
+            {WEBSITE_GROUPS.map((g, i) => (
+              <FeatureCard key={g.id} icon={<Ico color={COLS[i % 6]}>{FEATURE_ICON[g.id]}</Ico>} title={g.title} text={g.text} keys={g.keys} items={g.items} />
             ))}
           </div>
         </Sec>
