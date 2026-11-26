@@ -18,7 +18,8 @@ type Props = { searchParams: Promise<{ kind?: string | string[] }> };
 
 export default async function PricingPage({ searchParams }: Props) {
   const [catalog, sp] = await Promise.all([getCatalog(), searchParams]);
-  const kind: SiteKind = sp.kind === "website" ? "website" : "shop";
+  // Business Website plans show first unless the link asks for ?kind=shop
+  const kind: SiteKind = sp.kind === "shop" ? "shop" : "website";
 
   return (
     <PageShell>

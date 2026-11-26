@@ -11,7 +11,6 @@ import { Domains, Faqs, SignupBand } from "./home/Closing";
 import { TemplatesMobile, IntegrationsMobile, FoundationsMobile, AnalyticsMobile, MobileAppMobile } from "./home/MobilePieces";
 import { HeroDark, HeroLight } from "./home/desktop/Hero";
 import { BuilderDark, BuilderLight } from "./home/desktop/Builder";
-import { PlansDark, PlansLight } from "./home/desktop/Plans";
 import { DescribeDark, DescribeLight } from "./home/desktop/Describe";
 import { TemplatesDark, TemplatesLight } from "./home/desktop/Templates";
 import { IntegrationsDark, IntegrationsLight } from "./home/desktop/Integrations";
@@ -32,7 +31,7 @@ export default async function Home() {
     <PageShell home>
       <Stage name="Hero" light={<HeroLight />} dark={<HeroDark />} mobile={<Hero />} />
       <Stage name="Builder" light={<BuilderLight />} dark={<BuilderDark />} mobile={<ShopBuilder />} />
-      <Stage name="Plans" id="plans" light={<PlansLight catalog={catalog} />} dark={<PlansDark catalog={catalog} />} mobile={<Plans catalog={catalog} />} />
+      <Plans catalog={catalog} />
       <ViewPricing />
       <Stage name="Describe" light={<DescribeLight />} dark={<DescribeDark />} mobile={<Describe />} />
       <Stage
