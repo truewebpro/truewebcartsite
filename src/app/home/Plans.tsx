@@ -14,6 +14,12 @@ const LINES: Record<string, { tag: string; lines: string[] }> = {
   elite: { tag: "Sell more, do less", lines: ["Everything in Ecommerce", "Subscriptions", "Shop assistant (AI chat)", "VAT display switch", "Trade accounts (B2B)"] },
 };
 
+// The colour glow behind the cards, as before (left, top, size px, seconds, delay)
+const BLOBS = [
+  ["#FF8A5C", "-4%", "36%", 500, 22, 0], ["#5B86D6", "25%", "46%", 440, 26, -5], ["#3DDC91", "54%", "38%", 480, 24, -9],
+  ["#F5A524", "74%", "44%", 480, 28, -3], ["#D92A04", "38%", "60%", 380, 20, -7],
+] as const;
+
 /** Badge for a plan: Most popular wins; Starter gets its own badge. */
 export function planBadge(p: Plan, popular: boolean): string | null {
   if (popular) return "Most popular";
@@ -85,6 +91,12 @@ export default function Plans({ catalog }: { catalog: Catalog }) {
   return (
     <section id="plans" className="relative overflow-hidden scroll-mt-16 py-14 sm:py-20 bg-[linear-gradient(180deg,#FFFFFF_0%,#F3F6FC_50%,#DCE6F7_100%)] dark:bg-[linear-gradient(180deg,#071633_0%,#0B2350_100%)]">
       <SectionBg />
+      <div aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
+        {BLOBS.map(([c, l, t, size, d, delay]) => (
+          <div key={c} className="s3-b absolute rounded-full opacity-[0.55] dark:opacity-[0.45] blur-[70px]"
+            style={{ background: c, left: l, top: t, width: `min(${size}px, 70vw)`, height: `min(${size}px, 70vw)`, animationDuration: `${d}s`, animationDelay: `${delay}s` }} />
+        ))}
+      </div>
       <div className="relative mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         <Heading title="Find the right plan for your business" sub="Every plan starts with 3 days free. No credit card required." />
         <PlansSwitch kinds={kinds} />
