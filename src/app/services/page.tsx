@@ -6,6 +6,7 @@ import PageShell from "../PageShell";
 import ServiceIcon from "../ServiceIcon";
 import { getServices } from "@/lib/db";
 import { Arrow, Band, GlassPage, Heading, Hero, Sec } from "../site/glass";
+import FeatureCard from "../site/FeatureCard";
 
 export const metadata: Metadata = {
   title: "IT services",
@@ -38,12 +39,16 @@ export default async function ServicesPage() {
         <Sec tone="a" id="all-services">
           <div className="gx-cards gx-c3 !mt-0">
             {services.map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`} className="gx-card gx-lg gx-svc">
-                <span className="gx-gico"><ServiceIcon name={s.icon} className="w-6 h-6" /></span>
-                <h2 className="gx-card-h">{s.title}</h2>
-                <p>{s.summary}</p>
-                <span className="gx-more">Learn more <Arrow /></span>
-              </Link>
+              <FeatureCard
+                key={s.slug}
+                icon={<span className="gx-gico"><ServiceIcon name={s.icon} className="w-6 h-6" /></span>}
+                title={<Link href={`/services/${s.slug}`}>{s.title}</Link>}
+                text={s.summary}
+                keys={s.features.slice(0, 3)}
+                items={s.features.map((text) => ({ text }))}
+                noun="points"
+                footer={<Link className="gx-more" href={`/services/${s.slug}`}>Learn more <Arrow /></Link>}
+              />
             ))}
             <div className="gx-card gx-lg flex flex-col justify-center">
               <h2 className="gx-card-h !m-0">Not sure which fits?</h2>

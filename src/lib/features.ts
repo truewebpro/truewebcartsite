@@ -180,16 +180,84 @@ export const SHOP_FEATURES: FeatureGroup[] = [
   },
 ];
 
-export const WEBSITE_FEATURES = [
-  { title: "Pages built with sections", text: "Build each page from ready sections and see it exactly as visitors will." },
-  { title: "Forms to your Inbox", text: "Contact and enquiry forms arrive in the Inbox, where your team replies." },
-  { title: "Booking requests", text: "Visitors ask for a date and time, and you confirm by email." },
-  { title: "Opening hours and map", text: "Set opening hours once, with special dates, and show them with a map." },
-  { title: "Price list and menu", text: "Show a menu or price list that is easy to keep up to date." },
-  { title: "Photo gallery and cards", text: "Show your work, rooms or dishes in galleries and photo cards." },
-  { title: "Reviews", text: "Show what your customers say, with Google Reviews coming soon." },
-  { title: "Blog and news", text: "Post news and articles, each with its own page title for search." },
-  { title: "AI assistant", text: "Your assistant answers questions about your business and takes details for you." },
+
+/** Business Website page: short feature cards (3 key points, the full list under "See all"). */
+export const WEBSITE_GROUPS: (Omit<FeatureGroup, "keys"> & { keys: string[] })[] = [
+  {
+    id: "pages",
+    title: "Pages and design",
+    text: "Build each page from ready sections and see it exactly as visitors will.",
+    keys: ["Ready sections for every page", "See it exactly as visitors will", "Change template, keep your content"],
+    items: [
+      f("Pages built from ready sections"),
+      f("Press + between sections to add one"),
+      f("See each page exactly as visitors will"),
+      f("Hero, image with text and info strip sections"),
+      f("Countdown and newsletter sections"),
+      f("Change template any time"),
+      f("Your old design is saved so you can go back"),
+    ],
+  },
+  {
+    id: "enquiries",
+    title: "Forms and Inbox",
+    text: "Contact and enquiry forms arrive in the Inbox, where your team replies.",
+    keys: ["Contact and enquiry forms", "Messages arrive in your Inbox", "Your team replies from one place"],
+    items: [
+      f("Contact and enquiry forms"),
+      f("Add a form to any page"),
+      f("Messages arrive in your Inbox"),
+      f("Your team replies from one place"),
+    ],
+  },
+  {
+    id: "visit",
+    title: "Bookings, hours and map",
+    text: "Visitors ask for a date and time, and see when you are open and where to find you.",
+    keys: ["Booking requests for a date and time", "Opening hours with special dates", "A map to find you"],
+    items: [
+      f("Booking requests for a date and time"),
+      f("You confirm bookings by email"),
+      f("Set opening hours once"),
+      f("Special dates, like holidays"),
+      f("A map to find you"),
+      f("Info strip for key details"),
+    ],
+  },
+  {
+    id: "show",
+    title: "Menus, photos and reviews",
+    text: "Show your menu, your work and what your customers say.",
+    keys: ["Price list or menu", "Photo galleries and photo cards", "Customer reviews"],
+    items: [
+      f("Price list or menu"),
+      f("Easy to keep up to date"),
+      f("Photo galleries"),
+      f("Photo cards"),
+      f("Customer reviews"),
+      soon("Google Reviews"),
+    ],
+  },
+  {
+    id: "blog",
+    title: "Blog and search",
+    text: "Post news and articles, each with its own page title for search.",
+    keys: ["News and articles", "Page titles for search", "Blog posts section on any page"],
+    items: [
+      f("News and articles"),
+      f("Page titles for search"),
+      f("Blog posts section on any page"),
+      f("Newsletter sign-up section"),
+      f("Your own domain"),
+    ],
+  },
+  {
+    id: "ai",
+    title: "AI assistant",
+    text: "Your assistant answers questions about your business and takes details for you.",
+    keys: ["Answers questions about your business", "Takes visitor details for you", "Available day and night"],
+    items: [],
+  },
 ];
 
 export const SECTION_TYPES = [
