@@ -12,7 +12,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.SITE_URL ?? "https://truewebcartsite-production.up.railway.app"),
+  metadataBase: new URL(process.env.SITE_URL ?? "https://www.truewebcart.com"),
   title: {
     default: "TWCarts: open your online shop today, 3 days free",
     template: "%s | TWCarts",
