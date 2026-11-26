@@ -33,6 +33,8 @@ export interface NavEntry {
   groups?: MenuGroup[];
   /** The card on the right of the panel. Without it the panel shows "Open your online shop today". */
   promo?: { title: string; line: string; href: string; cta: string };
+  /** No card on the right of the panel; the groups use the full width. */
+  hideCard?: boolean;
 }
 
 /** Main menu: Products, Solutions, Resources, Pricing, Support. */
@@ -92,14 +94,14 @@ export const NAV: NavEntry[] = [
         cols: 2,
         more: { label: "All services", href: "/services" },
         items: [
-          { label: "Web Design", line: "Clean designs that are easy to use", href: "/services/web-design", icon: "pen" },
-          { label: "Web Development", line: "Fast, secure custom websites", href: "/services/web-development", icon: "code" },
+          { label: "Web Design", line: "Clean, easy-to-use designs", href: "/services/web-design", icon: "pen" },
+          { label: "Web Development", line: "Fast, secure websites", href: "/services/web-development", icon: "code" },
           { label: "App Development", line: "iPhone and Android apps", href: "/services/app-development", icon: "phone" },
-          { label: "Ecommerce Development", line: "Custom online shops and features", href: "/services/ecommerce-development", icon: "cart" },
-          { label: "Website Integrations", line: "Payments, accounting, CRM and stock", href: "/services/website-integrations", icon: "plug" },
+          { label: "Ecommerce Development", line: "Custom online shop features", href: "/services/ecommerce-development", icon: "cart" },
+          { label: "Website Integrations", line: "Payments, accounting and CRM", href: "/services/website-integrations", icon: "plug" },
           { label: "SEO Services", line: "Get found on Google", href: "/services/seo-services", icon: "search" },
           { label: "Digital Marketing", line: "Ads, social and email", href: "/services/digital-marketing", icon: "megaphone" },
-          { label: "Marketplace Listing", line: "Amazon, eBay, Etsy and TikTok Shop", href: "/services/marketplace-listing", icon: "store" },
+          { label: "Marketplace Listing", line: "Amazon, eBay, Etsy, TikTok Shop", href: "/services/marketplace-listing", icon: "store" },
         ],
       },
       {
@@ -113,7 +115,7 @@ export const NAV: NavEntry[] = [
         ],
       },
     ],
-    promo: { title: "Free help moving your online shop", line: "We move your products, customers and orders for you.", href: "/contact?service=migration", cta: "Get a free migration quote" },
+    hideCard: true,
   },
   { label: "Pricing", href: "/pricing" },
   {
