@@ -143,16 +143,18 @@ function toService(r: ServiceRow): Service {
   };
 }
 
-/** All published services, in display order. */
+/**
+ * All services, in the order of SERVICES_SEED. A published database row with the same slug replaces the
+ * seed text, so wording can be edited in the database; the seed decides which services exist and their order.
+ */
 export async function getServices(): Promise<Service[]> {
   await connection(); // request-time only, never prerender DB reads
   try {
     const pool = await ready();
     if (!pool) return SERVICES_SEED;
-    const { rows } = await pool.query<ServiceRow>(
-      "SELECT * FROM services WHERE is_published ORDER BY sort_order, id"
-    );
-    return rows.map(toService);
+    const { rows } = await pool.query<ServiceRow>("SELECT * FROM services WHERE is_published");
+    const bySlug = new Map(rows.map((r) => [r.slug, toService(r)]));
+    return SERVICES_SEED.map((s) => bySlug.get(s.slug) ?? s);
   } catch (err) {
     console.error("[db] getServices failed, using seed content:", err);
     return SERVICES_SEED;
@@ -161,18 +163,19 @@ export async function getServices(): Promise<Service[]> {
 
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
   await connection();
-  const fromSeed = () => SERVICES_SEED.find((s) => s.slug === slug) ?? null;
+  const fromSeed = SERVICES_SEED.find((s) => s.slug === slug) ?? null;
+  if (!fromSeed) return null;
   try {
     const pool = await ready();
-    if (!pool) return fromSeed();
+    if (!pool) return fromSeed;
     const { rows } = await pool.query<ServiceRow>(
       "SELECT * FROM services WHERE slug = $1 AND is_published LIMIT 1",
       [slug]
     );
-    return rows[0] ? toService(rows[0]) : null;
+    return rows[0] ? toService(rows[0]) : fromSeed;
   } catch (err) {
     console.error("[db] getServiceBySlug failed, using seed content:", err);
-    return fromSeed();
+    return fromSeed;
   }
 }
 

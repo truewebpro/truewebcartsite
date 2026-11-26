@@ -146,11 +146,11 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
             className="hidden lg:block absolute inset-x-0 top-full z-10 h-panel h-panel-in shadow-[0_30px_60px_rgba(8,31,69,0.14)]"
             onMouseEnter={() => openNow(open)}
           >
-            <div className="mx-auto max-w-[1180px] px-8 py-8 grid grid-cols-[1fr_1fr_300px] gap-6">
+            <div className={`mx-auto max-w-[1180px] px-8 py-8 grid gap-6 ${current.groups.some((g) => g.cols === 2) ? "grid-cols-[1.75fr_1fr_270px]" : "grid-cols-[1fr_1fr_300px]"}`}>
               {current.groups.map((g, gi) => (
                 <div key={g.title} className="h-stagger">
                   <p className="px-3 pb-2 text-[12px] font-extrabold text-[var(--h-soft)]">{g.title}</p>
-                  <ul>
+                  <ul className={g.cols === 2 ? "grid grid-cols-2 gap-x-2" : undefined}>
                     {g.items.map((it, ii) => (
                       <li key={it.label}>
                         <Link
@@ -167,21 +167,41 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
                       </li>
                     ))}
                   </ul>
+                  {g.more && (
+                    <Link href={g.more.href} onClick={() => setOpen(null)} className="inline-flex items-center gap-1.5 mt-1 px-3 py-2 text-[13.5px] font-extrabold text-[var(--h-text)] hover:underline">
+                      {g.more.label}
+                      <span aria-hidden>→</span>
+                    </Link>
+                  )}
                 </div>
               ))}
               {current.groups.length < 2 && <div aria-hidden />}
-              <a
-                href={SIGNUP_URL}
-                className="h-stagger block rounded-[20px] overflow-hidden h-card shadow-[0_10px_30px_rgba(11,47,102,0.10)] hover:-translate-y-0.5 transition-transform"
-              >
-                <span className="flex items-center justify-center h-[150px] bg-[linear-gradient(160deg,#FFF3DB,#FFE9E2)]">
-                  <Image src="/home/photos/amber.webp" alt="" width={127} height={130} className="h-[130px] w-auto" />
-                </span>
-                <span className="block px-4 py-3.5">
-                  <span className="block text-[15px] font-extrabold text-[var(--h-text)]">Open your online shop today</span>
-                  <span className="block mt-0.5 text-[13px] text-[var(--h-muted)]">3 days free, no credit card required.</span>
-                </span>
-              </a>
+              {current.promo ? (
+                <Link
+                  href={current.promo.href}
+                  onClick={() => setOpen(null)}
+                  className="h-stagger flex flex-col justify-between rounded-[20px] p-5 text-white bg-[radial-gradient(130%_120%_at_0%_0%,#1F4C9A_0%,#0B2350_55%,#3A1410_140%)] shadow-[0_20px_50px_rgba(8,31,69,0.25)] hover:-translate-y-0.5 transition-transform"
+                >
+                  <span>
+                    <span className="block text-[19px] leading-[1.2] font-extrabold">{current.promo.title}</span>
+                    <span className="block mt-2 text-[14px] leading-[1.5] text-[#C9D4EA]">{current.promo.line}</span>
+                  </span>
+                  <span className="mt-6 inline-flex self-start px-4 py-2.5 rounded-full bg-[#D92A04] text-[13.5px] font-extrabold">{current.promo.cta}</span>
+                </Link>
+              ) : (
+                <a
+                  href={SIGNUP_URL}
+                  className="h-stagger block rounded-[20px] overflow-hidden h-card shadow-[0_10px_30px_rgba(11,47,102,0.10)] hover:-translate-y-0.5 transition-transform"
+                >
+                  <span className="flex items-center justify-center h-[150px] bg-[linear-gradient(160deg,#FFF3DB,#FFE9E2)]">
+                    <Image src="/home/photos/amber.webp" alt="" width={127} height={130} className="h-[130px] w-auto" />
+                  </span>
+                  <span className="block px-4 py-3.5">
+                    <span className="block text-[15px] font-extrabold text-[var(--h-text)]">Open your online shop today</span>
+                    <span className="block mt-0.5 text-[13px] text-[var(--h-muted)]">3 days free, no credit card required.</span>
+                  </span>
+                </a>
+              )}
             </div>
           </div>
         </>
@@ -203,19 +223,31 @@ export default function SiteHeader({ showTheme = true }: { showTheme?: boolean }
                         {n.label}
                         <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" aria-hidden />
                       </summary>
-                      <ul className="pb-3">
-                        {n.groups.flatMap((g) => g.items).map((it, ii) => (
-                          <li key={it.label}>
-                            <Link href={it.href} onClick={() => setSheet(false)} className="flex gap-3 items-center py-2.5">
-                              <IconTile icon={it.icon} index={ii} size={36} />
-                              <span>
-                                <span className="block text-[15px] font-bold text-[var(--h-text)]">{it.label}</span>
-                                <span className="block text-[13px] text-[var(--h-muted)]">{it.line}</span>
-                              </span>
-                            </Link>
-                          </li>
+                      <div className="pb-3">
+                        {n.groups.map((g, gi) => (
+                          <div key={g.title}>
+                            {n.groups!.length > 1 && <p className="pt-2 pb-1 text-[12px] font-extrabold text-[var(--h-soft)]">{g.title}</p>}
+                            <ul>
+                              {g.items.map((it, ii) => (
+                                <li key={it.label}>
+                                  <Link href={it.href} onClick={() => setSheet(false)} className="flex gap-3 items-center py-2.5">
+                                    <IconTile icon={it.icon} index={gi * 4 + ii} size={36} />
+                                    <span>
+                                      <span className="block text-[15px] font-bold text-[var(--h-text)]">{it.label}</span>
+                                      <span className="block text-[13px] text-[var(--h-muted)]">{it.line}</span>
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                            {g.more && (
+                              <Link href={g.more.href} onClick={() => setSheet(false)} className="inline-block py-2 text-[14px] font-extrabold text-[var(--h-text)] underline underline-offset-4">
+                                {g.more.label}
+                              </Link>
+                            )}
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </details>
                   </li>
                 ) : (

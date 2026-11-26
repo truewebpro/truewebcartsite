@@ -7,7 +7,8 @@ export const DEMO_SHOP_URL = process.env.NEXT_PUBLIC_DEMO_SHOP_URL ?? "https://w
 export type MenuIcon =
   | "cart" | "globe" | "layout" | "grid" | "phone" | "link"
   | "shirt" | "cup" | "spark" | "box"
-  | "book" | "play" | "move" | "help" | "chat" | "mail";
+  | "book" | "play" | "move" | "help" | "chat" | "mail"
+  | "pen" | "code" | "plug" | "search" | "megaphone" | "store" | "truck" | "receipt" | "boxes" | "building";
 
 export interface MenuItem {
   label: string;
@@ -19,6 +20,10 @@ export interface MenuItem {
 export interface MenuGroup {
   title: string;
   items: MenuItem[];
+  /** Show the items in 2 columns (long groups like Services). */
+  cols?: 1 | 2;
+  /** A link under the group, like "All services". */
+  more?: { label: string; href: string };
 }
 
 export interface NavEntry {
@@ -26,6 +31,8 @@ export interface NavEntry {
   href: string;
   /** Opens the full-width panel on hover. */
   groups?: MenuGroup[];
+  /** The card on the right of the panel. Without it the panel shows "Open your online shop today". */
+  promo?: { title: string; line: string; href: string; cta: string };
 }
 
 /** Main menu: Products, Solutions, Resources, Pricing, Support. */
@@ -39,30 +46,39 @@ export const NAV: NavEntry[] = [
         items: [
           { label: "Ecommerce Website", line: "Sell online with cart and payments", href: "/online-shop", icon: "cart" },
           { label: "Business Website", line: "Show your business, no selling", href: "/websites", icon: "globe" },
-          { label: "Templates", line: "Ready-made designs", href: "/websites#templates", icon: "layout" },
+          { label: "Templates", line: "Ready-made designs", href: "/templates", icon: "layout" },
         ],
       },
       {
         title: "Grow",
         items: [
-          { label: "App Store", line: "Apps built in", href: "/pricing#apps", icon: "grid" },
-          { label: "Mobile app", line: "Orders on your phone", href: "/#mobile-app", icon: "phone" },
-          { label: "Domains", line: "Find or connect a name", href: "/#domains", icon: "link" },
+          { label: "App Store", line: "Apps built in", href: "/app-store", icon: "grid" },
+          { label: "Mobile app", line: "Orders on your phone", href: "/mobile-app", icon: "phone" },
+          { label: "Domains", line: "Find or connect a name", href: "/domains", icon: "link" },
         ],
       },
     ],
   },
   {
     label: "Solutions",
-    href: "/online-shop",
+    href: "/solutions/fashion",
     groups: [
       {
         title: "By business",
         items: [
-          { label: "Fashion", line: "Clothes and accessories", href: "/online-shop", icon: "shirt" },
-          { label: "Food and drink", line: "Cafes, bakeries, delis", href: "/online-shop", icon: "cup" },
-          { label: "Beauty", line: "Salons and cosmetics", href: "/online-shop", icon: "spark" },
-          { label: "Wholesale", line: "Sell to other businesses", href: "/online-shop", icon: "box" },
+          { label: "Fashion", line: "Clothes and accessories", href: "/solutions/fashion", icon: "shirt" },
+          { label: "Food and drink", line: "Cafes, bakeries, delis", href: "/solutions/food-and-drink", icon: "cup" },
+          { label: "Beauty", line: "Salons and cosmetics", href: "/solutions/beauty", icon: "spark" },
+          { label: "Wholesale", line: "Sell to other businesses", href: "/solutions/wholesale", icon: "box" },
+        ],
+      },
+      {
+        title: "By need",
+        items: [
+          { label: "Shipping", line: "Delivery zones, labels and tracking", href: "/solutions/shipping", icon: "truck" },
+          { label: "Invoicing", line: "Invoices and pay now links", href: "/solutions/invoicing", icon: "receipt" },
+          { label: "Stock", line: "Stock across your online shop", href: "/solutions/stock", icon: "boxes" },
+          { label: "Trade and B2B", line: "Trade prices, bulk orders and reps", href: "/solutions/trade-b2b", icon: "building" },
         ],
       },
     ],
@@ -72,14 +88,32 @@ export const NAV: NavEntry[] = [
     href: "/services",
     groups: [
       {
-        title: "Learn",
+        title: "Services",
+        cols: 2,
+        more: { label: "All services", href: "/services" },
         items: [
-          { label: "Services", line: "We can build it for you", href: "/services", icon: "book" },
-          { label: "Move from Shopify", line: "Bring your shop across", href: "/online-shop", icon: "move" },
-          { label: "Demo shop", line: "See a live online shop", href: DEMO_SHOP_URL, icon: "play" },
+          { label: "Web Design", line: "Clean designs that are easy to use", href: "/services/web-design", icon: "pen" },
+          { label: "Web Development", line: "Fast, secure custom websites", href: "/services/web-development", icon: "code" },
+          { label: "App Development", line: "iPhone and Android apps", href: "/services/app-development", icon: "phone" },
+          { label: "Ecommerce Development", line: "Custom online shops and features", href: "/services/ecommerce-development", icon: "cart" },
+          { label: "Website Integrations", line: "Payments, accounting, CRM and stock", href: "/services/website-integrations", icon: "plug" },
+          { label: "SEO Services", line: "Get found on Google", href: "/services/seo-services", icon: "search" },
+          { label: "Digital Marketing", line: "Ads, social and email", href: "/services/digital-marketing", icon: "megaphone" },
+          { label: "Marketplace Listing", line: "Amazon, eBay, Etsy and TikTok Shop", href: "/services/marketplace-listing", icon: "store" },
+        ],
+      },
+      {
+        title: "Migration",
+        more: { label: "How migration works", href: "/migrate" },
+        items: [
+          { label: "Migrate from Shopify", line: "Products, customers and orders", href: "/migrate/shopify", icon: "move" },
+          { label: "Migrate from Wix", line: "Products, pages and customers", href: "/migrate/wix", icon: "move" },
+          { label: "Migrate from WooCommerce", line: "Products, customers and orders", href: "/migrate/woocommerce", icon: "move" },
+          { label: "Migrate from OpenCart", line: "Products, customers and orders", href: "/migrate/opencart", icon: "move" },
         ],
       },
     ],
+    promo: { title: "Free help moving your online shop", line: "We move your products, customers and orders for you.", href: "/contact?service=migration", cta: "Get a free migration quote" },
   },
   { label: "Pricing", href: "/pricing" },
   {
@@ -90,7 +124,7 @@ export const NAV: NavEntry[] = [
         title: "Get help",
         items: [
           { label: "Contact us", line: "Send us a message", href: "/contact", icon: "mail" },
-          { label: "FAQs", line: "Answers to common questions", href: "/#faqs", icon: "help" },
+          { label: "FAQs", line: "Answers to common questions", href: "/faqs", icon: "help" },
           { label: "Chat with us", line: "Talk to the team", href: "/contact", icon: "chat" },
         ],
       },
@@ -108,19 +142,19 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
     links: [
       { label: "Features", href: "/online-shop" },
       { label: "Shop builder", href: "/online-shop" },
-      { label: "Templates", href: "/websites#templates" },
-      { label: "App Store", href: "/pricing#apps" },
-      { label: "Domains", href: "/#domains" },
-      { label: "Mobile app", href: "/#mobile-app" },
+      { label: "Templates", href: "/templates" },
+      { label: "App Store", href: "/app-store" },
+      { label: "Domains", href: "/domains" },
+      { label: "Mobile app", href: "/mobile-app" },
     ],
   },
   {
     title: "Business Website",
     links: [
       { label: "Website builder", href: "/websites" },
-      { label: "Templates", href: "/websites#templates" },
+      { label: "Templates", href: "/templates" },
       { label: "Blog", href: "/blog" },
-      { label: "Custom domain", href: "/#domains" },
+      { label: "Custom domain", href: "/domains" },
     ],
   },
   {
@@ -129,14 +163,14 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
       { label: "Plans", href: "/pricing" },
       { label: "Compare plans", href: "/pricing" },
       { label: "3 day free trial", href: "/pricing" },
-      { label: "Move from Shopify", href: "/online-shop" },
+      { label: "Move from Shopify", href: "/migrate/shopify" },
     ],
   },
   {
     title: "Help",
     links: [
       { label: "Help centre", href: "/contact" },
-      { label: "FAQs", href: "/#faqs" },
+      { label: "FAQs", href: "/faqs" },
       { label: "Contact us", href: "/contact" },
       { label: "Chat with us", href: "/contact" },
     ],

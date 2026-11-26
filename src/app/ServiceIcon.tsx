@@ -1,4 +1,4 @@
-import { Globe, ShoppingCart, Code2, TrendingUp, LifeBuoy, type LucideIcon } from "lucide-react";
+import { Globe, ShoppingCart, Code2, TrendingUp, LifeBuoy, PenTool, Smartphone, Plug, Search, Megaphone, Store, type LucideIcon } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
   Globe,
@@ -6,6 +6,12 @@ const ICONS: Record<string, LucideIcon> = {
   Code2,
   TrendingUp,
   LifeBuoy,
+  PenTool,
+  Smartphone,
+  Plug,
+  Search,
+  Megaphone,
+  Store,
 };
 
 export default function ServiceIcon({ name, className }: { name: string; className?: string }) {

@@ -27,6 +27,7 @@ export default async function ContactPage({ searchParams }: Props) {
   const options = [
     { slug: "ecommerce-website", title: "Ecommerce Website" },
     { slug: "business-website", title: "Business Website" },
+    { slug: "migration", title: "Moving my online shop to TWCarts" },
     ...services.map((s) => ({ slug: s.slug, title: s.title })),
     { slug: "something-else", title: "Something else" },
   ];

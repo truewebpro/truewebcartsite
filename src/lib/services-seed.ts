@@ -9,87 +9,148 @@ export interface Service {
 }
 
 /**
- * Starter content. On first run these rows are inserted into the `services`
- * table (only if the table is empty). After that, edit the rows in MySQL , 
- * this file is also the fallback shown if the database is unreachable.
+ * The services TrueWeb Pro offers, in the order they show in the Resources menu and on /services.
+ * This list decides which services exist and their order. If the `services` table has a published row
+ * with the same slug, that row's text is used instead, so wording can still be edited in the database.
+ * Old slugs (web-design-development, custom-software-web-apps, seo-digital-marketing) redirect to the
+ * new pages in next.config.ts.
  */
 export const SERVICES_SEED: Service[] = [
   {
-    slug: "web-design-development",
-    title: "Web Design & Development",
-    tagline: "Fast, clean websites that turn visitors into enquiries.",
-    summary:
-      "Custom-designed, mobile-first websites built for speed, clarity and search visibility.",
+    slug: "web-design",
+    title: "Web Design",
+    tagline: "Clean designs that are easy to use and look like your brand.",
+    summary: "Website and online shop designs that are clear, quick to use and work on every screen.",
     description:
-      "We design and build marketing sites and business websites around how your customers actually look for you. Every page is mobile-first, quick to load and structured so search engines can read it, and you get a site you can update without calling a developer.",
+      "We design pages around what your customers came to do: find something, trust you and get in touch or buy. You see the design before anything is built, and every page is made for phones first.",
     features: [
-      "Custom design, no recycled templates",
-      "Mobile-first, responsive layouts",
-      "Performance and Core Web Vitals focus",
+      "Designs made for your brand, not a recycled template",
+      "Phone, tablet and desktop layouts",
+      "Clear pages that lead to enquiries or sales",
+      "You approve the design before we build",
+      "Handed over ready to build in TWCarts or custom code",
+    ],
+    icon: "PenTool",
+  },
+  {
+    slug: "web-development",
+    title: "Web Development",
+    tagline: "Fast, secure websites built to grow with you.",
+    summary: "Custom websites and web apps that load quickly, rank well and are easy to update.",
+    description:
+      "We build marketing sites, business websites and web apps that are fast, secure and easy for your team to update. Pages are built so search engines can read them, and you can change content without calling a developer.",
+    features: [
+      "Fast pages and good Core Web Vitals",
+      "Secure hosting with a padlock on every page",
       "Search-friendly page structure",
       "Easy content updates after launch",
-    ],
-    icon: "Globe",
-  },
-  {
-    slug: "ecommerce-development",
-    title: "E-commerce Development",
-    tagline: "Online stores built to sell, on Shopify or fully custom.",
-    summary:
-      "Shopify builds, custom storefronts, product migration and integrations with the tools you already use.",
-    description:
-      "From a first Shopify store to a custom storefront with its own admin, we build e-commerce that is simple for customers to buy from and simple for your team to run. We handle product and customer migration, shipping and payment setup, and connect your store to the systems behind it.",
-    features: [
-      "Shopify theme and store builds",
-      "Custom storefronts and admin dashboards",
-      "Product and customer data migration",
-      "Shipping, payments and email integrations",
-      "Checkout and conversion improvements",
-    ],
-    icon: "ShoppingCart",
-  },
-  {
-    slug: "custom-software-web-apps",
-    title: "Custom Software & Web Apps",
-    tagline: "Internal tools and customer portals shaped around your process.",
-    summary:
-      "Bespoke web applications, portals and automations that replace spreadsheets and manual work.",
-    description:
-      "When off-the-shelf software doesn't fit, we build the tool that does: customer portals, internal dashboards, booking and quoting systems, and automations that remove repetitive admin. We start small, ship something usable quickly, and grow it with you.",
-    features: [
-      "Customer and B2B portals",
-      "Internal dashboards and reporting",
-      "Workflow automation and integrations",
-      "API design and third-party connections",
-      "Iterative delivery, usable early, improved often",
+      "Customer portals, dashboards and booking tools when you need them",
     ],
     icon: "Code2",
   },
   {
-    slug: "seo-digital-marketing",
-    title: "SEO & Digital Marketing",
-    tagline: "Be found by the people already searching for what you sell.",
-    summary:
-      "Technical SEO, content and on-page optimisation to bring in steady, relevant search traffic.",
+    slug: "app-development",
+    title: "App Development",
+    tagline: "iPhone and Android apps for your customers or your team.",
+    summary: "Mobile apps that let customers order, book or stay in touch, and tools that help your staff on the go.",
     description:
-      "We improve how your site is found and how well it converts. That starts with a technical and content audit, then focuses on the fixes and pages most likely to move rankings, product and category copy, structured data, internal linking and speed.",
+      "We build apps for iPhone and Android that connect to your online shop or systems: ordering and loyalty apps for customers, or simple tools for your team. We take care of the App Store and Google Play listings too.",
     features: [
-      "Technical SEO audits and fixes",
-      "Keyword research and page-level optimisation",
-      "Product, category and service page copy",
-      "Structured data and rich results",
-      "Search Console and analytics reporting",
+      "iPhone and Android from one build",
+      "Connected to your online shop, stock and customers",
+      "Push notifications and sign-in",
+      "App Store and Google Play listing",
+      "Updates and support after launch",
     ],
-    icon: "TrendingUp",
+    icon: "Smartphone",
+  },
+  {
+    slug: "ecommerce-development",
+    title: "Ecommerce Development",
+    tagline: "Online shops built to sell, with the features you need.",
+    summary: "Online shops on TWCarts or fully custom, with checkout, payments and the integrations behind them.",
+    description:
+      "From a first online shop to custom features on top of TWCarts, we build ecommerce that is simple for customers to buy from and simple for your team to run. We set up payments and delivery, and connect your shop to the systems behind it.",
+    features: [
+      "Online shops on TWCarts or custom-built",
+      "Custom features, apps and checkout changes",
+      "Payments, delivery and email set up",
+      "Product and customer data moved across",
+      "Faster checkout and more sales",
+    ],
+    icon: "ShoppingCart",
+  },
+  {
+    slug: "website-integrations",
+    title: "Website Integrations",
+    tagline: "Connect your website to the tools you already use.",
+    summary: "Payments, accounting, CRM, delivery and stock systems connected to your website or online shop.",
+    description:
+      "We connect your website or online shop to the rest of your business, so orders, stock, customers and invoices move on their own instead of being typed in twice. We work with ready-made connections or build one through the tool's API.",
+    features: [
+      "Payment providers and pay by link",
+      "Accounting and invoicing tools",
+      "CRM and email marketing",
+      "Couriers, labels and tracking",
+      "Stock and warehouse systems",
+    ],
+    icon: "Plug",
+  },
+  {
+    slug: "seo-services",
+    title: "SEO Services",
+    tagline: "Be found by the people already searching for what you sell.",
+    summary: "Technical, on-page and local SEO that brings steady, relevant visitors from Google.",
+    description:
+      "We find what is holding your site back in search and fix it: technical problems, page titles and text, structured data, speed and internal links. Then we focus on the pages most likely to move your rankings and report what changed.",
+    features: [
+      "Technical SEO audit and fixes",
+      "Keyword research and page optimisation",
+      "Product, category and service page text",
+      "Local SEO and Google Business Profile",
+      "Monthly reporting from Search Console",
+    ],
+    icon: "Search",
+  },
+  {
+    slug: "digital-marketing",
+    title: "Digital Marketing",
+    tagline: "Ads, social and email that bring the right visitors.",
+    summary: "Google and social ads, email campaigns and content that turn visitors into customers.",
+    description:
+      "We plan and run marketing that pays for itself: Google Shopping and search ads, social ads, and email flows that bring customers back. You get clear reporting on what each pound brings in.",
+    features: [
+      "Google Shopping and search ads",
+      "Facebook, Instagram and TikTok ads",
+      "Email flows and campaigns",
+      "Content and social posts",
+      "Clear monthly reports on sales and cost",
+    ],
+    icon: "Megaphone",
+  },
+  {
+    slug: "marketplace-listing",
+    title: "Marketplace Listing",
+    tagline: "Sell on Amazon, eBay, Etsy and TikTok Shop.",
+    summary: "Marketplace accounts set up and listings written so your products sell where people already shop.",
+    description:
+      "We set up your marketplace accounts, write and optimise your listings, and keep stock and prices in step with your online shop, so you can sell in more places without more admin.",
+    features: [
+      "Amazon, eBay, Etsy and TikTok Shop set-up",
+      "Listing titles, photos and descriptions that sell",
+      "Stock and prices kept in step with your shop",
+      "Category and keyword research",
+      "Help with reviews and account health",
+    ],
+    icon: "Store",
   },
   {
     slug: "hosting-maintenance-support",
-    title: "Hosting, Maintenance & Support",
+    title: "Hosting, Maintenance and Support",
     tagline: "Reliable hosting and a team you can actually reach.",
-    summary:
-      "Managed hosting, updates, backups, monitoring and ongoing support after launch.",
+    summary: "Managed hosting, updates, backups, monitoring and ongoing support after launch.",
     description:
-      "Launching is the start, not the finish. We host and look after your site or app, keeping software updated, backed up and monitored, and we're on hand for changes, fixes and questions when you need them.",
+      "Launching is the start, not the finish. We host and look after your site or app, keeping software updated, backed up and monitored, and we are on hand for changes, fixes and questions when you need them.",
     features: [
       "Managed hosting and deployments",
       "Security updates and regular backups",
