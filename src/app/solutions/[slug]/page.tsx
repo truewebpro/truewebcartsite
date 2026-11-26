@@ -35,7 +35,7 @@ export default async function SolutionPage({ params }: Props) {
           <p className="gx-lead">{s.lead}</p>
           <div className="gx-cta justify-center">
             <Link className="gx-btn gx-o" href={SIGNUP_URL}>Start 3 days free</Link>
-            <Link className="gx-btn gx-g" href="/pricing">See pricing</Link>
+            <Link className="gx-btn gx-g" href="/pricing?kind=shop">See pricing</Link>
           </div>
         </Hero>
         <Sec tone="a">

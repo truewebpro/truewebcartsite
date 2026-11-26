@@ -415,3 +415,6 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-plat a{padding:10px 18px;border-radius:14px;font-size:14px;font-weight:800;color:var(--gx-text)}
 .gx-plat a.gx-on{outline:2px solid var(--gx-orange)}
 .gx-faqstack{display:grid;gap:26px}
+/* plan badges and the home plan switch (26/11/2026) */
+.gx-plan .gx-badge.gx-badge-start{background:#2450B8}
+.gx-plans-fade>*{animation:gxFadein .35s ease both}

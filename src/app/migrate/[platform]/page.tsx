@@ -59,7 +59,7 @@ export default async function MigratePage({ params }: Props) {
           accent="We will do it for you."
           text="Tell us where you sell now and we will send a plan and a fixed price."
           primary={{ href: `${QUOTE_HREF}&from=${m.slug}`, label: "Get a free migration quote" }}
-          secondary={{ href: "/pricing", label: "Compare plans" }}
+          secondary={{ href: "/pricing?kind=shop", label: "Compare plans" }}
         />
       </GlassPage>
     </PageShell>

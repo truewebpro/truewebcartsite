@@ -45,7 +45,7 @@ export default function PlanCard({
 
   return (
     <div className={`gx-plan gx-lg ${pop ? "gx-pop" : ""}`}>
-      {pop && <span className="gx-badge">Most popular</span>}
+      {pop ? <span className="gx-badge">Most popular</span> : p.name.toLowerCase() === "starter" ? <span className="gx-badge gx-badge-start">Best to start</span> : null}
       <h3>{p.name}</h3>
       {forLine && <p className="gx-for">{forLine}</p>}
       <div className="gx-price">

@@ -243,7 +243,7 @@ export default function OnlineShopPage() {
           <p className="gx-lead">Your own fast online shop on your own domain, with cart, payments, delivery labels and an AI assistant. All run from one admin.</p>
           <div className="gx-cta">
             <Link className="gx-btn gx-o" href={SIGNUP_URL}>Start 3 days free</Link>
-            <Link className="gx-btn gx-g" href="/pricing">See pricing</Link>
+            <Link className="gx-btn gx-g" href="/pricing?kind=shop">See pricing</Link>
           </div>
           <div className="gx-ticks">
             <span><b className="gx-ck">✓</b>No credit card required</span>
@@ -309,7 +309,7 @@ export default function OnlineShopPage() {
           </div>
         </Sec>
 
-        <Band title="Open your online shop today." accent="Pay nothing for 3 days." text="No credit card required. Cancel any time." />
+        <Band title="Open your online shop today." accent="Pay nothing for 3 days." text="No credit card required. Cancel any time." secondary={{ href: "/pricing?kind=shop", label: "Compare plans" }} />
       </GlassPage>
     </PageShell>
   );
