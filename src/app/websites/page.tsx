@@ -70,7 +70,7 @@ export default async function WebsitesPage() {
   return (
     <PageShell>
       <GlassPage>
-        <Hero visual={<HeroSite />}>
+        <Hero panel visual={<HeroSite />}>
           <span className="gx-pill"><Globe size={14} strokeWidth={2.4} aria-hidden /> Business Website</span>
           <h1 className="gx-h1">A website for your business, without the shop.</h1>
           <p className="gx-lead">For restaurants, salons, trades and services. Pick a template, add your photos and text, and take enquiries and bookings straight into your Inbox.</p>
