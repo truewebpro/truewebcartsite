@@ -237,7 +237,7 @@ export default function OnlineShopPage() {
   return (
     <PageShell>
       <GlassPage>
-        <Hero visual={<HeroShop />}>
+        <Hero panel visual={<HeroShop />}>
           <span className="gx-pill"><ShoppingCart size={14} strokeWidth={2.4} aria-hidden /> Ecommerce Website</span>
           <h1 className="gx-h1">Everything you need to sell online.</h1>
           <p className="gx-lead">Your own fast online shop on your own domain, with cart, payments, delivery labels and an AI assistant. All run from one admin.</p>

@@ -49,7 +49,21 @@ export function Sec({ tone = "a", id, children, pad = true }: { tone?: "a" | "b"
 }
 
 /** Page top. Two columns with a picture on the right, or centred when there is no picture. */
-export function Hero({ children, visual, compact = false }: { children: ReactNode; visual?: ReactNode; compact?: boolean }) {
+export function Hero({ children, visual, compact = false, panel = false }: { children: ReactNode; visual?: ReactNode; compact?: boolean; panel?: boolean }) {
+  if (panel && visual) {
+    // header inside one big glass panel, like the service pages (agreed 27/11/2026)
+    return (
+      <section className="gx-hero gx-sec gx-heropanel">
+        <SectionBg />
+        <div className="gx-wrap">
+          <div className="gx-panel gx-lg gx-svhero">
+            <div>{children}</div>
+            <div className="gx-vis">{visual}</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className={`gx-hero gx-sec ${visual ? "" : "gx-short"} ${compact ? "gx-compact" : ""}`}>
       <SectionBg />
