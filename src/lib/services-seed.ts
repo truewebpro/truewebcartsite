@@ -161,3 +161,11 @@ export const SERVICES_SEED: Service[] = [
     icon: "LifeBuoy",
   },
 ];
+
+/** "How we work" steps on /services and every service page. */
+export const HOW_WE_WORK = [
+  { t: "Tell us the problem", d: "A short call or message about what you want to achieve." },
+  { t: "Get a fixed quote", d: "A clear price and timeline, so there are no surprises." },
+  { t: "We build it", d: "You see progress early and often, and say what to change." },
+  { t: "We look after it", d: "Hosting, fixes and changes from a named contact." },
+];

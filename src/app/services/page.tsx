@@ -5,6 +5,7 @@ import Link from "next/link";
 import PageShell from "../PageShell";
 import ServiceIcon from "../ServiceIcon";
 import { getServices } from "@/lib/db";
+import { HOW_WE_WORK as HOW } from "@/lib/services-seed";
 import { Arrow, Band, GlassPage, Heading, Hero, Sec } from "../site/glass";
 import FeatureCard from "../site/FeatureCard";
 
@@ -13,12 +14,6 @@ export const metadata: Metadata = {
   description: "Web design and development, ecommerce, custom software, SEO and ongoing support from TrueWeb Pro.",
 };
 
-const HOW = [
-  { t: "Tell us the problem", d: "A short call or message about what you want to achieve." },
-  { t: "Get a fixed quote", d: "A clear price and timeline, so there are no surprises." },
-  { t: "We build it", d: "You see progress early and often, and say what to change." },
-  { t: "We look after it", d: "Hosting, fixes and changes from a named contact." },
-];
 
 export default async function ServicesPage() {
   const services = await getServices();
