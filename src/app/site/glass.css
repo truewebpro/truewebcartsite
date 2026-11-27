@@ -532,3 +532,8 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-sv-bars{display:grid;grid-template-columns:repeat(24,1fr);gap:4px;height:56px;align-items:end}
 .gx-sv-bars i{display:block;height:100%;border-radius:3px;background:#28C941;opacity:.85}
 .gx-sv-bars i:nth-child(7){height:70%;background:#FFBD2E}
+/* service pages: checklist and quote card the same height (27/11/2026) */
+.gx-svinc{align-items:stretch}
+.gx-svinc>ul{align-content:center}
+.gx-svinc>.gx-quote{display:flex;flex-direction:column;justify-content:center}
+@media (min-width:1024px){.gx-svinc .gx-quote{position:static}}
