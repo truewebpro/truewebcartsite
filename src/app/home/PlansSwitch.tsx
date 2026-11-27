@@ -3,6 +3,7 @@
 // The Business Website / Ecommerce Website switch and the plan cards under it (home page).
 import Link from "next/link";
 import { useState } from "react";
+import SlideToggle from "../site/SlideToggle";
 
 export interface CardData {
   key: string;
@@ -62,13 +63,7 @@ export default function PlansSwitch({ kinds }: { kinds: KindData[] }) {
     <div className="gx-page">
       {kinds.length > 1 && (
         <div className="flex justify-center mt-8">
-          <div role="group" aria-label="Kind of site" className="gx-tog gx-lgp">
-            {kinds.map((x) => (
-              <button key={x.key} type="button" aria-pressed={x.key === k.key} className={x.key === k.key ? "gx-on" : ""} onClick={() => setOn(x.key)}>
-                {x.label}
-              </button>
-            ))}
-          </div>
+          <SlideToggle label="Kind of site" tone="red" value={k.key} onChange={setOn} options={kinds.map((x) => ({ value: x.key, label: x.label }))} />
         </div>
       )}
       <div className="mt-7 text-center">

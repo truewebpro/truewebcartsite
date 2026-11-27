@@ -49,9 +49,9 @@ export function Sec({ tone = "a", id, children, pad = true }: { tone?: "a" | "b"
 }
 
 /** Page top. Two columns with a picture on the right, or centred when there is no picture. */
-export function Hero({ children, visual }: { children: ReactNode; visual?: ReactNode }) {
+export function Hero({ children, visual, compact = false }: { children: ReactNode; visual?: ReactNode; compact?: boolean }) {
   return (
-    <section className={`gx-hero gx-sec ${visual ? "" : "gx-short"}`}>
+    <section className={`gx-hero gx-sec ${visual ? "" : "gx-short"} ${compact ? "gx-compact" : ""}`}>
       <SectionBg />
       <div className="gx-wrap">
         <div className="gx-in">
