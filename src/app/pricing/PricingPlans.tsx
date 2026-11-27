@@ -5,39 +5,12 @@ import { Fragment, useState, type MouseEvent } from "react";
 import { formatPrice, type Catalog, type Plan, type SiteKind } from "@/lib/catalog";
 import { Hero, Sec, Heading } from "../site/glass";
 import PlanCard from "../site/PlanCard";
+import SlideToggle from "../site/SlideToggle";
 import { LARGE_FROM } from "../home/LargePlans";
 
 type Interval = "monthly" | "yearly";
 
 const TRACKING_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid", "ref"];
-
-function Toggle<T extends string>({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: T;
-  options: { value: T; label: string }[];
-  onChange: (v: T) => void;
-}) {
-  return (
-    <div role="group" aria-label={label} className="gx-tog gx-lgp">
-      {options.map((o) => (
-        <button
-          key={o.value}
-          type="button"
-          aria-pressed={value === o.value}
-          onClick={() => onChange(o.value)}
-          className={value === o.value ? "gx-on" : ""}
-        >
-          {o.label}
-        </button>
-      ))}
-    </div>
-  );
-}
 
 export default function PricingPlans({ catalog, initialKind }: { catalog: Catalog; initialKind: SiteKind }) {
   const hasWebsites = catalog.plans.some((p) => p.kind === "website");
@@ -78,16 +51,15 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
 
   return (
     <>
-      <Hero>
+      <Hero compact>
         <span className="gx-pill">3 days free on every plan</span>
         <h1 className="gx-h1">Simple plans. Add apps when you need them.</h1>
-        <p className="gx-lead">
-          Every plan includes hosting, SSL, your own domain, the admin app and support. Pay monthly, or yearly and get 2 months free.
-        </p>
-        <div className="gx-cta flex-col items-center !gap-3">
+        <p className="gx-lead">Hosting, SSL, your own domain, the admin app and support in every plan.</p>
+        <div className="gx-switches">
           {hasWebsites && (
-            <Toggle
+            <SlideToggle
               label="Kind of site"
+              tone="red"
               value={kind}
               onChange={setKind}
               options={[
@@ -96,13 +68,13 @@ export default function PricingPlans({ catalog, initialKind }: { catalog: Catalo
               ]}
             />
           )}
-          <Toggle
+          <SlideToggle
             label="Billing"
             value={interval}
             onChange={setInterval}
             options={[
               { value: "monthly", label: "Monthly" },
-              { value: "yearly", label: "Yearly, 2 months free" },
+              { value: "yearly", label: <>Yearly <span className="gx-save">Save 2 months</span></> },
             ]}
           />
         </div>
