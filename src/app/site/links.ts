@@ -128,6 +128,7 @@ export const NAV: NavEntry[] = [
           { label: "Contact us", line: "Send us a message", href: "/contact", icon: "mail" },
           { label: "FAQs", line: "Answers to common questions", href: "/faqs", icon: "help" },
           { label: "Chat with us", line: "Talk to the team", href: "/contact", icon: "chat" },
+          { label: "Become a partner", line: "Earn by recommending TWCarts", href: "/partners", icon: "building" },
         ],
       },
     ],
@@ -181,6 +182,7 @@ export const FOOTER_COLUMNS: { title: string; links: { label: string; href: stri
     title: "Company",
     links: [
       { label: "About us", href: "/about" },
+      { label: "Partner Program", href: "/partners" },
       { label: "Terms", href: "/terms" },
       { label: "Privacy", href: "/privacy" },
       { label: "Cookies", href: "/cookies" },

@@ -4,6 +4,7 @@ import "./globals.css";
 import "./home/home.css";
 import "./home/mock.css";
 import "./site/glass.css";
+import RefLinks from "./site/RefLinks";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -46,7 +47,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <RefLinks />
+      </body>
     </html>
   );
 }

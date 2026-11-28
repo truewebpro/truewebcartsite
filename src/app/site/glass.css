@@ -542,3 +542,37 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 @media (min-width:1024px){.gx-heropanel{padding:56px 0 72px}}
 .gx-heropanel .gx-vis{min-height:0;padding:34px 18px 40px}
 @media (max-width:767px){.gx-heropanel .gx-svhero{padding:22px 16px!important}.gx-heropanel .gx-vis{padding:34px 0 40px}.gx-svhero .gx-vis.gx-svis{padding:34px 0 40px}}
+/* Partner Program page (28/11/2026) */
+.gx-checks{display:flex;flex-wrap:wrap;gap:8px}
+.gx-check{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;background:var(--gx-card);box-shadow:inset 0 0 0 1.5px var(--gx-line);font-size:14px;font-weight:700;color:var(--gx-text);cursor:pointer}
+.gx-check input{width:16px;height:16px;accent-color:#081F45}
+.gx-check:has(input:checked){box-shadow:inset 0 0 0 2px #081F45}
+[data-theme="dark"] .gx-check:has(input:checked){box-shadow:inset 0 0 0 2px #fff}
+.gx-consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--gx-text)}
+.gx-consent input{width:18px;height:18px;margin-top:2px;accent-color:#081F45;flex:none}
+.gx-consent a{text-decoration:underline}
+.gx-calc{display:grid;gap:28px;align-items:center}
+@media (min-width:900px){.gx-calc{grid-template-columns:1fr 1fr}}
+.gx-calc-out{border-radius:22px;padding:28px;color:#fff;background:radial-gradient(120% 140% at 0% 0%,#1F4C9A 0,#0B2350 45%,#071A40 100%)}
+.gx-calc-out small{display:block;color:#C9D4EA;font-weight:700;font-size:14px}
+.gx-calc-out b{display:block;font-size:40px;font-weight:800;letter-spacing:-1.2px;margin-top:4px}
+.gx-calc-out span{display:block;margin-top:6px;color:#C9D4EA;font-size:14px}
+.gx-pt-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gx-pt-stats div{border-radius:12px;padding:10px 12px;background:var(--gx-soft)}
+.gx-pt-stats small{display:block;font-size:11.5px;color:var(--gx-muted);font-weight:700}
+.gx-pt-stats b{display:block;font-size:19px;color:var(--gx-text);margin-top:2px}
+.gx-pt-chart{position:relative;height:110px;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,rgba(217,42,4,.12),transparent)}
+.gx-pt-chart svg{position:absolute;inset:0;width:100%;height:100%}
+.gx-level{position:relative;text-align:center}
+.gx-level ul.gx-fkeys{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:9px;text-align:left}
+.gx-level ul.gx-fkeys li{display:flex;gap:9px;font-size:14.5px;line-height:1.45;color:var(--gx-body)}
+.gx-level ul.gx-fkeys li svg{flex:none;margin-top:2px}
+.gx-level-rate{margin:10px 0 0!important;font-size:48px!important;font-weight:800;letter-spacing:-1.5px;color:var(--gx-text)!important;line-height:1.1!important}
+.gx-level-rate span{font-size:15px;font-weight:700;letter-spacing:0;color:var(--gx-muted)}
+.gx-level-best{box-shadow:inset 0 0 0 2px #D92A04,var(--gx-lg-sh,0 18px 40px rgba(11,47,102,.1))}
+.gx-level .gx-badge{position:absolute;top:16px;right:16px;left:auto;transform:none;padding:5px 12px;border-radius:99px;background:#D92A04;color:#fff;font-size:12px;font-weight:800;z-index:3;white-space:nowrap}
+.gx-levels{margin-top:40px}
+.gx-payway{display:flex!important;flex-direction:row!important;gap:16px;align-items:center}
+.gx-payway h3{margin:0!important}
+.gx-payway p{margin:4px 0 0!important}
+.gx-paylogo{height:34px;flex:none;display:inline-flex;align-items:center;padding:0 14px;border-radius:10px;font-weight:800;font-size:15px}
