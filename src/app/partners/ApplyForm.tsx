@@ -1,6 +1,7 @@
 "use client";
 // src/app/partners/ApplyForm.tsx: the partner application, as a liquid glass card (same fields style as Contact).
 import { useActionState } from "react";
+import ServicesPicker from "./ServicesPicker";
 import { CheckCircle2 } from "lucide-react";
 import { submitApplication, type ApplyState } from "./actions";
 
@@ -85,14 +86,10 @@ export default function ApplyForm() {
             <Err id="pa-portfolio-e" text={e.portfolio_url} />
           </div>
         </div>
-        <fieldset className="mt-4 gx-field">
-          <legend className="text-[14px] font-extrabold text-[var(--gx-text)] mb-2">What you do (choose any)</legend>
-          <div className="gx-checks">
-            {SERVICES.map((s) => (
-              <label key={s} className="gx-check"><input type="checkbox" name="services" value={s} /><span>{s}</span></label>
-            ))}
-          </div>
-        </fieldset>
+        <div className="gx-field mt-4">
+          <span className="gx-label" id="pa-services-l">What you do (choose any)</span>
+          <ServicesPicker options={SERVICES} labelledBy="pa-services-l" />
+        </div>
         <div className="gx-field mt-4">
           <label htmlFor="pa-about">Tell us a little about your work (optional)</label>
           <textarea id="pa-about" name="about" rows={3} />
