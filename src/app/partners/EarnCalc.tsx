@@ -8,7 +8,7 @@ const money = (n: number) => `£${Math.round(n).toLocaleString("en-GB")}`;
 export default function EarnCalc() {
   const [n, setN] = useState(10);
   const rate = n >= 15 ? 0.2 : n >= 5 ? 0.15 : 0.1;
-  const level = n >= 15 ? "Gold" : n >= 5 ? "Silver" : "Registered";
+  const level = n >= 15 ? "Gold" : n >= 5 ? "Silver" : "Bronze";
   const month = n * AVG * rate;
 
   return (

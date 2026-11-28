@@ -29,13 +29,12 @@ const STEPS = [
 ];
 
 const LEVELS = [
-  { name: "Registered", rate: "10%", lines: ["Your referral link and code", "Send us leads", "Partner dashboard"] },
-  { name: "Silver", rate: "15%", lines: ["5 or more live stores", "Everything in Registered", "Listed in the partner directory"] },
-  { name: "Gold", rate: "20%", lines: ["15 or more live stores", "Featured first in the directory", "Priority leads"], best: true },
+  { name: "Bronze", for: "When you join", rate: "10%", lines: ["Your referral link and code", "Send us leads", "Partner dashboard", "Earnings report and CSV export", "Paid monthly by Stripe or PayPal", "Demo shop and partner resources"] },
+  { name: "Silver", for: "5 or more live stores", rate: "15%", lines: ["Everything in Bronze", "15% on every payment from all your stores", "Listed in the partner directory", "New rate from the next payment"] },
+  { name: "Gold", for: "15 or more live stores", rate: "20%", lines: ["Everything in Silver", "20% on every payment from all your stores", "Featured first in the directory", "Priority leads"], best: true },
 ];
-
 const TERMS = [
-  { q: "What do I earn?", a: "A share of what each store you bring pays TWCarts for its plan and apps, without VAT: 10% at Registered, 15% at Silver (5 or more live stores) and 20% at Gold (15 or more). Stores from leads you send earn 10%. You don't earn on the store's own sales." },
+  { q: "What do I earn?", a: "A share of what each store you bring pays TWCarts for its plan and apps, without VAT: 10% at Bronze, 15% at Silver (5 or more live stores) and 20% at Gold (15 or more). Stores from leads you send earn 10%. You don't earn on the store's own sales." },
   { q: "For how long?", a: "Every month the store stays on TWCarts and stays linked to you. Your level goes up by itself as more of your stores go live." },
   { q: "How is a store linked to me?", a: "When the client signs up with your link (remembered for 90 days) or your partner code, or from a lead you sent. The first partner wins, and the link is fixed once the store makes its first payment." },
   { q: "When am I paid?", a: "Each payment waits 30 days, in case of a refund. Then it's paid on the 1st of the next month by Stripe to your bank or to your PayPal. Under £25 rolls over to the next month. We pay the fees." },
@@ -116,15 +115,26 @@ export default function PartnersPage() {
 
         <Sec tone="a">
           <Heading title="Grow your level, grow your rate" sub="Your level goes up by itself as more of your stores go live." />
-          <div className="gx-cards gx-c3 gx-levels">
+          <div className="gx-plans gx-levels">
             {LEVELS.map((l) => (
-              <div key={l.name} className={`gx-card gx-lg gx-level ${l.best ? "gx-level-best" : ""}`}>
-                {l.best && <span className="gx-badge">Best rate</span>}
+              <div key={l.name} className={`gx-plan gx-lg ${l.best ? "gx-pop" : ""}`}>
+                {l.best && <span className="gx-badge gx-badge-best">Best rate</span>}
                 <h3>{l.name}</h3>
-                <p className="gx-level-rate">{l.rate}<span> every month</span></p>
-                <ul className="gx-fkeys">
-                  {l.lines.map((t) => <li key={t}><Tick /><span>{t}</span></li>)}
+                <p className="gx-for">{l.for}</p>
+                <div className="gx-price">
+                  <b>{l.rate}</b>
+                  <span>of every payment</span>
+                </div>
+                <div className="gx-alt">Every month the store stays</div>
+                <ul>
+                  {l.lines.map((t, k) => (
+                    <li key={t} className={k === 0 && t.startsWith("Everything") ? "gx-b" : ""}>
+                      <Tick />
+                      <span>{t}</span>
+                    </li>
+                  ))}
                 </ul>
+                <Link className={`gx-plan-btn gx-btn ${l.best ? "gx-o" : "gx-g"}`} href="#apply">Apply to join</Link>
               </div>
             ))}
           </div>
