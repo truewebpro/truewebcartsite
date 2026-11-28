@@ -153,8 +153,8 @@ export default function PartnersPage() {
         </Sec>
 
         <Sec tone="b" id="apply">
-          <div className="gx-split gx-split-contact">
-            <div>
+          <div className="gx-applygrid">
+            <div className="gx-panel gx-lg gx-applyside">
               <span className="gx-pill"><Send size={14} strokeWidth={2.4} aria-hidden /> Apply</span>
               <h2 className="gx-h2 !text-left !mt-4">Join the Partner Program</h2>
               <p className="gx-lead">It takes two minutes. We look at every application and reply by email, usually within one working day.</p>
@@ -162,6 +162,12 @@ export default function PartnersPage() {
                 <div className="gx-way gx-lg"><Ico color="#0F6B3A"><Percent size={20} /></Ico><div><b>10% to 20% every month</b><small>On every plan and app payment from your stores</small></div></div>
                 <div className="gx-way gx-lg"><Ico color="#2A6DF4"><Banknote size={20} /></Ico><div><b>Paid on the 1st</b><small>By Stripe to your bank, or to your PayPal</small></div></div>
                 <div className="gx-way gx-lg"><Ico color="#D92A04"><Users size={20} /></Ico><div><b>Leads for you</b><small>Business owners who want an expert to build their shop</small></div></div>
+              </div>
+              <div className="gx-applyfoot">
+                <div>
+                  <span><b>Already a partner?</b><small>Sign in to see your stores and earnings.</small></span>
+                  <a className="gx-btn gx-sm" href={PARTNERS_LOGIN}>Partner sign in</a>
+                </div>
               </div>
             </div>
             <ApplyForm />

@@ -577,3 +577,30 @@ table.gx-apps tr.gx-cat th{padding:16px 18px 8px;text-align:left;font-size:12.5p
 .gx-payway p{margin:4px 0 0!important}
 .gx-paylogo{height:34px;flex:none;display:inline-flex;align-items:center;padding:0 14px;border-radius:10px;font-weight:800;font-size:15px}
 .gx-plan .gx-badge.gx-badge-best{background:#D92A04}
+/* Partners page: apply section, two cards the same height; services dropdown */
+.gx-applygrid{display:grid;gap:24px;align-items:stretch}
+@media (min-width:1024px){.gx-applygrid{grid-template-columns:1fr 1.1fr}}
+.gx-applygrid>.gx-form{height:100%}
+.gx-applyside{display:flex;flex-direction:column;padding:28px!important}
+@media (min-width:900px){.gx-applyside{padding:36px!important}}
+.gx-applyside .gx-pill{align-self:flex-start}
+.gx-applyside .gx-ways{margin-top:24px}
+.gx-applyfoot{margin-top:auto;padding-top:24px}
+.gx-applyfoot>div{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-radius:18px;padding:18px 20px;color:#fff;background:radial-gradient(120% 140% at 0% 0%,#1F4C9A 0,#0B2350 45%,#071A40 100%)}
+.gx-applyfoot b{display:block;font-size:15.5px}
+.gx-applyfoot small{display:block;color:#C9D4EA;font-size:13.5px;margin-top:2px}
+.gx-label{display:block;font-size:14px;font-weight:800;color:var(--gx-text);margin-bottom:8px}
+.gx-pick{position:relative}
+.gx-pick-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 15px;border-radius:14px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.7);box-shadow:inset 0 1px 2px rgba(11,47,102,.06);font:inherit;font-size:15px;color:var(--gx-text);cursor:pointer;text-align:left}
+.gx-pick-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gx-pick-empty span{color:var(--gx-muted)}
+[data-theme="dark"] .gx-pick-btn{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
+.gx-pick-btn:focus-visible{outline:2px solid #2A6DF4;outline-offset:2px}
+.gx-pick-list{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 6px);list-style:none;margin:0;padding:6px;border-radius:16px;background:var(--gx-card);box-shadow:0 18px 40px rgba(11,47,102,.18),inset 0 0 0 1px var(--gx-line);max-height:280px;overflow:auto}
+[data-theme="dark"] .gx-pick-list{background:#0E2A5C}
+.gx-pick-list button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 12px;border:0;border-radius:10px;background:none;font:inherit;font-size:14.5px;font-weight:600;color:var(--gx-text);cursor:pointer;text-align:left}
+.gx-pick-list button:hover,.gx-pick-list button:focus-visible{background:var(--gx-soft);outline:none}
+.gx-pick-box{width:20px;height:20px;flex:none;border-radius:6px;display:grid;place-items:center;box-shadow:inset 0 0 0 1.5px var(--gx-line);color:#fff}
+.gx-pick-list button.on .gx-pick-box{background:#081F45;box-shadow:none}
+[data-theme="dark"] .gx-pick-list button.on .gx-pick-box{background:#fff;color:#081F45}
+.gx-applyfoot .gx-btn{background:#fff;color:#081F45;box-shadow:none}
